@@ -1,0 +1,13 @@
+.galleryContainer {
+    display: grid;
+    padding-top: 2rem;
+    gap: 2vh;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: masonry;
+}
+
+.imageContainer {
+    position: relative;
+    height: auto;
+    width: 300px;
+}
