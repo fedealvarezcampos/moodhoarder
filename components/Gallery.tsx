@@ -3,21 +3,21 @@ import styles from '../styles/Gallery.module.css';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 
 type GalleryProps = {
-    gallery: string[];
+    gallery: { preview: string; file: object; filePath: string }[];
     deleteFile: Function;
 };
 
 const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
-    // console.log(gallery);
+    console.log(gallery);
 
     return (
         <div className={styles.galleryContainer}>
             {gallery &&
-                gallery.map(img => (
-                    <div className={styles.imageContainer} key={img}>
-                        <RiDeleteBin2Fill onClick={() => deleteFile(img)} />
+                gallery.map((img, i) => (
+                    <div className={styles.imageContainer} key={i}>
+                        <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
                         <Image
-                            src={img}
+                            src={img.preview}
                             height="100%"
                             width="100%"
                             layout="responsive"

@@ -4,26 +4,29 @@ import { BOARDS_BUCKET } from '../lib/constants';
 import { v4 as uuidv4 } from 'uuid';
 import Gallery from './Gallery';
 
+export interface Gallery {
+    preview: string;
+    file: object;
+    filePath: string;
+}
+[];
+
 const Uploader = () => {
-    const [gallery, setGallery] = useState<Array<string>>([]);
-    const [images, setImages] = useState<Array<object>>([]);
+    const [images, setImages] = useState<Gallery[]>([]);
 
-    console.log(images);
-
-    // console.log(avatarUrl);
+    // console.log(images);
 
     async function setPreviews(e: any) {
         e.preventDefault();
         try {
             const files = e.target.files;
-            setImages([...images, ...files]);
 
-            let previewsArray: Array<string> = [...gallery];
+            let previewsArray: Gallery[] = [];
 
             for (const file of files) {
                 const fileExt = file.name.split('.').pop();
                 const fileName = `${uuidv4()}.${fileExt}`;
-                const filePath = `${fileName}`;
+                const filePath = fileName;
 
                 // let { error: uploadError } = await supabase.storage
                 //     .from(BOARDS_BUCKET)
@@ -33,28 +36,27 @@ const Uploader = () => {
                 //     throw uploadError;
                 // } else {
                 const url = URL.createObjectURL(file);
-                previewsArray.push(url);
+                previewsArray.push({ preview: url, file: file, filePath: filePath });
                 // }
             }
 
-            setGallery(previewsArray);
+            setImages([...images, ...previewsArray]);
         } catch (error: any) {
             console.log('Error downloading image: ', error.message);
         }
     }
 
-    const deleteFile = (key: string) => {
-        const filteredPreviews = gallery.filter(index => index !== key);
-        const filteredImages = gallery.filter(index => index !== key);
+    const deleteFile = (key: number) => {
+        const filtered = images.filter((i, value) => value !== key);
 
-        setGallery(filtered);
+        setImages(filtered);
         console.log(filtered);
     };
 
     return (
         <>
             <input type="file" multiple accept="image/*" id="uploader" onChange={setPreviews} />
-            <Gallery gallery={gallery} deleteFile={deleteFile} />
+            <Gallery gallery={images} deleteFile={deleteFile} />
         </>
     );
 };
