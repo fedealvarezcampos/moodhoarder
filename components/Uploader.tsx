@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { v4 as uuidv4 } from 'uuid';
 import Gallery from './Gallery';
+import styles from '../styles/Uploader.module.css';
 
 export interface Gallery {
     preview: string;
@@ -55,7 +56,16 @@ const Uploader = () => {
 
     return (
         <>
-            <input type="file" multiple accept="image/*" id="uploader" onChange={setPreviews} />
+            <div className={styles.uploaderTitle}>Upload the thing.</div>
+            <label htmlFor="uploader">Select files</label>
+            <input
+                type="file"
+                name="uploader"
+                multiple
+                accept="image/*"
+                id="uploader"
+                onChange={setPreviews}
+            />
             <Gallery gallery={images} deleteFile={deleteFile} />
         </>
     );
