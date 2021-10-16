@@ -1,12 +1,21 @@
 import Image from 'next/image';
 import styles from '../styles/Gallery.module.css';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
 
-function Gallery({ gallery }: { gallery: string[] }) {
+type GalleryProps = {
+    gallery: string[];
+    deleteFile: Function;
+};
+
+const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
+    // console.log(gallery);
+
     return (
         <div className={styles.galleryContainer}>
             {gallery &&
                 gallery.map(img => (
                     <div className={styles.imageContainer} key={img}>
+                        <RiDeleteBin2Fill onClick={() => deleteFile(img)} />
                         <Image
                             src={img}
                             height="100%"
@@ -19,6 +28,6 @@ function Gallery({ gallery }: { gallery: string[] }) {
                 ))}
         </div>
     );
-}
+};
 
 export default Gallery;
