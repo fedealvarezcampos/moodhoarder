@@ -3,11 +3,12 @@ import { supabase } from '../lib/supabaseClient';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { v4 as uuidv4 } from 'uuid';
 import Gallery from './Gallery';
+import { motion } from 'framer-motion';
 import styles from '../styles/Uploader.module.css';
 
 export interface Gallery {
     preview: string;
-    file: object;
+    file: any;
     filePath: string;
 }
 [];
@@ -15,7 +16,7 @@ export interface Gallery {
 const Uploader = () => {
     const [images, setImages] = useState<Gallery[]>([]);
 
-    // console.log(images);
+    console.log(images);
 
     async function setPreviews(e: any) {
         e.preventDefault();
@@ -27,7 +28,7 @@ const Uploader = () => {
             for (const file of files) {
                 const fileExt = file.name.split('.').pop();
                 const fileName = `${uuidv4()}.${fileExt}`;
-                const filePath = fileName;
+                // const filePath = fileName;
 
                 // let { error: uploadError } = await supabase.storage
                 //     .from(BOARDS_BUCKET)
@@ -37,7 +38,7 @@ const Uploader = () => {
                 //     throw uploadError;
                 // } else {
                 const url = URL.createObjectURL(file);
-                previewsArray.push({ preview: url, file: file, filePath: filePath });
+                previewsArray.push({ preview: url, file: file, filePath: fileName });
                 // }
             }
 
@@ -46,6 +47,26 @@ const Uploader = () => {
             console.log('Error downloading image: ', error.message);
         }
     }
+
+    const uploadFiles = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        try {
+            for (const image of images) {
+                const fileName = image.filePath;
+                const file = image.file;
+
+                let { error: uploadError } = await supabase.storage
+                    .from(BOARDS_BUCKET)
+                    .upload(fileName, file);
+
+                if (uploadError) {
+                    throw uploadError;
+                }
+            }
+        } catch (error: any) {
+            console.log('Error downloading image: ', error.message);
+        }
+    };
 
     const deleteFile = (key: number) => {
         const filtered = images.filter((i, value) => value !== key);
@@ -56,8 +77,22 @@ const Uploader = () => {
 
     return (
         <>
-            <div className={styles.uploaderTitle}>Upload the thing.</div>
-            <label htmlFor="uploader">Select files</label>
+            <div className={styles.uploaderTitle}>Upload images here</div>
+            <span className={styles.buttonsContainer}>
+                <motion.label
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    htmlFor="uploader"
+                >
+                    Add files
+                </motion.label>
+                {images.length !== 0 && (
+                    <button onClick={e => uploadFiles(e)} className={styles.publishButton}>
+                        Save & share
+                    </button>
+                )}
+            </span>
             <input
                 type="file"
                 name="uploader"

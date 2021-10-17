@@ -26,43 +26,45 @@ const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
     };
 
     return (
-        <div className={styles.galleryContainer}>
-            <AnimatePresence>
-                {gallery &&
-                    gallery.map((img, i) => (
-                        <div
-                            className={styles.gallerySectionContainer}
-                            key={i}
-                            onMouseEnter={e => showButton(e, i)}
-                            onMouseLeave={e => hideButton(e, i)}
-                        >
-                            {deleteButton && deleteButtonIndex === i && (
-                                <span>
-                                    <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
-                                </span>
-                            )}
-
-                            <motion.div
-                                initial={{ x: 20, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                exit={{ y: 100, opacity: 0 }}
-                                transition={{ duration: 0.4 }}
-                                className={styles.imageContainer}
-                                key={img.filePath}
+        <>
+            <div className={styles.galleryContainer}>
+                <AnimatePresence>
+                    {gallery &&
+                        gallery.map((img, i) => (
+                            <div
+                                className={styles.gallerySectionContainer}
+                                key={i}
+                                onMouseEnter={e => showButton(e, i)}
+                                onMouseLeave={e => hideButton(e, i)}
                             >
-                                <Image
-                                    src={img.preview}
-                                    height="100%"
-                                    width="100%"
-                                    layout="responsive"
-                                    objectFit="contain"
-                                    alt="image"
-                                />
-                            </motion.div>
-                        </div>
-                    ))}
-            </AnimatePresence>
-        </div>
+                                {deleteButton && deleteButtonIndex === i && (
+                                    <span>
+                                        <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
+                                    </span>
+                                )}
+
+                                <motion.div
+                                    initial={{ x: 20, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    // exit={{ y: 100, opacity: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    className={styles.imageContainer}
+                                    key={img.filePath}
+                                >
+                                    <Image
+                                        src={img.preview}
+                                        height="100%"
+                                        width="100%"
+                                        layout="responsive"
+                                        objectFit="contain"
+                                        alt="image"
+                                    />
+                                </motion.div>
+                            </div>
+                        ))}
+                </AnimatePresence>
+            </div>
+        </>
     );
 };
 
