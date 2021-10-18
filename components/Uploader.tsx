@@ -83,7 +83,7 @@ const Uploader = () => {
 
     return (
         <>
-            <div className={styles.uploaderTitle}>Upload images here</div>
+            <div className={styles.uploaderTitle}>CLICK TO ADD IMAGES</div>
             <span className={styles.buttonsContainer}>
                 <motion.label
                     whileHover={{ y: -3 }}

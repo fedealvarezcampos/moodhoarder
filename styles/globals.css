@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@700;900&display=swap');
 
 :root {
+    --maybewhite: #f8f8f8;
     --cream: #ffefd4;
     --pink: #ffc5b0;
-    --clear-blue: #c9d3e0;
+    --clear-blue: #b3c5df;
+    --always-greener: #69a297;
+    --bluegreen: #50808e;
     --dark-item: #343a3f;
+    --maybeblack: #1f2421;
 }
 
 html,

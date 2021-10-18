@@ -1,6 +1,11 @@
 .uploaderTitle {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 900;
+    padding: 0.8rem 1.1rem 0.8rem 1.1rem;
+    border-radius: 22px;
+    border: 8px solid var(--bluegreen);
+    color: var(--maybewhite);
+    background-color: var(--maybeblack);
 }
 
 .buttonsContainer {
@@ -10,7 +15,7 @@
 
 .publishButton {
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 1.6rem;
     right: 10vw;
     width: fit-content;
     padding: 0.2rem 0.75rem 0.25rem 0.7rem;
@@ -27,4 +32,12 @@
 .publishButton:hover {
     background-color: var(--pink);
     transition: background-color 400ms;
+}
+
+@media (max-width: 800px) {
+    .uploaderTitle {
+        font-size: 1.3rem;
+        padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+        border: 6px solid var(--bluegreen);
+    }
 }

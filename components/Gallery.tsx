@@ -60,9 +60,9 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                                 >
                                     <Image
                                         src={img.preview ? img.preview : supabaseHost + img}
-                                        height="100%"
-                                        width="100%"
-                                        layout="responsive"
+                                        // height="100%"
+                                        // width="100%"
+                                        layout="fill"
                                         // objectFit="contain"
                                         alt="image"
                                     />
