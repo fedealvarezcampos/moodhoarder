@@ -6,23 +6,30 @@ import { useState } from 'react';
 
 type GalleryProps = {
     gallery: { preview: string; file: object; filePath: string }[];
-    deleteFile: Function;
+    deleteFile?: any;
+    boardID?: string;
 };
 
-const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
+const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1/object/public/boards/';
+
+const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const [deleteButton, setDeleteButton] = useState(false);
     const [deleteButtonIndex, setdeleteButtonIndex] = useState<number | null>(null);
 
     const showButton = (e: { preventDefault: () => void }, key: number) => {
-        e.preventDefault();
-        setdeleteButtonIndex(key);
-        setDeleteButton(true);
+        if (!boardID) {
+            e.preventDefault();
+            setdeleteButtonIndex(key);
+            setDeleteButton(true);
+        }
     };
 
     const hideButton = (e: { preventDefault: () => void }, key: number) => {
-        e.preventDefault();
-        setdeleteButtonIndex(key);
-        setDeleteButton(false);
+        if (!boardID) {
+            e.preventDefault();
+            setdeleteButtonIndex(key);
+            setDeleteButton(false);
+        }
     };
 
     return (
@@ -37,7 +44,7 @@ const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
                                 onMouseEnter={e => showButton(e, i)}
                                 onMouseLeave={e => hideButton(e, i)}
                             >
-                                {deleteButton && deleteButtonIndex === i && (
+                                {!boardID && deleteButton && deleteButtonIndex === i && (
                                     <span>
                                         <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
                                     </span>
@@ -52,7 +59,7 @@ const Gallery = ({ gallery, deleteFile }: GalleryProps) => {
                                     key={img.filePath}
                                 >
                                     <Image
-                                        src={img.preview}
+                                        src={img.preview ? img.preview : supabaseHost + img}
                                         height="100%"
                                         width="100%"
                                         layout="responsive"

@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
-import { v4 as uuidv4 } from 'uuid';
-import Gallery from './Gallery';
+import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
+import ShortUniqueId from 'short-unique-id';
+import Gallery from './Gallery';
 import styles from '../styles/Uploader.module.css';
 
 export interface Gallery {
@@ -14,9 +16,10 @@ export interface Gallery {
 [];
 
 const Uploader = () => {
-    const [images, setImages] = useState<Gallery[]>([]);
+    const router = useRouter();
 
-    console.log(images);
+    const [images, setImages] = useState<Gallery[]>([]);
+    const uid = new ShortUniqueId({ length: 16 });
 
     async function setPreviews(e: any) {
         e.preventDefault();
@@ -28,29 +31,23 @@ const Uploader = () => {
             for (const file of files) {
                 const fileExt = file.name.split('.').pop();
                 const fileName = `${uuidv4()}.${fileExt}`;
-                // const filePath = fileName;
 
-                // let { error: uploadError } = await supabase.storage
-                //     .from(BOARDS_BUCKET)
-                //     .upload(filePath, file);
-
-                // if (uploadError) {
-                //     throw uploadError;
-                // } else {
                 const url = URL.createObjectURL(file);
                 previewsArray.push({ preview: url, file: file, filePath: fileName });
-                // }
             }
 
             setImages([...images, ...previewsArray]);
         } catch (error: any) {
-            console.log('Error downloading image: ', error.message);
+            console.log('Error: ', error.message);
         }
     }
 
     const uploadFiles = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
+            const uuid: string = uid();
+            let urls: string[] = [];
+
             for (const image of images) {
                 const fileName = image.filePath;
                 const file = image.file;
@@ -62,9 +59,19 @@ const Uploader = () => {
                 if (uploadError) {
                     throw uploadError;
                 }
+
+                urls.push(fileName);
+            }
+
+            const { data, error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
+
+            router.push(uuid);
+
+            if (error) {
+                throw error;
             }
         } catch (error: any) {
-            console.log('Error downloading image: ', error.message);
+            console.log('Error: ', error.message);
         }
     };
 
@@ -72,7 +79,6 @@ const Uploader = () => {
         const filtered = images.filter((i, value) => value !== key);
 
         setImages(filtered);
-        console.log(filtered);
     };
 
     return (
@@ -80,7 +86,7 @@ const Uploader = () => {
             <div className={styles.uploaderTitle}>Upload images here</div>
             <span className={styles.buttonsContainer}>
                 <motion.label
-                    whileHover={{ y: -2 }}
+                    whileHover={{ y: -3 }}
                     whileTap={{ y: 0 }}
                     transition={{ duration: 0.2 }}
                     htmlFor="uploader"
@@ -88,9 +94,15 @@ const Uploader = () => {
                     Add files
                 </motion.label>
                 {images.length !== 0 && (
-                    <button onClick={e => uploadFiles(e)} className={styles.publishButton}>
+                    <motion.button
+                        whileHover={{ y: -3 }}
+                        whileTap={{ y: 0 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={e => uploadFiles(e)}
+                        className={styles.publishButton}
+                    >
                         Save & share
-                    </button>
+                    </motion.button>
                 )}
             </span>
             <input
