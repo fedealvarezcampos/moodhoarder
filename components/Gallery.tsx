@@ -63,7 +63,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                                         height="100%"
                                         width="100%"
                                         layout="responsive"
-                                        objectFit="contain"
+                                        // objectFit="contain"
                                         alt="image"
                                     />
                                 </motion.div>

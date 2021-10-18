@@ -37,3 +37,33 @@
 .imageContainer {
     position: relative;
 }
+
+.imageContainer img {
+    object-fit: cover;
+}
+
+@media (max-width: 800px) {
+    .galleryContainer {
+        padding-top: 1.5rem;
+        display: inline-flex;
+        flex-direction: column;
+        align-content: center;
+        width: 100vw;
+    }
+
+    .gallerySectionContainer {
+        position: relative;
+    }
+
+    .imageContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imageContainer * {
+    }
+
+    .imageContainer img {
+        object-fit: contain;
+    }
+}

@@ -63,13 +63,13 @@ const Uploader = () => {
                 urls.push(fileName);
             }
 
-            const { data, error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
-
-            router.push(uuid);
+            const { error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
 
             if (error) {
                 throw error;
             }
+
+            router.push(uuid);
         } catch (error: any) {
             console.log('Error: ', error.message);
         }
