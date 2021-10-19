@@ -1,6 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import styles from '../styles/layout.module.css';
 import Image from 'next/image';
+import Link from 'next/image';
 
 type ComponentWithChildProps = PropsWithChildren<{ children: ReactNode }>;
 
@@ -8,6 +9,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
     return (
         <>
             <div className={styles.container}>
+                {/* <Link href="/"> */}
                 <nav className={styles.logo}>
                     <Image
                         src="/images/logo.svg"
@@ -18,6 +20,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                         // objectFit="fill"
                     />
                 </nav>
+                {/* </Link> */}
                 <main className={styles.main}>{children}</main>
             </div>
         </>

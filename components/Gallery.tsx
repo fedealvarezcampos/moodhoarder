@@ -34,7 +34,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
 
     return (
         <>
-            <div className={styles.galleryContainer}>
+            <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
                 <AnimatePresence>
                     {gallery &&
                         gallery.map((img, i) => (
