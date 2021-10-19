@@ -71,4 +71,10 @@
         padding: 1.6rem 0;
         margin: 0;
     }
+
+    .main label {
+        margin-top: 1.2rem;
+        font-size: 1.4rem;
+        font-weight: 900;
+    }
 }
