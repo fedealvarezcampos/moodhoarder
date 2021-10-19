@@ -39,7 +39,7 @@
 }
 
 .imageContainer div {
-    position: unset !important;
+    position: relative !important;
 }
 
 .imageContainer img {
