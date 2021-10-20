@@ -75,8 +75,8 @@ const Uploader = () => {
         }
     };
 
-    const deleteFile = (key: number) => {
-        const filtered = images.filter((i, value) => value !== key);
+    const deleteFile = (key: string) => {
+        const filtered = images.filter((i, value) => i.preview !== key);
 
         setImages(filtered);
     };

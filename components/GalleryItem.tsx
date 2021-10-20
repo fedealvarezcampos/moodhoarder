@@ -17,10 +17,12 @@ const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1/object
 
 const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-        id: img.filePath,
+        id: img?.filePath,
+        disabled: boardID ? true : false,
     });
 
     console.log(img);
+    console.log();
 
     const [deleteButton, setDeleteButton] = useState(false);
     const [deleteButtonIndex, setdeleteButtonIndex] = useState<number | null>(null);
@@ -41,43 +43,47 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
         }
     };
 
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-        display: 'inline-block',
-
-        // backgroundColor: '#ddd',
-        // padding: '.5rem',
-        // height: '100%',
-        // margin: '0 1rem 1rem 0',
-    };
+    const style = transform
+        ? {
+              transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+              transition,
+          }
+        : undefined;
 
     return (
         <>
-            <div
-                style={style}
-                className={styles.gallerySectionContainer}
-                onMouseEnter={e => showButton(e, itemKey)}
-                onMouseLeave={e => hideButton(e, itemKey)}
-                ref={setNodeRef}
-                {...attributes}
-                {...listeners}
-            >
+            <div className={styles.gallerySectionOuterContainer}>
                 {!boardID && deleteButton && deleteButtonIndex === itemKey && (
                     <span>
-                        <RiDeleteBin2Fill onClick={() => deleteFile(itemKey)} />
+                        <RiDeleteBin2Fill
+                            onMouseEnter={e => showButton(e, itemKey)}
+                            onClick={() => deleteFile(img.preview)}
+                        />
                     </span>
                 )}
-                <motion.div
-                    initial={{ x: 20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    // exit={{ y: 100, opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className={styles.imageContainer}
-                    key={img?.filePath}
+                <div
+                    style={style}
+                    className={styles.gallerySectionContainer}
+                    onMouseEnter={e => showButton(e, itemKey)}
+                    onMouseLeave={e => hideButton(e, itemKey)}
+                    ref={setNodeRef}
+                    {...attributes}
+                    {...listeners}
                 >
-                    <Image src={img?.preview ? img?.preview : supabaseHost + img} layout="fill" alt="image" />
-                </motion.div>
+                    <motion.div
+                        initial={{ x: 20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.4 }}
+                        className={styles.imageContainer}
+                        key={img?.filePath}
+                    >
+                        <Image
+                            src={img?.preview ? img?.preview : supabaseHost + img}
+                            layout="fill"
+                            alt="image"
+                        />
+                    </motion.div>
+                </div>
             </div>
         </>
     );
