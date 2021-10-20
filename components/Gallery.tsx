@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GalleryItem from './GalleryItem';
+import Masonry from 'react-masonry-css';
 import styles from '../styles/Gallery.module.css';
 
 import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
@@ -17,15 +18,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const [items, setItems] = useState<any>(gallery);
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-    // const rearrangeItems = (result: any) => {
-    //     const items = Array.from(sortedImages);
-    //     const [reorderedItem] = items.splice(result.source.index, 1);
-    //     items.splice(result.destination.index, 0, reorderedItem);
-
-    //     setSortedImages(items);
-    // };
-
-    console.log(items);
+    // console.log(items);
 
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;
@@ -40,21 +33,23 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
         }
     }
 
+    console.log(boardID);
+
+    console.log(items);
+
     useEffect(() => {
         setItems(gallery);
     }, [gallery]);
 
-    // const rearrangeItems = (result: any) => {
-    //     const items = Array.from(sortedImages);
-    //     const [reorderedItem] = items.splice(result.source.index, 1);
-    //     items.splice(result.destination.index, 0, reorderedItem);
+    // masonry config
+    const breakpointColumnsObj = {
+        default: (items?.length === 1 && 1) || (items?.length === 2 && 2) || (items?.length === 3 && 3) || 4,
+        1800: (items?.length === 1 && 1) || (items?.length === 2 && 2) || 3,
+        1500: (items?.length === 1 && 1) || 2,
+        900: 1,
+    };
 
-    //     setSortedImages(items);
-    // };
-
-    useEffect(() => {
-        setItems(gallery);
-    }, [gallery, items]);
+    const whatever = ['a', 'b', 'c'];
 
     return (
         <>
@@ -66,20 +61,51 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                     onDragEnd={handleDragEnd}
                     // modifiers={[restrictToWindowEdges]}
                 >
-                    <SortableContext items={items.map(i => i.filePath)} strategy={rectSortingStrategy}>
+                    {!boardID && gallery && (
+                        <SortableContext
+                            items={items?.map((i: any) => i?.filePath)}
+                            strategy={rectSortingStrategy}
+                        >
+                            <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
+                                <Masonry
+                                    breakpointCols={breakpointColumnsObj}
+                                    className={styles.masonry}
+                                    columnClassName={styles.masonryColumn}
+                                >
+                                    {items &&
+                                        items?.map((img: any, i: number) => (
+                                            <GalleryItem
+                                                boardID={boardID}
+                                                itemKey={i}
+                                                deleteFile={deleteFile}
+                                                img={img}
+                                                key={i}
+                                            />
+                                        ))}
+                                </Masonry>
+                            </div>
+                        </SortableContext>
+                    )}
+                    {boardID && (
                         <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
-                            {items &&
-                                items.map((img: any, i: number) => (
-                                    <GalleryItem
-                                        boardID={boardID}
-                                        itemKey={i}
-                                        deleteFile={deleteFile}
-                                        img={img}
-                                        key={i}
-                                    />
-                                ))}
+                            <Masonry
+                                breakpointCols={breakpointColumnsObj}
+                                className={styles.masonry}
+                                columnClassName={styles.masonryColumn}
+                            >
+                                {items &&
+                                    items?.map((img: any, i: number) => (
+                                        <GalleryItem
+                                            boardID={boardID}
+                                            itemKey={i}
+                                            deleteFile={deleteFile}
+                                            img={img}
+                                            key={i}
+                                        />
+                                    ))}
+                            </Masonry>
                         </div>
-                    </SortableContext>
+                    )}
                 </DndContext>
             </AnimatePresence>
         </>
