@@ -1,0 +1,31 @@
+.gallerySectionContainer {
+    position: relative;
+    margin-bottom: 2vw;
+}
+
+.imageContainer {
+    display: inline-block;
+    position: relative;
+}
+
+.imageContainer div {
+    position: relative !important;
+}
+
+.imageContainer img {
+    object-fit: cover;
+    width: 100% !important;
+    position: relative !important;
+    height: 100% !important;
+}
+
+@media (max-width: 800px) {
+    .gallerySectionContainer {
+        margin-bottom: 0;
+        margin-top: 16px;
+    }
+
+    .gallerySectionContainer:first-child {
+        margin-top: 0;
+    }
+}

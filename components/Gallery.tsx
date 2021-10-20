@@ -1,8 +1,11 @@
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import GalleryItem from './GalleryItem';
 import styles from '../styles/Gallery.module.css';
-import { RiDeleteBin2Fill } from 'react-icons/ri';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+
+import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { arrayMove, SortableContext, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
 
 type GalleryProps = {
     gallery: { preview: string; file: object; filePath: string }[];
@@ -10,67 +13,63 @@ type GalleryProps = {
     boardID?: string;
 };
 
-const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1/object/public/boards/';
-
 const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
-    const [deleteButton, setDeleteButton] = useState(false);
-    const [deleteButtonIndex, setdeleteButtonIndex] = useState<number | null>(null);
+    const [items, setItems] = useState<any>(gallery);
+    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-    const showButton = (e: { preventDefault: () => void }, key: number) => {
-        if (!boardID) {
-            e.preventDefault();
-            setdeleteButtonIndex(key);
-            setDeleteButton(true);
-        }
-    };
+    // const rearrangeItems = (result: any) => {
+    //     const items = Array.from(sortedImages);
+    //     const [reorderedItem] = items.splice(result.source.index, 1);
+    //     items.splice(result.destination.index, 0, reorderedItem);
 
-    const hideButton = (e: { preventDefault: () => void }, key: number) => {
-        if (!boardID) {
-            e.preventDefault();
-            setdeleteButtonIndex(key);
-            setDeleteButton(false);
+    //     setSortedImages(items);
+    // };
+
+    console.log(items);
+
+    function handleDragEnd(event: { active: any; over: any }) {
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            setItems((items: object[]) => {
+                const oldIndex = items.findIndex((i: any) => i.filePath === active.id);
+                const newIndex = items.findIndex((i: any) => i.filePath === over.id);
+
+                return arrayMove(items, oldIndex, newIndex);
+            });
         }
-    };
+    }
+
+    useEffect(() => {
+        setItems(gallery);
+    }, [gallery]);
 
     return (
         <>
-            <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
-                <AnimatePresence>
-                    {gallery &&
-                        gallery.map((img, i) => (
-                            <div
-                                className={styles.gallerySectionContainer}
-                                key={i}
-                                onMouseEnter={e => showButton(e, i)}
-                                onMouseLeave={e => hideButton(e, i)}
-                            >
-                                {!boardID && deleteButton && deleteButtonIndex === i && (
-                                    <span>
-                                        <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
-                                    </span>
-                                )}
-
-                                <motion.div
-                                    initial={{ x: 20, opacity: 0 }}
-                                    animate={{ x: 0, opacity: 1 }}
-                                    // exit={{ y: 100, opacity: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                    className={styles.imageContainer}
-                                    key={img.filePath}
-                                >
-                                    <Image
-                                        src={img.preview ? img.preview : supabaseHost + img}
-                                        // height="100%"
-                                        // width="100%"
-                                        layout="fill"
-                                        // objectFit="contain"
-                                        alt="image"
+            <AnimatePresence>
+                <DndContext
+                    autoScroll={false}
+                    sensors={sensors}
+                    collisionDetection={closestCorners}
+                    onDragEnd={handleDragEnd}
+                    // modifiers={[restrictToWindowEdges]}
+                >
+                    <SortableContext items={items.map(i => i.filePath)} strategy={rectSortingStrategy}>
+                        <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
+                            {items &&
+                                items.map((img: any, i: number) => (
+                                    <GalleryItem
+                                        boardID={boardID}
+                                        itemKey={i}
+                                        deleteFile={deleteFile}
+                                        img={img}
+                                        key={i}
                                     />
-                                </motion.div>
-                            </div>
-                        ))}
-                </AnimatePresence>
-            </div>
+                                ))}
+                        </div>
+                    </SortableContext>
+                </DndContext>
+            </AnimatePresence>
         </>
     );
 };
