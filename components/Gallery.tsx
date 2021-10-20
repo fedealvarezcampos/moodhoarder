@@ -1,9 +1,11 @@
-import { Key, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import GalleryItem from './GalleryItem';
 import styles from '../styles/Gallery.module.css';
+
+import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
+import { arrayMove, SortableContext, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
 
 type GalleryProps = {
     gallery: { preview: string; file: object; filePath: string }[];
@@ -11,115 +13,75 @@ type GalleryProps = {
     boardID?: string;
 };
 
-import type {
-    // DraggableStyle,
-    DroppableProvided,
-    // DroppableStateSnapshot,
-    DraggableProvided,
-    DraggableStateSnapshot,
-    DropResult,
-} from 'react-beautiful-dnd';
-
-const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1/object/public/boards/';
-
 const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
-    const [deleteButton, setDeleteButton] = useState(false);
-    const [deleteButtonIndex, setdeleteButtonIndex] = useState<number | null>(null);
+    const [items, setItems] = useState<any>(gallery);
+    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-    const [sortedImages, setSortedImages] = useState<any>();
+    // const rearrangeItems = (result: any) => {
+    //     const items = Array.from(sortedImages);
+    //     const [reorderedItem] = items.splice(result.source.index, 1);
+    //     items.splice(result.destination.index, 0, reorderedItem);
 
-    const showButton = (e: { preventDefault: () => void }, key: number) => {
-        if (!boardID) {
-            e.preventDefault();
-            setdeleteButtonIndex(key);
-            setDeleteButton(true);
+    //     setSortedImages(items);
+    // };
+
+    console.log(items);
+
+    function handleDragEnd(event: { active: any; over: any }) {
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            setItems((items: object[]) => {
+                const oldIndex = items.findIndex((i: any) => i.filePath === active.id);
+                const newIndex = items.findIndex((i: any) => i.filePath === over.id);
+
+                return arrayMove(items, oldIndex, newIndex);
+            });
         }
-    };
-
-    const hideButton = (e: { preventDefault: () => void }, key: number) => {
-        if (!boardID) {
-            e.preventDefault();
-            setdeleteButtonIndex(key);
-            setDeleteButton(false);
-        }
-    };
-
-    const rearrangeItems = (result: any) => {
-        const items = Array.from(sortedImages);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        setSortedImages(items);
-    };
+    }
 
     useEffect(() => {
-        setSortedImages(gallery);
+        setItems(gallery);
     }, [gallery]);
+
+    // const rearrangeItems = (result: any) => {
+    //     const items = Array.from(sortedImages);
+    //     const [reorderedItem] = items.splice(result.source.index, 1);
+    //     items.splice(result.destination.index, 0, reorderedItem);
+
+    //     setSortedImages(items);
+    // };
+
+    useEffect(() => {
+        setItems(gallery);
+    }, [gallery, items]);
 
     return (
         <>
-            <DragDropContext onDragEnd={rearrangeItems}>
-                <Droppable droppableId="galleryContainer" isDropDisabled={boardID ? true : false}>
-                    {(provided: DroppableProvided) => (
-                        <div
-                            className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                        >
-                            <AnimatePresence>
-                                {sortedImages &&
-                                    sortedImages.map((img: any, i: number) => (
-                                        <Draggable
-                                            key={i}
-                                            draggableId={i.toString()}
-                                            index={i}
-                                            isDragDisabled={boardID ? true : false}
-                                        >
-                                            {(provided: DraggableProvided) => (
-                                                <div
-                                                    className={styles.gallerySectionContainer}
-                                                    // key={i}
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    onMouseEnter={e => showButton(e, i)}
-                                                    onMouseLeave={e => hideButton(e, i)}
-                                                >
-                                                    {!boardID && deleteButton && deleteButtonIndex === i && (
-                                                        <span>
-                                                            <RiDeleteBin2Fill onClick={() => deleteFile(i)} />
-                                                        </span>
-                                                    )}
-
-                                                    <motion.div
-                                                        initial={{ x: 20, opacity: 0 }}
-                                                        animate={{ x: 0, opacity: 1 }}
-                                                        // exit={{ y: 100, opacity: 0 }}
-                                                        transition={{ duration: 0.4 }}
-                                                        className={styles.imageContainer}
-                                                        key={img.filePath}
-                                                    >
-                                                        <Image
-                                                            src={
-                                                                img.preview ? img.preview : supabaseHost + img
-                                                            }
-                                                            // height="100%"
-                                                            // width="100%"
-                                                            layout="fill"
-                                                            // objectFit="contain"
-                                                            alt="image"
-                                                        />
-                                                    </motion.div>
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                            </AnimatePresence>
-                            {provided.placeholder}
+            <AnimatePresence>
+                <DndContext
+                    autoScroll={false}
+                    sensors={sensors}
+                    collisionDetection={closestCorners}
+                    onDragEnd={handleDragEnd}
+                    // modifiers={[restrictToWindowEdges]}
+                >
+                    <SortableContext items={items.map(i => i.filePath)} strategy={rectSortingStrategy}>
+                        <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
+                            {items &&
+                                items.map((img: any, i: number) => (
+                                    <GalleryItem
+                                        boardID={boardID}
+                                        itemKey={i}
+                                        deleteFile={deleteFile}
+                                        img={img}
+                                        key={i}
+                                    />
+                                ))}
                         </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                    </SortableContext>
+                </DndContext>
+            </AnimatePresence>
         </>
     );
 };
