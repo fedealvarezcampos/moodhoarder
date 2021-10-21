@@ -42,7 +42,7 @@
     padding-left: 4rem;
     place-self: center;
     background-color: var(--maybeblack);
-    border-bottom: 10px solid var(--bluegreen);
+    border-bottom: 10px solid var(--clear-blue);
     width: 100%;
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GalleryItem from './GalleryItem';
+import Spinner from '../assets/spinner';
 import Masonry from 'react-masonry-css';
 import styles from '../styles/Gallery.module.css';
 
@@ -18,8 +19,6 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const [items, setItems] = useState<any>(gallery);
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
-    // console.log(items);
-
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;
 
@@ -33,10 +32,6 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
         }
     }
 
-    console.log(boardID);
-
-    console.log(items);
-
     useEffect(() => {
         setItems(gallery);
     }, [gallery]);
@@ -45,7 +40,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const breakpointColumnsObj = {
         default: (items?.length === 1 && 1) || (items?.length === 2 && 2) || (items?.length === 3 && 3) || 4,
         1800: (items?.length === 1 && 1) || (items?.length === 2 && 2) || 3,
-        1500: (items?.length === 1 && 1) || 2,
+        1300: (items?.length === 1 && 1) || 2,
         900: 1,
     };
 
@@ -83,6 +78,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                                             />
                                         ))}
                                 </Masonry>
+                                {!items && <Spinner />}
                             </div>
                         </SortableContext>
                     )}
@@ -90,7 +86,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                         <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
                             <Masonry
                                 breakpointCols={breakpointColumnsObj}
-                                className={styles.masonry}
+                                className={`${styles.masonry} ${styles.noPadding}`}
                                 columnClassName={styles.masonryColumn}
                             >
                                 {items &&
@@ -104,6 +100,7 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                                         />
                                     ))}
                             </Masonry>
+                            {!items && <Spinner />}
                         </div>
                     )}
                 </DndContext>

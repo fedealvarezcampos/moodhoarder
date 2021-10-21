@@ -21,9 +21,6 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
         disabled: boardID ? true : false,
     });
 
-    console.log(img);
-    console.log();
-
     const [deleteButton, setDeleteButton] = useState(false);
     const [deleteButtonIndex, setdeleteButtonIndex] = useState<number | null>(null);
 
@@ -52,7 +49,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
 
     return (
         <>
-            <div className={styles.gallerySectionOuterContainer}>
+            <div className={`${styles.gallerySectionOuterContainer} ${boardID && styles.noDragger}`}>
                 {!boardID && deleteButton && deleteButtonIndex === itemKey && (
                     <span>
                         <RiDeleteBin2Fill

@@ -3,7 +3,7 @@
     font-weight: 900;
     padding: 0.8rem 1.1rem 0.8rem 1.1rem;
     border-radius: 22px;
-    border: 8px solid var(--bluegreen);
+    border: 8px solid var(--clear-blue);
     color: var(--maybewhite);
     background-color: var(--maybeblack);
 }
@@ -38,7 +38,7 @@
     .uploaderTitle {
         font-size: 1.3rem;
         padding: 0.8rem 1.2rem 0.8rem 1.2rem;
-        border: 6px solid var(--bluegreen);
+        border: 6px solid var(--clear-blue);
     }
 
     .publishButton {

@@ -2,7 +2,6 @@
     display: block;
     position: relative;
     cursor: grab;
-    /* max-width: clamp(29rem, 80vw, 60%); */
     margin: auto;
 }
 
@@ -29,13 +28,14 @@
     cursor: pointer;
 }
 
-.gallerySectionContainer:active {
+.gallerySectionOuterContainer:active {
     cursor: grabbing;
 }
 
 .imageContainer {
     display: block;
     position: relative;
+    margin: auto;
     margin-bottom: 25px;
 }
 
@@ -48,6 +48,10 @@
     width: 100% !important;
     position: relative !important;
     height: 100% !important;
+}
+
+.noDragger {
+    cursor: auto;
 }
 
 @media (max-width: 800px) {

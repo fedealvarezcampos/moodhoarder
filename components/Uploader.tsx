@@ -19,6 +19,8 @@ const Uploader = () => {
     const router = useRouter();
 
     const [images, setImages] = useState<Gallery[]>([]);
+    const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
+
     const uid = new ShortUniqueId({ length: 16 });
 
     async function setPreviews(e: any) {
@@ -47,6 +49,7 @@ const Uploader = () => {
         try {
             const uuid: string = uid();
             let urls: string[] = [];
+            setUploadButtonLabel('Saving board...');
 
             for (const image of images) {
                 const fileName = image.filePath;
@@ -101,7 +104,7 @@ const Uploader = () => {
                         onClick={e => uploadFiles(e)}
                         className={styles.publishButton}
                     >
-                        Save & share
+                        {uploadButtonLabel}
                     </motion.button>
                 )}
             </span>
