@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { useSortable } from '@dnd-kit/sortable';
 import styles from '../styles/GalleryItem.module.css';
-import { CSS } from '@dnd-kit/utilities';
 
 type GalleryItemProps = {
     boardID?: string;
@@ -77,7 +76,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                         <Image
                             src={img?.preview ? img?.preview : supabaseHost + img}
                             layout="fill"
-                            alt="image"
+                            alt="image in board"
                         />
                     </motion.div>
                 </div>

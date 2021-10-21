@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Uploader from '../components/Uploader';
 import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ setNote }: any) => {
     return (
         <>
             <Head>
@@ -12,7 +12,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Uploader />
+            <Uploader setNote={setNote} />
 
             {/* <footer className={styles.footer}>
                 <a

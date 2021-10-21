@@ -5,7 +5,7 @@
     border-radius: 22px;
     border: 8px solid var(--clear-blue);
     color: var(--maybewhite);
-    background-color: var(--maybeblack);
+    background-color: var(--dark-item);
 }
 
 .buttonsContainer {
@@ -36,8 +36,8 @@
 
 @media (max-width: 800px) {
     .uploaderTitle {
-        font-size: 1.3rem;
-        padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+        font-size: 1.2rem;
+        padding: 0.8rem 1rem 0.8rem 1rem;
         border: 6px solid var(--clear-blue);
     }
 

@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
+import { notifyMessage } from '../assets/toasts';
 import { v4 as uuidv4 } from 'uuid';
 import ShortUniqueId from 'short-unique-id';
 import Gallery from './Gallery';
@@ -15,7 +16,7 @@ export interface Gallery {
 }
 [];
 
-const Uploader = () => {
+const Uploader = ({ setNote }: any) => {
     const router = useRouter();
 
     const [images, setImages] = useState<Gallery[]>([]);
@@ -73,6 +74,11 @@ const Uploader = () => {
             }
 
             router.push(uuid);
+
+            navigator.clipboard.writeText(window.location.href + uuid);
+
+            setNote(true);
+            notifyMessage('Board url copied to clipboard!');
         } catch (error: any) {
             console.log('Error: ', error.message);
         }
@@ -86,7 +92,7 @@ const Uploader = () => {
 
     return (
         <>
-            <div className={styles.uploaderTitle}>CLICK TO ADD IMAGES</div>
+            <div className={styles.uploaderTitle}>UPLOAD IMAGES HERE</div>
             <span className={styles.buttonsContainer}>
                 <motion.label
                     whileHover={{ y: -3 }}

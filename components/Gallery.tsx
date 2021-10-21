@@ -6,16 +6,16 @@ import Masonry from 'react-masonry-css';
 import styles from '../styles/Gallery.module.css';
 
 import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { restrictToVerticalAxis, restrictToWindowEdges } from '@dnd-kit/modifiers';
-import { arrayMove, SortableContext, rectSortingStrategy, useSortable } from '@dnd-kit/sortable';
+import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
     gallery: { preview: string; file: object; filePath: string }[];
     deleteFile?: any;
     boardID?: string;
+    note?: boolean;
 };
 
-const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
+const Gallery = ({ gallery, deleteFile, boardID, note }: GalleryProps) => {
     const [items, setItems] = useState<any>(gallery);
     const sensors = useSensors(
         useSensor(MouseSensor),
