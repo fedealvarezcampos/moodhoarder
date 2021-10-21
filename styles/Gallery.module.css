@@ -6,7 +6,7 @@
     /* margin-left: -30px; */
     gap: 25px;
     width: 85vw;
-    padding-top: 2.8rem;
+    padding-top: 2.6rem;
 }
 
 .masonryColumn {
@@ -23,15 +23,6 @@
     .masonry {
         padding-top: 1.8rem;
         width: 90vw;
-    }
-
-    .gallerySectionContainer {
-        margin-bottom: 0;
-        margin-top: 16px;
-    }
-
-    .gallerySectionContainer:first-child {
-        margin-top: 0;
     }
 
     .noPadding {

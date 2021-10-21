@@ -17,7 +17,15 @@ type GalleryProps = {
 
 const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const [items, setItems] = useState<any>(gallery);
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250,
+                tolerance: 5,
+            },
+        })
+    );
 
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;

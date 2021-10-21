@@ -3,6 +3,7 @@
     position: relative;
     cursor: grab;
     margin: auto;
+    margin-bottom: 25px;
 }
 
 .gallerySectionOuterContainer svg {
@@ -36,7 +37,6 @@
     display: block;
     position: relative;
     margin: auto;
-    margin-bottom: 25px;
 }
 
 .imageContainer div {
@@ -62,5 +62,9 @@
 
     .gallerySectionContainer:first-child {
         margin-top: 0;
+    }
+
+    .gallerySectionOuterContainer:last-child {
+        margin-bottom: 0;
     }
 }
