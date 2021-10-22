@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { supabase } from '../lib/supabaseClient';
 import Head from 'next/head';
-import { getPlaiceholder } from 'plaiceholder';
 import { supabaseHost } from '../lib/constants';
 import Gallery from '../components/Gallery';
-import { PostgrestResponse } from '@supabase/postgrest-js';
 // import styles from '../styles/Home.module.css';
 
 export interface Boards {
@@ -14,77 +12,67 @@ export interface Boards {
     images: string[] | undefined;
 }
 
-export async function getServerSideProps(context: any) {
-    // const router = useRouter();
-    const boardID: any = context.params.board;
+// export async function getServerSideProps(context: any) {
+//     // const router = useRouter();
+//     const boardID: any = context.params.board;
 
-    let placeHolders: string[] = [];
+//     let placeHolders: string[] = [];
 
-    const { data, error }: any = await supabase.from<Boards>('boards').select('images').in('uuid', [boardID]);
+//     const { data, error }: any = await supabase.from<Boards>('boards').select('images').in('uuid', [boardID]);
 
-    if (error) {
-        throw error;
-    }
+//     if (error) {
+//         throw error;
+//     }
 
-    const images = data[0]?.images;
+//     const images = data[0]?.images;
 
-    for (const image of images) {
-        const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
+//     for (const image of images) {
+//         const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
 
-        placeHolders?.push(base64);
-    }
+//         placeHolders?.push(base64);
+//     }
 
-    console.log(placeHolders);
+//     console.log(placeHolders);
 
-    // setBoard(data);
+//     // setBoard(data);
 
-    return {
-        props: {
-            data,
-            placeHolders,
-        },
-    };
-}
+//     return {
+//         props: {
+//             data,
+//             placeHolders,
+//         },
+//     };
+// }
 
-const Home: NextPage = ({ data: board, placeHolders }: any) => {
+const Home: NextPage = () => {
     const router = useRouter();
     const { board: boardID }: any = router.query;
 
-    console.log(placeHolders);
+    const [board, setBoard] = useState<any>([]);
+    let placeHolders: string[] = [];
 
-    // const [board, setBoard] = useState<any>([]);
-    // let placeHolders: string[] = [];
+    const getBoard = async () => {
+        try {
+            const { data, error }: any = await supabase
+                .from<Boards>('boards')
+                .select('images')
+                .in('uuid', [boardID]);
 
-    // const getBoard = async () => {
-    //     try {
-    //         const { data, error }: any = await supabase
-    //             .from<Boards>('boards')
-    //             .select('images')
-    //             .in('uuid', [boardID]);
+            if (error) {
+                throw error;
+            }
 
-    //         if (error) {
-    //             throw error;
-    //         }
+            const images = data[0]?.images;
 
-    //         const images = data[0].images;
+            setBoard(images);
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    };
 
-    //         for (const image of images) {
-    //             const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
-
-    //             placeHolders?.push(base64);
-    //         }
-
-    //         console.log(placeHolders);
-
-    //         setBoard(data);
-    //     } catch (error: any) {
-    //         console.log(error.message);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     boardID && getBoard();
-    // }, [boardID]);
+    useEffect(() => {
+        boardID && getBoard();
+    }, [boardID]);
 
     return (
         <>
@@ -92,7 +80,7 @@ const Home: NextPage = ({ data: board, placeHolders }: any) => {
                 <title>moodhoarder | your moodboard</title>
             </Head>
 
-            <Gallery gallery={board[0]?.images} boardID={boardID} placeHolders={placeHolders} />
+            <Gallery gallery={board} boardID={boardID} />
         </>
         // </div>
     );

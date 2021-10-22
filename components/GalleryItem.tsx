@@ -11,10 +11,9 @@ type GalleryItemProps = {
     itemKey: number;
     deleteFile: Function;
     img: any;
-    placeHolders?: string[];
 };
 
-const GalleryItem = ({ boardID, itemKey, deleteFile, img, placeHolders }: GalleryItemProps) => {
+const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: img?.filePath,
         disabled: boardID ? true : false,
@@ -73,21 +72,11 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img, placeHolders }: Galler
                         className={styles.imageContainer}
                         key={img?.filePath}
                     >
-                        {placeHolders ? (
-                            <Image
-                                src={img?.preview ? img?.preview : supabaseHost + img}
-                                layout="fill"
-                                alt="image in board"
-                                placeholder="blur"
-                                blurDataURL={placeHolders[0]}
-                            />
-                        ) : (
-                            <Image
-                                src={img?.preview ? img?.preview : supabaseHost + img}
-                                layout="fill"
-                                alt="image in board"
-                            />
-                        )}
+                        <Image
+                            src={img?.preview ? img?.preview : supabaseHost + img}
+                            layout="fill"
+                            alt="image in board"
+                        />
                     </motion.div>
                 </div>
             </div>

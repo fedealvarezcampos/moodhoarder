@@ -13,10 +13,9 @@ type GalleryProps = {
     deleteFile?: any;
     boardID?: string;
     note?: boolean;
-    placeHolders?: string[];
 };
 
-const Gallery = ({ gallery, deleteFile, boardID, placeHolders }: GalleryProps) => {
+const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
     const [items, setItems] = useState<any>(gallery);
     const sensors = useSensors(
         useSensor(MouseSensor),
@@ -102,7 +101,6 @@ const Gallery = ({ gallery, deleteFile, boardID, placeHolders }: GalleryProps) =
                                     items?.map((img: any, i: number) => (
                                         <GalleryItem
                                             boardID={boardID}
-                                            placeHolders={placeHolders}
                                             itemKey={i}
                                             deleteFile={deleteFile}
                                             img={img}
