@@ -3,41 +3,88 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { supabase } from '../lib/supabaseClient';
 import Head from 'next/head';
-import Image from 'next/image';
+import { getPlaiceholder } from 'plaiceholder';
+import { supabaseHost } from '../lib/constants';
 import Gallery from '../components/Gallery';
-import styles from '../styles/Home.module.css';
+import { PostgrestResponse } from '@supabase/postgrest-js';
+// import styles from '../styles/Home.module.css';
 
 export interface Boards {
-    uuid: string;
+    uuid: any;
     images: string[] | undefined;
 }
 
-const Home: NextPage = () => {
+export async function getServerSideProps(context) {
+    // const router = useRouter();
+    const boardID: any = context.params.board;
+
+    let placeHolders: string[] = [];
+
+    const { data, error }: any = await supabase.from<Boards>('boards').select('images').in('uuid', [boardID]);
+
+    if (error) {
+        throw error;
+    }
+
+    const images = data[0]?.images;
+
+    for (const image of images) {
+        const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
+
+        placeHolders?.push(base64);
+    }
+
+    console.log(placeHolders);
+
+    // setBoard(data);
+
+    return {
+        props: {
+            data,
+            placeHolders,
+        },
+    };
+}
+
+const Home: NextPage = ({ data: board, placeHolders }) => {
     const router = useRouter();
     const { board: boardID }: any = router.query;
 
-    const [board, setBoard] = useState<any>([]);
+    console.log(placeHolders);
 
-    const getBoard = async () => {
-        try {
-            const { data, error } = await supabase
-                .from<Boards>('boards')
-                .select('images')
-                .in('uuid', [boardID]);
+    // const [board, setBoard] = useState<any>([]);
+    // let placeHolders: string[] = [];
 
-            if (error) {
-                throw error;
-            }
+    // const getBoard = async () => {
+    //     try {
+    //         const { data, error }: any = await supabase
+    //             .from<Boards>('boards')
+    //             .select('images')
+    //             .in('uuid', [boardID]);
 
-            setBoard(data);
-        } catch (error: any) {
-            console.log(error.message);
-        }
-    };
+    //         if (error) {
+    //             throw error;
+    //         }
 
-    useEffect(() => {
-        boardID && getBoard();
-    }, [boardID]);
+    //         const images = data[0].images;
+
+    //         for (const image of images) {
+    //             const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
+
+    //             placeHolders?.push(base64);
+    //         }
+
+    //         console.log(placeHolders);
+
+    //         setBoard(data);
+    //     } catch (error: any) {
+    //         console.log(error.message);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     boardID && getBoard();
+    // }, [boardID]);
 
     return (
         <>
@@ -45,7 +92,7 @@ const Home: NextPage = () => {
                 <title>moodhoarder | your moodboard</title>
             </Head>
 
-            <Gallery gallery={board[0]?.images} boardID={boardID} />
+            <Gallery gallery={board[0]?.images} boardID={boardID} placeHolders={placeHolders} />
         </>
         // </div>
     );

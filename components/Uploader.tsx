@@ -67,7 +67,9 @@ const Uploader = ({ setNote }: any) => {
                 urls.push(fileName);
             }
 
-            const { error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
+            const { data, error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
+
+            console.log(data);
 
             if (error) {
                 throw error;
@@ -77,7 +79,7 @@ const Uploader = ({ setNote }: any) => {
 
             navigator.clipboard.writeText(window.location.href + uuid);
 
-            setNote(true);
+            data && setNote(true);
             notifyMessage('Board url copied to clipboard!');
         } catch (error: any) {
             console.log('Error: ', error.message);

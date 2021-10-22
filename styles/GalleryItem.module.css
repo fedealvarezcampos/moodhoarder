@@ -55,15 +55,6 @@
 }
 
 @media (max-width: 800px) {
-    .gallerySectionContainer {
-        margin-bottom: 0;
-        margin-top: 16px;
-    }
-
-    .gallerySectionContainer:first-child {
-        margin-top: 0;
-    }
-
     .gallerySectionOuterContainer:last-child {
         margin-bottom: 0;
     }

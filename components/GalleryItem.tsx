@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { useSortable } from '@dnd-kit/sortable';
+import { supabaseHost } from '../lib/constants';
 import styles from '../styles/GalleryItem.module.css';
 
 type GalleryItemProps = {
@@ -10,11 +11,10 @@ type GalleryItemProps = {
     itemKey: number;
     deleteFile: Function;
     img: any;
+    placeHolders?: string[];
 };
 
-const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1/object/public/boards/';
-
-const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) => {
+const GalleryItem = ({ boardID, itemKey, deleteFile, img, placeHolders }: GalleryItemProps) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id: img?.filePath,
         disabled: boardID ? true : false,
@@ -73,11 +73,21 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                         className={styles.imageContainer}
                         key={img?.filePath}
                     >
-                        <Image
-                            src={img?.preview ? img?.preview : supabaseHost + img}
-                            layout="fill"
-                            alt="image in board"
-                        />
+                        {placeHolders ? (
+                            <Image
+                                src={img?.preview ? img?.preview : supabaseHost + img}
+                                layout="fill"
+                                alt="image in board"
+                                placeholder="blur"
+                                blurDataURL={placeHolders[0]}
+                            />
+                        ) : (
+                            <Image
+                                src={img?.preview ? img?.preview : supabaseHost + img}
+                                layout="fill"
+                                alt="image in board"
+                            />
+                        )}
                     </motion.div>
                 </div>
             </div>
