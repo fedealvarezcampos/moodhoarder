@@ -12,44 +12,11 @@ export interface Boards {
     images: string[] | undefined;
 }
 
-// export async function getServerSideProps(context: any) {
-//     // const router = useRouter();
-//     const boardID: any = context.params.board;
-
-//     let placeHolders: string[] = [];
-
-//     const { data, error }: any = await supabase.from<Boards>('boards').select('images').in('uuid', [boardID]);
-
-//     if (error) {
-//         throw error;
-//     }
-
-//     const images = data[0]?.images;
-
-//     for (const image of images) {
-//         const { base64 } = await getPlaiceholder(supabaseHost + image, { size: 10 });
-
-//         placeHolders?.push(base64);
-//     }
-
-//     console.log(placeHolders);
-
-//     // setBoard(data);
-
-//     return {
-//         props: {
-//             data,
-//             placeHolders,
-//         },
-//     };
-// }
-
-const Home: NextPage = () => {
+const Home: NextPage = ({ images, setImages }: any) => {
     const router = useRouter();
     const { board: boardID }: any = router.query;
 
     const [board, setBoard] = useState<any>([]);
-    let placeHolders: string[] = [];
 
     const getBoard = async () => {
         try {
@@ -80,7 +47,7 @@ const Home: NextPage = () => {
                 <title>moodhoarder | your moodboard</title>
             </Head>
 
-            <Gallery gallery={board} boardID={boardID} />
+            <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />
         </>
         // </div>
     );

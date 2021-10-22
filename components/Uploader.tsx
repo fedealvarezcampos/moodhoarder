@@ -15,14 +15,19 @@ export interface Gallery {
     filePath: string;
 }
 [];
+export interface Uploader {
+    setNote: Function;
+    images: { file: File; filePath: string; preview: string }[];
+    setImages: Function;
+}
 
-const Uploader = ({ setNote }: any) => {
+const Uploader = ({ setNote, images, setImages }: Uploader) => {
     const router = useRouter();
+    const uid = new ShortUniqueId({ length: 16 });
 
-    const [images, setImages] = useState<Gallery[]>([]);
     const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
 
-    const uid = new ShortUniqueId({ length: 16 });
+    console.log(images);
 
     async function setPreviews(e: any) {
         e.preventDefault();
@@ -69,8 +74,6 @@ const Uploader = ({ setNote }: any) => {
 
             const { data, error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
 
-            console.log(data);
-
             if (error) {
                 throw error;
             }
@@ -80,6 +83,7 @@ const Uploader = ({ setNote }: any) => {
             navigator.clipboard.writeText(window.location.href + uuid);
 
             data && setNote(true);
+            setImages([]);
             notifyMessage('Board url copied to clipboard!');
         } catch (error: any) {
             console.log('Error: ', error.message);
@@ -87,7 +91,7 @@ const Uploader = ({ setNote }: any) => {
     };
 
     const deleteFile = (key: string) => {
-        const filtered = images.filter((i, value) => i.preview !== key);
+        const filtered = images.filter((i: any, value: any) => i.preview !== key);
 
         setImages(filtered);
     };
@@ -124,7 +128,7 @@ const Uploader = ({ setNote }: any) => {
                 id="uploader"
                 onChange={setPreviews}
             />
-            <Gallery gallery={images} deleteFile={deleteFile} />
+            <Gallery deleteFile={deleteFile} items={images} setItems={setImages} />
         </>
     );
 };

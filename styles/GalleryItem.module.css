@@ -6,6 +6,10 @@
     margin-bottom: 25px;
 }
 
+.gallerySectionOuterContainer div:first-child {
+    position: relative !important;
+}
+
 .gallerySectionOuterContainer svg {
     position: absolute;
     left: 0;

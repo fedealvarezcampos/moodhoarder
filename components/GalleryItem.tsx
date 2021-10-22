@@ -9,7 +9,7 @@ import styles from '../styles/GalleryItem.module.css';
 type GalleryItemProps = {
     boardID?: string;
     itemKey: number;
-    deleteFile: Function;
+    deleteFile: (key: string) => void;
     img: any;
 };
 

@@ -9,14 +9,15 @@ import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSen
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
-    gallery: { preview: string; file: object; filePath: string }[];
+    board?: string[];
     deleteFile?: any;
     boardID?: string;
     note?: boolean;
+    items: { file: File; filePath: string; preview: string }[];
+    setItems: Function;
 };
 
-const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
-    const [items, setItems] = useState<any>(gallery);
+const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) => {
     const sensors = useSensors(
         useSensor(MouseSensor),
         useSensor(TouchSensor, {
@@ -27,32 +28,29 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
         })
     );
 
+    console.log(items);
+
+    console.log(board);
+
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;
 
-        if (active.id !== over.id) {
+        if (active?.id !== over?.id) {
             setItems((items: object[]) => {
                 const oldIndex = items.findIndex((i: any) => i.filePath === active.id);
-                const newIndex = items.findIndex((i: any) => i.filePath === over.id);
+                const newIndex = items.findIndex((i: any) => i.filePath === over?.id);
 
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
     }
 
-    useEffect(() => {
-        setItems(gallery);
-    }, [gallery]);
-
-    // masonry config
     const breakpointColumnsObj = {
         default: (items?.length === 1 && 1) || (items?.length === 2 && 2) || (items?.length === 3 && 3) || 4,
         1800: (items?.length === 1 && 1) || (items?.length === 2 && 2) || 3,
         1300: (items?.length === 1 && 1) || 2,
         900: 1,
     };
-
-    const whatever = ['a', 'b', 'c'];
 
     return (
         <>
@@ -62,9 +60,8 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                     sensors={sensors}
                     collisionDetection={closestCorners}
                     onDragEnd={handleDragEnd}
-                    // modifiers={[restrictToWindowEdges]}
                 >
-                    {!boardID && gallery && (
+                    {!boardID && items && !board ? (
                         <SortableContext
                             items={items?.map((i: any) => i?.filePath)}
                             strategy={rectSortingStrategy}
@@ -89,16 +86,15 @@ const Gallery = ({ gallery, deleteFile, boardID }: GalleryProps) => {
                                 {!items && <Spinner />}
                             </div>
                         </SortableContext>
-                    )}
-                    {boardID && (
+                    ) : (
                         <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
                             <Masonry
                                 breakpointCols={breakpointColumnsObj}
                                 className={`${styles.masonry} ${styles.noPadding}`}
                                 columnClassName={styles.masonryColumn}
                             >
-                                {items &&
-                                    items?.map((img: any, i: number) => (
+                                {board &&
+                                    board?.map((img: string, i: number) => (
                                         <GalleryItem
                                             boardID={boardID}
                                             itemKey={i}
