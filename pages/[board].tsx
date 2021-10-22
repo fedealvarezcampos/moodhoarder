@@ -14,7 +14,7 @@ export interface Boards {
     images: string[] | undefined;
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
     // const router = useRouter();
     const boardID: any = context.params.board;
 
@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-const Home: NextPage = ({ data: board, placeHolders }) => {
+const Home: NextPage = ({ data: board, placeHolders }: any) => {
     const router = useRouter();
     const { board: boardID }: any = router.query;
 
