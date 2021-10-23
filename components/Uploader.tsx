@@ -124,7 +124,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                 type="file"
                 name="uploader"
                 multiple
-                accept="image/*"
+                accept="image/jpeg, image/png, image/webp"
                 id="uploader"
                 onChange={setPreviews}
             />

@@ -38,18 +38,38 @@
     transition: background-color 400ms;
 }
 
-.logo {
-    padding-left: 4rem;
-    place-self: center;
+.navContainer {
+    width: 100%;
     background-color: var(--maybeblack);
     border-bottom: 10px solid var(--clear-blue);
-    width: 100%;
 }
 
-.logo div {
+.navItems {
+    display: flex;
+    padding: 0 3vw;
+    margin: auto;
+    justify-content: space-between;
+    place-items: center;
+}
+
+.navItems div:first-child div {
     width: 18rem;
     height: 5rem;
     cursor: pointer;
+}
+
+.loginButton {
+    cursor: pointer;
+    color: var(--maybewhite);
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-style: italic;
+    transition: color 300ms;
+}
+
+.loginButton:hover {
+    color: var(--pink);
+    transition: color 300ms;
 }
 
 @media (max-width: 800px) {

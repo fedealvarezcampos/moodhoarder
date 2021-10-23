@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import Layout from '../components/layout';
 import { ToastContainer } from 'react-toastify';
+import SessionContext from '../context/SessionContext';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/toasts.css';
 import '../styles/globals.css';
@@ -18,10 +19,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     const [images, setImages] = useState<Gallery[]>([]);
 
     return (
-        <Layout>
-            <Component {...pageProps} setNote={setNote} images={images} setImages={setImages} />
-            {note && <ToastContainer />}
-        </Layout>
+        <SessionContext>
+            <Layout>
+                <Component {...pageProps} setNote={setNote} images={images} setImages={setImages} />
+                {note && <ToastContainer />}
+            </Layout>
+        </SessionContext>
     );
 }
 export default MyApp;
