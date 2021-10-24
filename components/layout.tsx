@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode, useState } from 'react';
-import { useSession } from '../context/SessionContext';
+import { supabase } from '../lib/supabaseClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,8 +11,7 @@ type ComponentWithChildProps = PropsWithChildren<{ children: ReactNode }>;
 export default function Layout({ children }: ComponentWithChildProps) {
     const [modal, setModal] = useState(false);
 
-    const session = useSession();
-    const user = session?.user;
+    const user = supabase.auth.user();
 
     return (
         <>
@@ -37,14 +36,23 @@ export default function Layout({ children }: ComponentWithChildProps) {
                             </motion.div>
                         </Link>
                         {user ? (
-                            <div className={styles.loginButton}>
+                            <motion.div
+                                initial={{ x: 30, opacity: 0 }}
+                                whileHover={{ x: -1 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                whileTap={{ x: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className={styles.loginButton}
+                            >
                                 <Link href="/myboards" passHref>
                                     My boards
                                 </Link>
-                            </div>
+                            </motion.div>
                         ) : (
                             <motion.div
                                 onClick={() => setModal(true)}
+                                initial={{ x: 30, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1, transition: { duration: 0.5 } }}
                                 whileHover={{ x: -1 }}
                                 whileTap={{ x: 0 }}
                                 transition={{ duration: 0.2 }}

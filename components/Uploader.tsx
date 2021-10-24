@@ -3,12 +3,11 @@ import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
-import { notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from '../assets/toasts';
 import { v4 as uuidv4 } from 'uuid';
 import ShortUniqueId from 'short-unique-id';
 import Gallery from './Gallery';
 import styles from '../styles/Uploader.module.css';
-import { useSession } from '../context/SessionContext';
 
 export interface Gallery {
     preview: string;
@@ -23,11 +22,10 @@ export interface Uploader {
 }
 
 const Uploader = ({ setNote, images, setImages }: Uploader) => {
+    const user = supabase.auth.user();
+
     const router = useRouter();
     const uid = new ShortUniqueId({ length: 16 });
-
-    const session = useSession();
-    const user = session?.user;
 
     const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
     const [boardName, setBoardName] = useState('');
@@ -41,6 +39,12 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
 
             for (const file of files) {
                 const fileExt = file.name.split('.').pop();
+
+                if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
+                    notifyError('File/s must be jpg | webp | png!');
+                    return;
+                }
+
                 const fileName = `${uuidv4()}.${fileExt}`;
 
                 const url = URL.createObjectURL(file);
@@ -105,8 +109,18 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
 
     return (
         <>
-            <div className={styles.uploaderTitle}>UPLOAD IMAGES HERE</div>
-            <span className={styles.buttonsContainer}>
+            <motion.div
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className={styles.uploaderTitle}
+            >
+                UPLOAD IMAGES HERE
+            </motion.div>
+            <motion.span
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className={styles.buttonsContainer}
+            >
                 <motion.label
                     whileHover={{ y: -3 }}
                     whileTap={{ y: 0 }}
@@ -126,7 +140,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                         {uploadButtonLabel}
                     </motion.button>
                 )}
-            </span>
+            </motion.span>
             {images.length !== 0 && (
                 <input
                     type="text"

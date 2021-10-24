@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Uploader from '../components/Uploader';
-import styles from '../styles/Home.module.css';
+import Head from 'next/head';
 
 const Home: NextPage = ({ setNote, images, setImages }: any) => {
     return (
