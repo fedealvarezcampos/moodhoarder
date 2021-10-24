@@ -37,7 +37,11 @@ export default function Layout({ children }: ComponentWithChildProps) {
                             </motion.div>
                         </Link>
                         {user ? (
-                            <div>My boards</div>
+                            <div className={styles.loginButton}>
+                                <Link href="/myboards" passHref>
+                                    My boards
+                                </Link>
+                            </div>
                         ) : (
                             <motion.div
                                 onClick={() => setModal(true)}

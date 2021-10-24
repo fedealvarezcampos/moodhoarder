@@ -28,10 +28,6 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
         })
     );
 
-    console.log(items);
-
-    console.log(board);
-
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;
 

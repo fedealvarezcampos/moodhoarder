@@ -13,27 +13,6 @@
     gap: 1rem;
 }
 
-.publishButton {
-    cursor: pointer;
-    margin-top: 1.6rem;
-    right: 10vw;
-    width: fit-content;
-    padding: 0.2rem 0.75rem 0.25rem 0.7rem;
-    color: var(--dark-item);
-    background-color: var(--clear-blue);
-    border: none;
-    border-bottom: 6px solid var(--dark-item);
-    border-radius: 10px;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-}
-
-.publishButton:hover {
-    background-color: var(--pink);
-    transition: background-color 400ms;
-}
-
 @media (max-width: 800px) {
     .uploaderTitle {
         font-size: 1.2rem;

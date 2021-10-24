@@ -49,7 +49,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
             <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />
         </>
-        // </div>
     );
 };
 

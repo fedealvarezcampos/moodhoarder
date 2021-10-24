@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ShortUniqueId from 'short-unique-id';
 import Gallery from './Gallery';
 import styles from '../styles/Uploader.module.css';
+import { useSession } from '../context/SessionContext';
 
 export interface Gallery {
     preview: string;
@@ -25,9 +26,11 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
     const router = useRouter();
     const uid = new ShortUniqueId({ length: 16 });
 
-    const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
+    const session = useSession();
+    const user = session?.user;
 
-    console.log(images);
+    const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
+    const [boardName, setBoardName] = useState('');
 
     async function setPreviews(e: any) {
         e.preventDefault();
@@ -72,7 +75,11 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                 urls.push(fileName);
             }
 
-            const { data, error } = await supabase.from('boards').insert([{ uuid: uuid, images: urls }]);
+            const { data, error } = await supabase
+                .from('boards')
+                .insert([
+                    { uuid: uuid, images: urls, owner_uid: user?.id || null, board_title: boardName || null },
+                ]);
 
             if (error) {
                 throw error;
@@ -120,6 +127,16 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                     </motion.button>
                 )}
             </span>
+            {images.length !== 0 && (
+                <input
+                    type="text"
+                    name="boardName"
+                    id="boardName"
+                    placeholder="Name this board!"
+                    onChange={e => setBoardName(e.target.value)}
+                    className={styles.boardNameInput}
+                />
+            )}
             <input
                 type="file"
                 name="uploader"

@@ -48,3 +48,15 @@ button:hover {
     background-color: var(--pink);
     transition: background-color 400ms;
 }
+
+input {
+    outline: none;
+    padding: 0.5rem;
+    width: 14rem;
+    border-radius: 12px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 6px solid var(--dark-item);
+    background-color: var(--maybewhite);
+}

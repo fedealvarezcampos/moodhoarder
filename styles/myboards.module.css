@@ -1,0 +1,26 @@
+.pageTitle {
+    color: var(--dark-item);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.8rem;
+}
+
+.boardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.8rem;
+    width: 80vw;
+}
+
+@media (max-width: 800px) {
+    .pageTitle {
+        font-size: 1.3rem;
+    }
+
+    .boardsContainer {
+        justify-content: center;
+        gap: 1rem;
+        width: 100vw;
+    }
+}
