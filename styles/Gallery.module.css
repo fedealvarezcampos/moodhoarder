@@ -1,14 +1,12 @@
 .masonry {
     display: flex;
     justify-content: center;
-    /* margin-left: -30px; */
     gap: 25px;
     width: 85vw;
     padding-top: 1.2rem;
 }
 
 .masonryColumn {
-    /* padding-left: 30px; */
     background-clip: padding-box;
     max-width: 600px;
 }
@@ -19,7 +17,7 @@
 
 @media (max-width: 800px) {
     .masonry {
-        padding-top: 1.8rem;
+        padding-top: 1rem;
         width: 90vw;
     }
 
