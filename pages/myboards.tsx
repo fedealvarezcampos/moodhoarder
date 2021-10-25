@@ -39,7 +39,7 @@ const MyBoards: NextPage = () => {
                 <title>moodhoarder | my boards</title>
             </Head>
 
-            {myBoards?.length !== 0 ? (
+            {myBoards && myBoards?.length !== 0 ? (
                 <div className={styles.pageTitle}>These are all your saved boards</div>
             ) : (
                 <div className={styles.pageTitle}>Your boards would be here... if you had any.</div>

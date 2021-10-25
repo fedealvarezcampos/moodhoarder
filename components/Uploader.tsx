@@ -94,7 +94,6 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
             navigator.clipboard.writeText(window.location.href + uuid);
 
             data && setNote(true);
-            setImages([]);
             notifyMessage('Board url copied to clipboard!');
         } catch (error: any) {
             console.log('Error: ', error.message);
@@ -159,7 +158,23 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                 id="uploader"
                 onChange={setPreviews}
             />
-            <Gallery deleteFile={deleteFile} items={images} setItems={setImages} />
+
+            {images?.length === 0 ? (
+                <motion.div
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.35 }}
+                    className={styles.noImages}
+                >
+                    Your images will be here when you upload some. <br />
+                    <br />
+                    {user
+                        ? "You're logged in so your boards will be saved to your profile."
+                        : 'Log in if you want to save your moodboards to your profile!'}
+                </motion.div>
+            ) : (
+                <Gallery deleteFile={deleteFile} items={images} setItems={setImages} />
+            )}
         </>
     );
 };

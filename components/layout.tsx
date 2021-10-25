@@ -41,8 +41,6 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 />
                             </motion.div>
                         </Link>
-                        <ThemeSwitch />
-
                         {user ? (
                             <motion.div
                                 initial={{ x: 30, opacity: 0 }}
@@ -69,6 +67,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 Log in
                             </motion.div>
                         )}
+                        <ThemeSwitch />
                     </div>
                 </nav>
                 <main className={styles.main}>{children}</main>

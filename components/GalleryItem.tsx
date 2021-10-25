@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { RiDeleteBin2Fill } from '@react-icons/all-files/ri/RiDeleteBin2Fill';
 import { useSortable } from '@dnd-kit/sortable';
 import { supabaseHost } from '../lib/constants';
 import styles from '../styles/GalleryItem.module.css';

@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabaseClient';
 import Gallery from '../components/Gallery';
 import Head from 'next/head';
 import { useSession } from '../context/SessionContext';
+import { notifyError, notifyMessage } from '../assets/toasts';
 
 export interface Boards {
     uuid: any;
@@ -31,6 +32,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
             const images = data[0]?.images;
             setBoard(images);
+            setImages([]);
         } catch (error: any) {
             console.log(error.message);
         }
@@ -43,17 +45,17 @@ const Home: NextPage = ({ images, setImages }: any) => {
                 .delete()
                 .match({ uuid: boardID });
 
-            console.log(data);
-
             if (error) throw error;
             else {
                 const { error } = await supabase.storage.from('boards').remove(board);
                 if (error) throw error;
             }
 
-            router.push('/');
+            notifyMessage('Board deleted!');
         } catch (error: any) {
             console.log(error.message);
+        } finally {
+            router.push('/');
         }
     };
 
