@@ -1,14 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,600;0,700;0,900;1,600;1,700;1,900&display=swap');
 
-:root {
+:root,
+:root[data-theme='light'] {
     --maybewhite: #f8f8f8;
     --cream: #ffefd4;
     --pink: #ffc5b0;
     --clear-blue: #bbd0e2;
-    --always-greener: #69a297;
     --bluegreen: #50808e;
     --dark-item: #343a3f;
     --maybeblack: #1f2421;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root[data-theme='dark'] {
+        --maybewhite: #f8f8f8;
+        --cream: #313944;
+        --pink: #2d5e51;
+        --clear-blue: #304c66;
+        --bluegreen: #50808e;
+        --dark-item: #e2e2e2;
+        --maybeblack: #1f1f1f;
+    }
 }
 
 html,
@@ -18,6 +30,8 @@ body {
     font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
         Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: var(--cream);
+    transition: background 250ms;
+    overflow-x: hidden;
 }
 
 a {
@@ -37,7 +51,7 @@ button {
     color: var(--dark-item);
     background-color: var(--clear-blue);
     border: none;
-    border-bottom: 6px solid var(--dark-item);
+    border-bottom: 6px solid var(--maybeblack);
     border-radius: 10px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.5rem;
@@ -57,6 +71,6 @@ input {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
-    border: 6px solid var(--dark-item);
+    border: 6px solid var(--clear-blue);
     background-color: var(--maybewhite);
 }

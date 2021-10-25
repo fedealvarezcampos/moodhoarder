@@ -1,17 +1,24 @@
-import { PropsWithChildren, ReactNode, useState } from 'react';
-import { supabase } from '../lib/supabaseClient';
+import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import { useSession } from '../context/SessionContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GiBatMask } from 'react-icons/gi';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import Login from './Login';
 import styles from '../styles/layout.module.css';
+
+const ThemeSwitch = dynamic(() => import('../components/ThemeSwitch'), {
+    ssr: false,
+});
 
 type ComponentWithChildProps = PropsWithChildren<{ children: ReactNode }>;
 
 export default function Layout({ children }: ComponentWithChildProps) {
     const [modal, setModal] = useState(false);
 
-    const user = supabase.auth.user();
+    const session = useSession();
+    const user = session?.user;
 
     return (
         <>
@@ -35,6 +42,9 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 />
                             </motion.div>
                         </Link>
+                        <ThemeSwitch>
+                            <GiBatMask />
+                        </ThemeSwitch>
                         {user ? (
                             <motion.div
                                 initial={{ x: 30, opacity: 0 }}
