@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import { useSession } from '../context/SessionContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GiBatMask } from 'react-icons/gi';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -42,9 +41,8 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 />
                             </motion.div>
                         </Link>
-                        <ThemeSwitch>
-                            <GiBatMask />
-                        </ThemeSwitch>
+                        <ThemeSwitch />
+
                         {user ? (
                             <motion.div
                                 initial={{ x: 30, opacity: 0 }}

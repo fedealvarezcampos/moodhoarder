@@ -48,6 +48,7 @@
 .navItems {
     display: flex;
     padding: 0 2.2vw;
+    gap: 1.6rem;
     margin: auto;
     justify-content: space-between;
     place-items: center;

@@ -1,0 +1,13 @@
+.themeButton {
+    display: flex;
+    place-content: center;
+    margin-left: auto;
+    margin-top: 1px;
+    padding: 0.28rem 0.32rem 0.3rem 0.32rem;
+    font-size: 1.4rem;
+    width: fit-content;
+    border-radius: 12px;
+    color: var(--dark-item);
+    background-color: var(--clear-blue);
+    border: none;
+}
