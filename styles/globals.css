@@ -7,8 +7,8 @@
     --pink: #ffc5b0;
     --clear-blue: #bbd0e2;
     --bluegreen: #50808e;
-    --dark-item: #323b42;
-    --maybeblack: #1f2421;
+    --dark-item: #293136;
+    --maybeblack: #272727;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +19,7 @@
         --clear-blue: #304c66;
         --bluegreen: #50808e;
         --dark-item: #e2e2e2;
-        --maybeblack: #1f1f1f;
+        --maybeblack: #1d1d1d;
     }
 }
 
@@ -32,6 +32,8 @@ body {
     background-color: var(--cream);
     transition: background 250ms;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -65,11 +67,12 @@ button:hover {
 
 input {
     outline: none;
-    padding: 0.5rem;
+    padding: 0.45rem;
+    padding-left: 0.6rem;
     width: 14rem;
     border-radius: 12px;
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 700;
     border: 6px solid var(--clear-blue);
     background-color: var(--maybewhite);

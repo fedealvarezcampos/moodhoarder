@@ -48,7 +48,7 @@
 .navItems {
     display: flex;
     padding: 0 2.2vw;
-    gap: 1.6rem;
+    gap: 1.4rem;
     margin: auto;
     justify-content: space-between;
     place-items: center;
@@ -62,6 +62,7 @@
 
 .loginButton {
     cursor: pointer;
+    margin-left: auto;
     color: var(--maybewhite);
     font-size: 1.6rem;
     font-weight: 900;
