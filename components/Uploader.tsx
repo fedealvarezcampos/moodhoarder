@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
@@ -22,7 +22,7 @@ export interface Uploader {
 }
 
 const Uploader = ({ setNote, images, setImages }: Uploader) => {
-    const user = supabase.auth.user();
+    const user = supabase?.auth.user();
 
     const router = useRouter();
     const uid = new ShortUniqueId({ length: 16 });
@@ -41,7 +41,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                 const fileExt = file.name.split('.').pop();
 
                 if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
-                    notifyError('File/s must be jpg | webp | png!');
+                    alert('File/s must be jpg | webp | png !');
                     return;
                 }
 

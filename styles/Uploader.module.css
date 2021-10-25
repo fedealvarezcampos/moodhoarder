@@ -5,7 +5,7 @@
     border-radius: 22px;
     border: 8px solid var(--clear-blue);
     color: var(--maybewhite);
-    background-color: var(--dark-item);
+    background-color: var(--maybeblack);
 }
 
 .buttonsContainer {

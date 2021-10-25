@@ -39,7 +39,11 @@ const MyBoards: NextPage = () => {
                 <title>moodhoarder | my boards</title>
             </Head>
 
-            <div className={styles.pageTitle}>These are all your saved boards</div>
+            {myBoards?.length !== 0 ? (
+                <div className={styles.pageTitle}>These are all your saved boards</div>
+            ) : (
+                <div className={styles.pageTitle}>Your boards would be here... if you had any.</div>
+            )}
             {myBoards && (
                 <motion.ul
                     initial="initial"

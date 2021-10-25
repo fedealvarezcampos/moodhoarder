@@ -4,6 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 import { supabase } from '../lib/supabaseClient';
 import Gallery from '../components/Gallery';
 import Head from 'next/head';
+import { useSession } from '../context/SessionContext';
 
 export interface Boards {
     uuid: any;
@@ -11,10 +12,11 @@ export interface Boards {
 }
 
 const Home: NextPage = ({ images, setImages }: any) => {
+    const session = useSession();
+    const user = session?.user;
+
     const router = useRouter();
     const { board: boardID }: any = router.query;
-
-    const user = supabase.auth.user();
 
     const [board, setBoard] = useState<any>([]);
 
