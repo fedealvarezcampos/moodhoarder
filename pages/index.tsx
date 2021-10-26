@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Uploader from '../components/Uploader';
 import Head from 'next/head';
 
-const Home: NextPage = ({ setNote, images, setImages }: any) => {
+const Home: NextPage = ({ images, setImages }: any) => {
     return (
         <>
             <Head>
@@ -11,7 +11,7 @@ const Home: NextPage = ({ setNote, images, setImages }: any) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Uploader setNote={setNote} images={images} setImages={setImages} />
+            <Uploader images={images} setImages={setImages} />
         </>
     );
 };

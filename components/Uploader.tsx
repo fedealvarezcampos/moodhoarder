@@ -3,7 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
-import { notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from '../assets/toasts';
 import { v4 as uuidv4 } from 'uuid';
 import { nanoid } from 'nanoid';
 import Gallery from './Gallery';
@@ -16,15 +16,14 @@ export interface Gallery {
 }
 [];
 export interface Uploader {
-    setNote: Function;
     images: { file: File; filePath: string; preview: string }[];
     setImages: Function;
 }
 
-const Uploader = ({ setNote, images, setImages }: Uploader) => {
-    const user = supabase?.auth.user();
-
+const Uploader = ({ images, setImages }: Uploader) => {
     const router = useRouter();
+
+    const user = supabase?.auth.user();
 
     const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
     const [boardName, setBoardName] = useState<string>('');
@@ -40,7 +39,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                 const fileExt = file.name.split('.').pop();
 
                 if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
-                    alert('File/s must be jpg | webp | png !');
+                    notifyError('File/s must be jpg | webp | png !');
                     return;
                 }
 
@@ -52,7 +51,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
 
             setImages([...images, ...previewsArray]);
         } catch (error: any) {
-            console.log('Error: ', error.message);
+            notifyError(error.message);
         }
     }
 
@@ -93,10 +92,9 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
 
             navigator.clipboard.writeText(window.location.href + uuid);
 
-            data && setNote(true);
             notifyMessage('Board url copied to clipboard!');
         } catch (error: any) {
-            console.log('Error: ', error.message);
+            notifyError(error.message);
         }
     };
 
@@ -166,6 +164,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.35 }}
                     className={styles.noImages}
+                    suppressHydrationWarning
                 >
                     Your images will be here when you upload some. <br />
                     <br />

@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { supabase } from '../lib/supabaseClient';
-import Gallery from '../components/Gallery';
-import Head from 'next/head';
 import { useSession } from '../context/SessionContext';
+import Gallery from '../components/Gallery';
 import { notifyError, notifyMessage } from '../assets/toasts';
 
 export interface Boards {
@@ -37,7 +37,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
             setBoard(images);
             setImages([]);
         } catch (error: any) {
-            console.log(error.message);
+            notifyError(error.message);
         }
     };
 
@@ -45,10 +45,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
         try {
             setDeleteButtonLabel('Deleting...');
 
-            const { data, error }: any = await supabase
-                .from<Boards>('boards')
-                .delete()
-                .match({ uuid: boardID });
+            const { error }: any = await supabase.from<Boards>('boards').delete().match({ uuid: boardID });
 
             if (error) throw error;
             else {
@@ -58,7 +55,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
             notifyMessage('Board deleted!');
         } catch (error: any) {
-            console.log(error.message);
+            notifyError(error.message);
         } finally {
             router.push('/');
         }

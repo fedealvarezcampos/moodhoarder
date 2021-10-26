@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from '../styles/Login.module.css';
+import { notifyError, notifyMessage } from '../assets/toasts';
 
 export interface Login {
     setModal: Function;
@@ -17,14 +18,11 @@ function Login({ setModal }: Login) {
             const { error } = await supabase.auth.signIn({ email });
 
             if (error) throw error;
-            else {
-                const { data, error } = await supabase.from('users').insert([{ email: email }]);
 
-                if (error) throw error;
-            }
-            alert('Check your email for the login link!');
+            notifyMessage('Check your email for the login link!');
+            setModal(false);
         } catch (error: any) {
-            alert(error.error_description || error.message);
+            notifyError(error.error_description || error.message);
         } finally {
             setLoading(false);
         }

@@ -15,14 +15,13 @@ export interface Gallery {
 [];
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const [note, setNote] = useState<boolean>(false);
     const [images, setImages] = useState<Gallery[]>([]);
 
     return (
         <SessionContext>
             <Layout>
-                <Component {...pageProps} setNote={setNote} images={images} setImages={setImages} />
-                {note && <ToastContainer />}
+                <Component {...pageProps} images={images} setImages={setImages} />
+                <ToastContainer />
             </Layout>
         </SessionContext>
     );
