@@ -34,6 +34,7 @@ function ThemeSwitch() {
             whileHover={{ y: -1 }}
             whileTap={{ y: 0 }}
             className={styles.themeButton}
+            aria-label="theme changer button"
             onClick={() => handleThemeChange(inactiveTheme)}
         >
             {activeTheme === 'dark' ? <HiLightBulb /> : <GiBatMask />}

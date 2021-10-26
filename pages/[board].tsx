@@ -69,7 +69,11 @@ const Home: NextPage = ({ images, setImages }: any) => {
                 <title>moodhoarder | your moodboard</title>
             </Head>
 
-            {user && <button onClick={() => deleteBoard()}>Delete this board</button>}
+            {user && (
+                <button aria-label="delete board button" onClick={() => deleteBoard()}>
+                    Delete this board
+                </button>
+            )}
             <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />
         </>
     );

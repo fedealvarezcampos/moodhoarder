@@ -48,6 +48,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 animate={{ x: 0, opacity: 1 }}
                                 whileTap={{ x: 0 }}
                                 transition={{ duration: 0.2 }}
+                                aria-label="my boards button"
                                 className={styles.loginButton}
                             >
                                 <Link href="/myboards" passHref>
@@ -62,6 +63,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 whileHover={{ x: -1 }}
                                 whileTap={{ x: 0 }}
                                 transition={{ duration: 0.2 }}
+                                aria-label="login button"
                                 className={styles.loginButton}
                             >
                                 Log in

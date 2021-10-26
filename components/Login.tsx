@@ -60,6 +60,7 @@ function Login({ setModal }: Login) {
                                 whileHover={{ y: -3 }}
                                 whileTap={{ y: 0 }}
                                 transition={{ duration: 0.2 }}
+                                aria-label="send login mail button"
                                 className="button block"
                                 disabled={loading}
                             >

@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
-import { notifyError, notifyMessage } from '../assets/toasts';
+import { notifyMessage } from '../assets/toasts';
 import { v4 as uuidv4 } from 'uuid';
-import ShortUniqueId from 'short-unique-id';
+import { nanoid } from 'nanoid';
 import Gallery from './Gallery';
 import styles from '../styles/Uploader.module.css';
 
@@ -25,10 +25,9 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
     const user = supabase?.auth.user();
 
     const router = useRouter();
-    const uid = new ShortUniqueId({ length: 16 });
 
     const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
-    const [boardName, setBoardName] = useState('');
+    const [boardName, setBoardName] = useState<string>('');
 
     async function setPreviews(e: any) {
         e.preventDefault();
@@ -60,7 +59,8 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
     const uploadFiles = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
-            const uuid: string = uid();
+            const uuid = nanoid();
+
             let urls: string[] = [];
             setUploadButtonLabel('Saving board...');
 
@@ -134,6 +134,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                         whileTap={{ y: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={e => uploadFiles(e)}
+                        aria-label="publish board button"
                         className={styles.publishButton}
                     >
                         {uploadButtonLabel}
