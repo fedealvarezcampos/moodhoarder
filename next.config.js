@@ -2,7 +2,7 @@
 
 const ContentSecurityPolicy = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' *.supabase.in *.vercel.app *.vercel.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' *.supabase.in *.vercel.app *.vercel.com;
     child-src *.google.com *.supabase.in;
     style-src 'self' 'unsafe-inline' *.googleapis.com;
     img-src 'self' *.supabase.in blob: data:;
