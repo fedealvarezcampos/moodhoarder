@@ -16,6 +16,24 @@
     width: 80vw;
 }
 
+.sortButton {
+    display: flex;
+    justify-content: center;
+    width: 14.8rem;
+    padding-left: 2px;
+    padding-right: 12px;
+}
+
+.sortButton span {
+    display: flex;
+    place-items: center;
+}
+
+.sortButton span svg {
+    padding-top: 3px;
+    font-size: 1.8rem;
+}
+
 @media (max-width: 800px) {
     .pageTitle {
         font-size: 1.3rem;

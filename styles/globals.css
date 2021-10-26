@@ -15,7 +15,7 @@
     :root[data-theme='dark'] {
         --maybewhite: #f8f8f8;
         --cream: #313944;
-        --pink: #2d5e51;
+        --pink: #2c6657;
         --clear-blue: #304c66;
         --bluegreen: #50808e;
         --dark-item: #e2e2e2;
@@ -53,8 +53,8 @@ button {
     color: var(--dark-item);
     background-color: var(--clear-blue);
     border: none;
-    border-bottom: 6px solid var(--maybeblack);
-    border-radius: 10px;
+    border-bottom: 5px solid var(--maybeblack);
+    border-radius: 12px;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.5rem;
     font-weight: 900;
