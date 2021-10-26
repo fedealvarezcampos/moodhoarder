@@ -20,17 +20,20 @@ const Home: NextPage = ({ images, setImages }: any) => {
     const { board: boardID }: any = router.query;
 
     const [board, setBoard] = useState<any>([]);
+    const [boardTitle, setBoardTitle] = useState<string>();
+    const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
 
     const getBoard = async () => {
         try {
             const { data, error }: any = await supabase
                 .from<Boards>('boards')
-                .select('images')
+                .select('images, board_title')
                 .in('uuid', [boardID]);
 
             if (error) throw error;
 
             const images = data[0]?.images;
+            setBoardTitle(data[0]?.board_title);
             setBoard(images);
             setImages([]);
         } catch (error: any) {
@@ -40,6 +43,8 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
     const deleteBoard = async () => {
         try {
+            setDeleteButtonLabel('Deleting...');
+
             const { data, error }: any = await supabase
                 .from<Boards>('boards')
                 .delete()
@@ -66,12 +71,12 @@ const Home: NextPage = ({ images, setImages }: any) => {
     return (
         <>
             <Head>
-                <title>moodhoarder | your moodboard</title>
+                <title>moodhoarder{boardTitle && ` | ${boardTitle}`}</title>
             </Head>
 
             {user && (
                 <button aria-label="delete board button" onClick={() => deleteBoard()}>
-                    Delete this board
+                    {deleteButtonLabel}
                 </button>
             )}
             <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />

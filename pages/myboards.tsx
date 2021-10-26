@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { stagger } from '../styles/framer';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
+import { IoCaretDownOutline } from '@react-icons/all-files/io5/IoCaretDownOutline';
+import { IoCaretUpOutline } from '@react-icons/all-files/io5/IoCaretUpOutline';
 import BoardPreview from '../components/BoardPreview';
 import Head from 'next/head';
 import styles from '../styles/myboards.module.css';
@@ -11,13 +13,15 @@ const MyBoards: NextPage = () => {
     const user = supabase.auth.user();
 
     const [myBoards, setMyBoards] = useState<any>();
+    const [order, setOrder] = useState<boolean>(false);
 
-    const getBoards = async () => {
+    const getBoards = async (order: boolean) => {
         try {
             const { data, error }: any = await supabase
                 .from('boards')
-                .select('*')
-                .in('owner_uid', [user?.id]);
+                .select('id, board_title, images, uuid, owner_uid')
+                .in('owner_uid', [user?.id])
+                .order('created_at', { ascending: order });
 
             if (error) {
                 throw error;
@@ -30,8 +34,8 @@ const MyBoards: NextPage = () => {
     };
 
     useEffect(() => {
-        user && getBoards();
-    }, [user]);
+        user && getBoards(order);
+    }, [user, order]);
 
     return (
         <>
@@ -40,10 +44,43 @@ const MyBoards: NextPage = () => {
             </Head>
 
             {myBoards && myBoards?.length !== 0 && (
-                <div className={styles.pageTitle}>These are all your saved boards</div>
+                <>
+                    <motion.div
+                        initial={{ y: -30, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        className={styles.pageTitle}
+                    >
+                        These are all your saved boards
+                    </motion.div>
+                    <motion.button
+                        whileHover={{ y: -2 }}
+                        whileTap={{ y: -1 }}
+                        transition={{ duration: 0.2 }}
+                        className={styles.sortButton}
+                        onClick={() => setOrder(!order)}
+                    >
+                        {order ? (
+                            <span>
+                                <IoCaretDownOutline />
+                                Oldest to newest
+                            </span>
+                        ) : (
+                            <span>
+                                <IoCaretUpOutline />
+                                Newest to oldest
+                            </span>
+                        )}
+                    </motion.button>
+                </>
             )}
-            {!myBoards && myBoards?.length === 0 && (
-                <div className={styles.pageTitle}>Your boards would be here... if you had any.</div>
+            {myBoards && myBoards?.length === 0 && (
+                <motion.div
+                    initial={{ y: -30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className={styles.pageTitle}
+                >
+                    Your boards would be here... if you had any.
+                </motion.div>
             )}
             {myBoards && (
                 <motion.ul

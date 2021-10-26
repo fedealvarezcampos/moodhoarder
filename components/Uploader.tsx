@@ -141,7 +141,7 @@ const Uploader = ({ setNote, images, setImages }: Uploader) => {
                     </motion.button>
                 )}
             </motion.span>
-            {images.length !== 0 && (
+            {user && images.length !== 0 && (
                 <input
                     type="text"
                     name="boardName"

@@ -28,6 +28,13 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
         })
     );
 
+    const breakpointColumnsObj = {
+        default: (items?.length === 1 && 1) || (items?.length === 2 && 2) || (items?.length === 3 && 3) || 4,
+        1800: (items?.length === 1 && 1) || (items?.length === 2 && 2) || 3,
+        1300: (items?.length === 1 && 1) || 2,
+        900: 1,
+    };
+
     function handleDragEnd(event: { active: any; over: any }) {
         const { active, over } = event;
 
@@ -40,13 +47,6 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
             });
         }
     }
-
-    const breakpointColumnsObj = {
-        default: (items?.length === 1 && 1) || (items?.length === 2 && 2) || (items?.length === 3 && 3) || 4,
-        1800: (items?.length === 1 && 1) || (items?.length === 2 && 2) || 3,
-        1300: (items?.length === 1 && 1) || 2,
-        900: 1,
-    };
 
     return (
         <>
