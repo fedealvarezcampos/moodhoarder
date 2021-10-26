@@ -31,6 +31,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                 transition={{ duration: 0.5 }}
                                 whileHover={{ scale: 0.98, transition: { duration: 0.2 } }}
                                 whileTap={{ scale: 1.0, transition: { duration: 0.2 } }}
+                                className={styles.logo}
                             >
                                 <Image
                                     src="/images/logo.svg"
@@ -38,6 +39,7 @@ export default function Layout({ children }: ComponentWithChildProps) {
                                     width="100%"
                                     height="100%"
                                     layout="intrinsic"
+                                    priority
                                 />
                             </motion.div>
                         </Link>

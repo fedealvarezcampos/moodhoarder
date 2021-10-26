@@ -14,16 +14,16 @@
 }
 
 .noImages {
-    width: clamp(10rem, 60vw, 36rem);
+    width: clamp(10rem, 70vw, 36rem);
     text-align: center;
-    padding: 3rem 2.4rem;
-    margin-top: 10vh;
+    padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
+    margin-top: 8vh;
     font-weight: 900;
-    font-size: 2rem;
+    font-size: clamp(1rem, 3vw, 2rem);
     font-family: 'Source Sans Pro', sans-serif;
     color: var(--maybewhite);
-    border-radius: 35px;
-    border: 12px solid var(--clear-blue);
+    border-radius: clamp(25px, 1vw, 35px);
+    border: clamp(8px, 1vw, 12px) solid var(--clear-blue);
     background-color: var(--maybeblack);
 }
 
@@ -31,7 +31,7 @@
     .uploaderTitle {
         font-size: 1.2rem;
         padding: 0.8rem 0.9rem 0.8rem 0.9rem;
-        border: 5px solid var(--dark-item);
+        border: 5px solid var(--clear-blue);
     }
 
     .publishButton {

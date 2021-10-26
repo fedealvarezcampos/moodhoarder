@@ -43,7 +43,7 @@
     margin: auto;
 }
 
-.imageContainer div {
+.imageContainer span {
     position: relative !important;
 }
 
