@@ -58,6 +58,10 @@
     cursor: auto;
 }
 
+.noDragger:active {
+    cursor: auto;
+}
+
 @media (max-width: 800px) {
     .gallerySectionOuterContainer:last-child {
         margin-bottom: 0;

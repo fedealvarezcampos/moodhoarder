@@ -2,10 +2,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
-import { supabase } from '../lib/supabaseClient';
 import { useSession } from '../context/SessionContext';
-import Gallery from '../components/Gallery';
+import { supabase } from '../lib/supabaseClient';
 import { notifyError, notifyMessage } from '../assets/toasts';
+import Gallery from '../components/Gallery';
 
 export interface Boards {
     uuid: any;

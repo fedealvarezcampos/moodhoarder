@@ -22,7 +22,6 @@ export interface Uploader {
 
 const Uploader = ({ images, setImages }: Uploader) => {
     const router = useRouter();
-
     const user = supabase?.auth.user();
 
     const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
@@ -40,6 +39,11 @@ const Uploader = ({ images, setImages }: Uploader) => {
 
                 if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
                     notifyError('File/s must be jpg | webp | png !');
+                    return;
+                }
+
+                if (file?.size > 1100000) {
+                    notifyError('All files must be 1MB or less!');
                     return;
                 }
 
