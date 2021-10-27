@@ -76,6 +76,8 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                             src={img?.preview ? img?.preview : supabaseHost + img}
                             layout="fill"
                             alt="image in board"
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                         />
                     </motion.div>
                 </div>

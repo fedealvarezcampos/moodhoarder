@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GalleryItem from './GalleryItem';
-import Spinner from '../assets/spinner';
 import Masonry from 'react-masonry-css';
 import styles from '../styles/Gallery.module.css';
 
@@ -79,7 +78,6 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
                                             />
                                         ))}
                                 </Masonry>
-                                {!items && <Spinner />}
                             </div>
                         </SortableContext>
                     ) : (
@@ -100,7 +98,6 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
                                         />
                                     ))}
                             </Masonry>
-                            {!items && <Spinner />}
                         </div>
                     )}
                 </DndContext>

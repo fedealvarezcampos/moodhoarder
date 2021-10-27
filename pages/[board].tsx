@@ -5,6 +5,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
 import { notifyError, notifyMessage } from '../assets/toasts';
+import Spinner from '../assets/spinner';
 import Gallery from '../components/Gallery';
 
 export interface Boards {
@@ -22,9 +23,12 @@ const Home: NextPage = ({ images, setImages }: any) => {
     const [board, setBoard] = useState<any>([]);
     const [boardTitle, setBoardTitle] = useState<string>();
     const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const getBoard = async () => {
         try {
+            setLoading(true);
+
             const { data, error }: any = await supabase
                 .from<Boards>('boards')
                 .select('images, board_title')
@@ -38,6 +42,8 @@ const Home: NextPage = ({ images, setImages }: any) => {
             setImages([]);
         } catch (error: any) {
             notifyError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -77,6 +83,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
                 </button>
             )}
             <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />
+            {loading && <Spinner />}
         </>
     );
 };
