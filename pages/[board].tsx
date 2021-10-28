@@ -29,8 +29,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
     const [selectedPic, setSelectedPic] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
 
-    console.log(board);
-
     const getBoard = async () => {
         try {
             setLoading(true);
@@ -58,8 +56,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
         setBoardNav(true);
     };
 
-    console.log(selectedPic);
-
     const deleteBoard = async () => {
         try {
             setDeleteButtonLabel('Deleting...');
@@ -83,11 +79,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
     useEffect(() => {
         boardID && getBoard();
     }, [boardID]);
-
-    useEffect(() => {
-        boardNav && document.body.setAttribute('style', `overflow: hidden; margin-right: 15px;`);
-        !boardNav && document.body.removeAttribute('style');
-    }, [boardNav]);
 
     return (
         <>

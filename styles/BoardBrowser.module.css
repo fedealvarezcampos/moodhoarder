@@ -20,16 +20,17 @@
 
 .imageContainer {
     position: relative !important;
+    width: 100% !important;
 }
 
 .imageContainer span {
+    object-fit: contain;
     position: relative !important;
+    height: clamp(40rem, 50vw, 85vh) !important;
 }
 
 .imageComponent {
     object-fit: cover;
     position: relative !important;
-    width: clamp(20rem, 80vw, 50rem) !important;
-    height: 100% !important;
-    max-height: 90vh !important;
+    width: 100% !important;
 }
