@@ -24,10 +24,12 @@ function BoardBrowser({ image, setBoardNav }: BoardBrowser) {
                     <Image
                         src={supabaseHost + image}
                         layout="fill"
+                        // width="100%"
+                        // height="100%"
                         alt="image in board"
-                        quality={85}
-                        placeholder="blur"
-                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
+                        // quality={85}
+                        // placeholder="blur"
+                        // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                         className={styles.imageComponent}
                     />
                 </div>
