@@ -18,12 +18,12 @@
     height: fit-content;
 }
 
-.imageContainer {
-    /* position: relative !important; */
-    /* width: 100%; */
-    /* width: clamp(20rem, 80vw, 50rem); */
-    /* height: fit-content; */
-}
+/* .imageContainer {
+    position: relative !important;
+    width: 100%;
+    width: clamp(20rem, 80vw, 50rem);
+    height: fit-content;
+} */
 
 .imageContainer span {
     position: relative !important;

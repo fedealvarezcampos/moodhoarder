@@ -8,7 +8,7 @@ import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSen
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
-    handleSelected: Function;
+    handleSelected?: any;
     board?: string[];
     deleteFile?: any;
     boardID?: string;
