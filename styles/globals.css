@@ -90,3 +90,17 @@ input {
 ::-webkit-scrollbar-thumb {
     background-color: var(--clear-blue);
 }
+
+@media (max-width: 800px) {
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: unset;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: unset;
+    }
+}

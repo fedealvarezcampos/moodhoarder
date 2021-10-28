@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import GalleryItem from './GalleryItem';
 import Masonry from 'react-masonry-css';
 import styles from '../styles/Gallery.module.css';
-
+import { isMobile as mobile } from 'react-device-detect';
 import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
@@ -90,7 +89,7 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }
                             >
                                 {board &&
                                     board?.map((img: string, i: number) => (
-                                        <span key={i} onClick={() => handleSelected(img)}>
+                                        <span key={i} onClick={() => !mobile && handleSelected(img)}>
                                             <GalleryItem
                                                 boardID={boardID}
                                                 itemKey={i}

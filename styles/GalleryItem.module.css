@@ -61,9 +61,3 @@
 .noDragger:active {
     cursor: pointer;
 }
-
-/* @media (max-width: 800px) {
-    .gallerySectionOuterContainer:last-child {
-        margin-bottom: 0;
-    }
-} */
