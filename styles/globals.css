@@ -27,6 +27,7 @@ html,
 body {
     padding: 0;
     margin: 0;
+    width: 100%;
     font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
         Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: var(--cream);
@@ -76,4 +77,16 @@ input {
     font-weight: 700;
     border: 6px solid var(--clear-blue);
     background-color: var(--maybewhite);
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--maybeblack);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--clear-blue);
 }

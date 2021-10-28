@@ -55,15 +55,15 @@
 }
 
 .noDragger {
-    cursor: auto;
+    cursor: pointer;
 }
 
 .noDragger:active {
-    cursor: auto;
+    cursor: pointer;
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .gallerySectionOuterContainer:last-child {
         margin-bottom: 0;
     }
-}
+} */

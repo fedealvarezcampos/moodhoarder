@@ -22,6 +22,10 @@
         width: 90vw;
     }
 
+    .masonryColumn span:last-child div {
+        margin-bottom: 0;
+    }
+
     .noPadding {
         padding: 0;
         padding-top: 0.2rem;

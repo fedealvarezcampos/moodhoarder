@@ -38,7 +38,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
         }
     };
 
-    const style = transform
+    const dragStyle = transform
         ? {
               transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
               transition,
@@ -57,7 +57,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                     </span>
                 )}
                 <div
-                    style={style}
+                    style={dragStyle}
                     className={styles.gallerySectionContainer}
                     onMouseEnter={e => showButton(e, itemKey)}
                     onMouseLeave={e => hideButton(e, itemKey)}
@@ -76,6 +76,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                             src={img?.preview ? img?.preview : supabaseHost + img}
                             layout="fill"
                             alt="image in board"
+                            quality={70}
                             placeholder="blur"
                             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                         />

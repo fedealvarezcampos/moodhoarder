@@ -1,0 +1,39 @@
+.modalBG {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.692);
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.boardNavContainer {
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    height: fit-content;
+}
+
+.imageContainer {
+    /* position: relative !important; */
+    /* width: 100%; */
+    /* width: clamp(20rem, 80vw, 50rem); */
+    /* height: fit-content; */
+}
+
+.imageContainer span {
+    position: relative !important;
+}
+
+.imageComponent {
+    /* object-fit: c; */
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+}

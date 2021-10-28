@@ -19,8 +19,8 @@ function BoardPreview({ boardItem }: BoardPreview) {
     return (
         <Link href={'/' + boardItem?.uuid} passHref>
             <motion.li
-                whileHover={{ scale: 1.03, cursor: 'pointer', backgroundColor: 'var(--pink)' }}
-                whileTap={{ scale: 1.01 }}
+                whileHover={{ scale: 1.05, cursor: 'pointer', backgroundColor: 'var(--pink)' }}
+                whileTap={{ scale: 1.02 }}
                 variants={boardItemAnimation}
                 className={styles.boardItemContainer}
                 key={boardItem?.id}
@@ -31,6 +31,8 @@ function BoardPreview({ boardItem }: BoardPreview) {
                         layout="fill"
                         objectFit="cover"
                         alt="image in board"
+                        placeholder="blur"
+                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                     />
                 </div>
                 <div className={styles.boardTitle}>{boardItem?.board_title || 'untitled'} </div>

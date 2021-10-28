@@ -5,8 +5,10 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
 import { notifyError, notifyMessage } from '../assets/toasts';
+import { AnimatePresence } from 'framer-motion';
 import Spinner from '../assets/spinner';
 import Gallery from '../components/Gallery';
+import BoardBrowser from '../components/BoardBrowser';
 
 export interface Boards {
     uuid: any;
@@ -23,7 +25,11 @@ const Home: NextPage = ({ images, setImages }: any) => {
     const [board, setBoard] = useState<any>([]);
     const [boardTitle, setBoardTitle] = useState<string>();
     const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
+    const [boardNav, setBoardNav] = useState<boolean>(false);
+    const [selectedPic, setSelectedPic] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
+
+    console.log(board);
 
     const getBoard = async () => {
         try {
@@ -46,6 +52,13 @@ const Home: NextPage = ({ images, setImages }: any) => {
             setLoading(false);
         }
     };
+
+    const handleSelected = (img: string) => {
+        setSelectedPic(img);
+        setBoardNav(true);
+    };
+
+    console.log(selectedPic);
 
     const deleteBoard = async () => {
         try {
@@ -71,6 +84,11 @@ const Home: NextPage = ({ images, setImages }: any) => {
         boardID && getBoard();
     }, [boardID]);
 
+    useEffect(() => {
+        boardNav && document.body.setAttribute('style', `overflow: hidden; margin-right: 15px;`);
+        !boardNav && document.body.removeAttribute('style');
+    }, [boardNav]);
+
     return (
         <>
             <Head>
@@ -82,7 +100,16 @@ const Home: NextPage = ({ images, setImages }: any) => {
                     {deleteButtonLabel}
                 </button>
             )}
-            <Gallery board={board} boardID={boardID} items={images} setItems={setImages} />
+            <AnimatePresence>
+                {boardNav && <BoardBrowser key="boardNav" image={selectedPic} setBoardNav={setBoardNav} />}
+            </AnimatePresence>
+            <Gallery
+                board={board}
+                boardID={boardID}
+                items={images}
+                setItems={setImages}
+                handleSelected={handleSelected}
+            />
             {loading && <Spinner />}
         </>
     );

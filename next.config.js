@@ -50,6 +50,7 @@ module.exports = withBundleAnalyzer({
     reactStrictMode: true,
     images: {
         domains: ['bluhemglezuxswtcifom.supabase.in'],
+        formats: ['image/avif', 'image/webp'],
     },
     async headers() {
         return [

@@ -8,6 +8,7 @@ import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSen
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
+    handleSelected: Function;
     board?: string[];
     deleteFile?: any;
     boardID?: string;
@@ -16,7 +17,7 @@ type GalleryProps = {
     setItems: Function;
 };
 
-const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) => {
+const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }: GalleryProps) => {
     const sensors = useSensors(
         useSensor(MouseSensor),
         useSensor(TouchSensor, {
@@ -89,13 +90,14 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems }: GalleryProps) 
                             >
                                 {board &&
                                     board?.map((img: string, i: number) => (
-                                        <GalleryItem
-                                            boardID={boardID}
-                                            itemKey={i}
-                                            deleteFile={deleteFile}
-                                            img={img}
-                                            key={i}
-                                        />
+                                        <span key={i} onClick={() => handleSelected(img)}>
+                                            <GalleryItem
+                                                boardID={boardID}
+                                                itemKey={i}
+                                                deleteFile={deleteFile}
+                                                img={img}
+                                            />
+                                        </span>
                                     ))}
                             </Masonry>
                         </div>

@@ -1,12 +1,13 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { stagger } from '../styles/framer';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { IoCaretDownOutline } from '@react-icons/all-files/io5/IoCaretDownOutline';
 import { IoCaretUpOutline } from '@react-icons/all-files/io5/IoCaretUpOutline';
+import { notifyError } from '../assets/toasts';
 import BoardPreview from '../components/BoardPreview';
-import Head from 'next/head';
 import styles from '../styles/myboards.module.css';
 
 const MyBoards: NextPage = () => {
@@ -29,7 +30,7 @@ const MyBoards: NextPage = () => {
 
             setMyBoards(data);
         } catch (error: any) {
-            console.log(error.message);
+            notifyError(error.message);
         }
     };
 
