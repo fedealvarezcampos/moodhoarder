@@ -26,6 +26,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
     const [boardTitle, setBoardTitle] = useState<string>();
     const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
     const [boardNav, setBoardNav] = useState<boolean>(false);
+    const [ownerID, setOwnerID] = useState<string | null>();
     const [selectedPic, setSelectedPic] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,14 +36,17 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
             const { data, error }: any = await supabase
                 .from<Boards>('boards')
-                .select('images, board_title')
+                .select('images, board_title, owner_uid')
                 .in('uuid', [boardID]);
 
             if (error) throw error;
 
+            console.log(data);
+
             const images = data[0]?.images;
             setBoardTitle(data[0]?.board_title);
             setBoard(images);
+            setOwnerID(data[0]?.owner_uid);
             setImages([]);
         } catch (error: any) {
             notifyError(error.message);
@@ -86,7 +90,7 @@ const Home: NextPage = ({ images, setImages }: any) => {
                 <title>moodhoarder{boardTitle && ` | ${boardTitle}`}</title>
             </Head>
 
-            {user && (
+            {user && user?.id === ownerID && (
                 <motion.button
                     whileHover={{ y: -3 }}
                     whileTap={{ y: 0 }}
