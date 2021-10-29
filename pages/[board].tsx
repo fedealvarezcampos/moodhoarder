@@ -5,7 +5,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
 import { notifyError, notifyMessage } from '../assets/toasts';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Spinner from '../assets/spinner';
 import Gallery from '../components/Gallery';
 import BoardBrowser from '../components/BoardBrowser';
@@ -87,9 +87,15 @@ const Home: NextPage = ({ images, setImages }: any) => {
             </Head>
 
             {user && (
-                <button aria-label="delete board button" onClick={() => deleteBoard()}>
+                <motion.button
+                    whileHover={{ y: -3 }}
+                    whileTap={{ y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    aria-label="delete board button"
+                    onClick={() => deleteBoard()}
+                >
                     {deleteButtonLabel}
-                </button>
+                </motion.button>
             )}
             <AnimatePresence>
                 {boardNav && <BoardBrowser key="boardNav" image={selectedPic} setBoardNav={setBoardNav} />}
