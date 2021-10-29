@@ -31,6 +31,7 @@ function BoardPreview({ boardItem }: BoardPreview) {
                         layout="fill"
                         objectFit="cover"
                         alt="image in board"
+                        quality={35}
                         placeholder="blur"
                         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                     />

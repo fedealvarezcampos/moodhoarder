@@ -135,6 +135,18 @@ const Uploader = ({ images, setImages }: Uploader) => {
                         whileHover={{ y: -3 }}
                         whileTap={{ y: 0 }}
                         transition={{ duration: 0.2 }}
+                        onClick={() => setImages([])}
+                        aria-label="clear board button"
+                        className={styles.publishButton}
+                    >
+                        Clear board
+                    </motion.button>
+                )}
+                {images.length !== 0 && (
+                    <motion.button
+                        whileHover={{ y: -3 }}
+                        whileTap={{ y: 0 }}
+                        transition={{ duration: 0.2 }}
                         onClick={e => uploadFiles(e)}
                         aria-label="publish board button"
                         className={styles.publishButton}
