@@ -1,0 +1,57 @@
+.navContainer {
+    width: 100%;
+    background-color: var(--maybeblack);
+    border-bottom: 10px solid var(--clear-blue);
+    transition: all 250ms;
+}
+
+.navItems {
+    display: flex;
+    padding: 0 2.2vw;
+    gap: 1.4rem;
+    margin: auto;
+    justify-content: space-between;
+    place-items: center;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo span {
+    width: 18rem !important;
+    height: 6rem !important;
+    cursor: pointer;
+}
+
+.loginButton {
+    cursor: pointer;
+    margin-left: auto;
+    color: var(--maybewhite);
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-style: italic;
+    transition: color 300ms;
+}
+
+.loginButton:hover {
+    color: var(--pink);
+    transition: color 300ms;
+}
+
+@media (max-width: 800px) {
+    .navItems {
+        gap: 3vw;
+        padding: 0 5.6vw;
+    }
+
+    .loginButton {
+        font-size: 1.1rem;
+    }
+
+    .logo span {
+        width: 9rem !important;
+        height: 4.4rem !important;
+        margin-right: 2px !important;
+    }
+}
