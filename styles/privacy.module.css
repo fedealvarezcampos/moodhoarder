@@ -1,0 +1,26 @@
+.privacy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    width: clamp(10rem, 64vw, 45rem);
+    text-align: center;
+    padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
+    margin-top: 8vh;
+    font-weight: 900;
+    font-size: clamp(1rem, 2.4vw, 2rem);
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--maybewhite);
+    border-radius: clamp(25px, 1vw, 35px);
+    border: clamp(8px, 1vw, 12px) solid var(--clear-blue);
+    background-color: var(--maybeblack);
+}
+
+.privacy h1 {
+    margin: 0;
+    margin-bottom: -0.8vw;
+    margin-top: -1vw;
+}
+
+.privacy p {
+    margin: 0;
+}
