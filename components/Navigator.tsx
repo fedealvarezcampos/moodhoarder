@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
 import { useSession } from '../context/SessionContext';
 import { notifyError, notifyMessage } from '../assets/toasts';
+import { IoLogOut } from '@react-icons/all-files/io5/IoLogOut';
 import { motion } from 'framer-motion';
 import styles from '../styles/Navigator.module.css';
 
@@ -69,18 +70,6 @@ function Navigator({ setModal }: Navigator) {
                                 My boards
                             </Link>
                         </motion.div>
-                        <motion.div
-                            initial={{ x: 30, opacity: 0 }}
-                            whileHover={{ x: -1 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            whileTap={{ x: 0 }}
-                            transition={{ duration: 0.2 }}
-                            aria-label="logout button"
-                            className={styles.loginButton}
-                            onClick={() => handleLogOut()}
-                        >
-                            Log out
-                        </motion.div>
                     </>
                 ) : (
                     <motion.div
@@ -96,7 +85,20 @@ function Navigator({ setModal }: Navigator) {
                         Log in
                     </motion.div>
                 )}
-                <ThemeSwitch />
+                <div>
+                    {user && (
+                        <motion.button
+                            whileHover={{ y: -1 }}
+                            whileTap={{ y: 0 }}
+                            className={styles.logOutButton}
+                            aria-label="log out button"
+                            onClick={() => handleLogOut()}
+                        >
+                            <IoLogOut />
+                        </motion.button>
+                    )}
+                    <ThemeSwitch />
+                </div>
             </div>
         </nav>
     );

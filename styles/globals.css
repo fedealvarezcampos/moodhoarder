@@ -9,6 +9,7 @@
     --bluegreen: #50808e;
     --dark-item: #293136;
     --maybeblack: #272727;
+    --redish: #6a3c3c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,7 @@
         --bluegreen: #50808e;
         --dark-item: #e2e2e2;
         --maybeblack: #1d1d1d;
+        --redish: #6a3c3c;
     }
 }
 
