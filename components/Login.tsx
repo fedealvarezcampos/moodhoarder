@@ -28,6 +28,21 @@ function Login({ setModal }: Login) {
         }
     };
 
+    const handleGoogleLogin = async (e: any) => {
+        e.preventDefault();
+        try {
+            const { user, session, error } = await supabase.auth.signIn({
+                provider: 'google',
+            });
+
+            if (error) throw error;
+        } catch (error: any) {
+            notifyError(error.error_description || error.message);
+        } finally {
+            setModal(false);
+        }
+    };
+
     return (
         <>
             <motion.div
@@ -65,6 +80,19 @@ function Login({ setModal }: Login) {
                                 <span>{loading ? 'Loading' : 'Send magic link'}</span>
                             </motion.button>
                         </div>
+                        {/* <div>
+                            <motion.button
+                                onClick={e => handleGoogleLogin(e)}
+                                whileHover={{ y: -3 }}
+                                whileTap={{ y: 0 }}
+                                transition={{ duration: 0.2 }}
+                                aria-label="google login button"
+                                className="button block"
+                                disabled={loading}
+                            >
+                                <span>{loading ? 'Loading' : 'Google login'}</span>
+                            </motion.button>
+                        </div> */}
                     </div>
                 </div>
             </motion.div>

@@ -41,9 +41,10 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
             if (error) throw error;
 
-            console.log(data);
-
             const images = data[0]?.images;
+
+            if (!images) router.push('/');
+
             setBoardTitle(data[0]?.board_title);
             setBoard(images);
             setOwnerID(data[0]?.owner_uid);
