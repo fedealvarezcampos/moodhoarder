@@ -1,7 +1,7 @@
 .privacy {
     display: flex;
     flex-direction: column;
-    gap: 1.2vw;
+    gap: clamp(0.6rem, 1.8vw, 3rem);
     width: clamp(10rem, 64vw, 45rem);
     text-align: center;
     padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
@@ -16,9 +16,18 @@
 }
 
 .privacy h1 {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    gap: 0.1rem;
     margin: 0;
     margin-bottom: -0.8vw;
     margin-top: -1vw;
+    font-size: clamp(1.6rem, 4vw, 4rem);
+}
+
+.privacy svg {
+    font-size: clamp(1.2rem, 3.4vw, 3.4rem);
 }
 
 .privacy p {

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
-import styles from '../styles/Login.module.css';
 import { notifyError, notifyMessage } from '../assets/toasts';
+import { AiFillGoogleCircle } from '@react-icons/all-files/ai/AiFillGoogleCircle';
+import styles from '../styles/Login.module.css';
 
 export interface Login {
     setModal: Function;
@@ -56,43 +57,49 @@ function Login({ setModal }: Login) {
             >
                 <div className={styles.loginContainer}>
                     <div className={styles.inputsContainer}>
-                        <p className="description">Sign in via magic link</p>
-                        <input
-                            className="inputField"
-                            type="email"
-                            placeholder="Your email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
+                        <span>Sign in:</span>
+                        <form>
+                            <label>
+                                <span>With just your email</span>
+                                <input
+                                    name="email"
+                                    type="email"
+                                    placeholder="Your email"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </label>
+                            <div>
+                                <motion.button
+                                    onClick={e => {
+                                        e.preventDefault();
+                                        handleLogin(email);
+                                    }}
+                                    whileHover={{ y: -3 }}
+                                    whileTap={{ y: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    aria-label="send login mail button"
+                                    disabled={loading}
+                                >
+                                    <span>{loading ? 'Loading' : 'Send magic link'}</span>
+                                </motion.button>
+                            </div>
+                        </form>
                         <div>
-                            <motion.button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    handleLogin(email);
-                                }}
-                                whileHover={{ y: -3 }}
-                                whileTap={{ y: 0 }}
-                                transition={{ duration: 0.2 }}
-                                aria-label="send login mail button"
-                                className="button block"
-                                disabled={loading}
-                            >
-                                <span>{loading ? 'Loading' : 'Send magic link'}</span>
-                            </motion.button>
-                        </div>
-                        {/* <div>
+                            <span>With Google</span>
+                            <br />
                             <motion.button
                                 onClick={e => handleGoogleLogin(e)}
                                 whileHover={{ y: -3 }}
                                 whileTap={{ y: 0 }}
                                 transition={{ duration: 0.2 }}
                                 aria-label="google login button"
-                                className="button block"
                                 disabled={loading}
+                                className={styles.googleButton}
                             >
-                                <span>{loading ? 'Loading' : 'Google login'}</span>
+                                <AiFillGoogleCircle /> Google
                             </motion.button>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </motion.div>

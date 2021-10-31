@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
+import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import { notifyError, notifyMessage } from '../assets/toasts';
 import { IoLogOut } from '@react-icons/all-files/io5/IoLogOut';
@@ -18,6 +19,8 @@ interface Navigator {
 }
 
 function Navigator({ setModal }: Navigator) {
+    const router = useRouter();
+
     const session = useSession();
     const user = session?.user;
 
@@ -26,6 +29,8 @@ function Navigator({ setModal }: Navigator) {
             const { error } = await supabase.auth.signOut();
 
             if (error) throw error;
+
+            router.push('/');
 
             notifyMessage("You're logged out!");
         } catch (error: any) {

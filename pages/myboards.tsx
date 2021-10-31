@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { stagger } from '../styles/framer';
+import { useRouter } from 'next/dist/client/router';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { IoCaretDownOutline } from '@react-icons/all-files/io5/IoCaretDownOutline';
@@ -11,6 +12,7 @@ import BoardPreview from '../components/BoardPreview';
 import styles from '../styles/myboards.module.css';
 
 const MyBoards: NextPage = () => {
+    const router = useRouter();
     const user = supabase.auth.user();
 
     const [myBoards, setMyBoards] = useState<any>();
@@ -35,6 +37,7 @@ const MyBoards: NextPage = () => {
     };
 
     useEffect(() => {
+        if (!user) router.push('/');
         user && getBoards(order);
     }, [user, order]);
 

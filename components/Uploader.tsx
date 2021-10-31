@@ -156,14 +156,16 @@ const Uploader = ({ images, setImages }: Uploader) => {
                 )}
             </motion.span>
             {user && images.length !== 0 && (
-                <input
-                    type="text"
-                    name="boardName"
-                    id="boardName"
-                    placeholder="Name this board!"
-                    onChange={e => setBoardName(e.target.value)}
-                    className={styles.boardNameInput}
-                />
+                <form action="" onSubmit={e => uploadFiles(e)}>
+                    <input
+                        type="submit hidden"
+                        name="boardName"
+                        id="boardName"
+                        placeholder="Name this board!"
+                        onChange={e => setBoardName(e.target.value)}
+                        className={styles.boardNameInput}
+                    />
+                </form>
             )}
             <input
                 type="file"

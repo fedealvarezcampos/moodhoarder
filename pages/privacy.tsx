@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { AiFillFileText } from '@react-icons/all-files/ai/AiFillFileText';
 import styles from '../styles/privacy.module.css';
 
 function Privacy() {
@@ -10,14 +11,16 @@ function Privacy() {
             className={styles.privacy}
             suppressHydrationWarning
         >
-            <h1>Privacy</h1>
+            <h1>
+                <AiFillFileText /> Privacy
+            </h1>
             <p>
-                - We only use images with storing purposes, nothing else will be done with them. If you log
-                in, images will be deleted from server when erasing a board.
+                We only use images with storing purposes, nothing else will be done with them. If you log in,
+                images will be deleted from server when erasing a board.
             </p>
             <p>
-                - Your email is the only information we store of you, and independent from your login method
-                we will only use it for communication purposes regarding access to the site.
+                Your email is the only information we store of you, and independent from your login method we
+                will only use it for communication purposes regarding access to the site.
             </p>
         </motion.div>
     );
