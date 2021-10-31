@@ -9,9 +9,9 @@ import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSen
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
-    handleSelected?: (key: string | undefined) => void;
+    handleSelected?: (img: string) => void;
     board?: string[];
-    deleteFile: (key: string | undefined) => void;
+    deleteFile?: (key: string | undefined) => void;
     boardID?: string;
     note?: boolean;
     items: { file: File; filePath: string; preview: string }[];

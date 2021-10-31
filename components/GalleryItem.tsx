@@ -9,7 +9,7 @@ import styles from '../styles/GalleryItem.module.css';
 type GalleryItemProps = {
     boardID?: string;
     itemKey: number;
-    deleteFile: (key: string | undefined) => void;
+    deleteFile?: (key: string | undefined) => void;
     img: { filePath: string; preview: string };
 };
 
@@ -52,7 +52,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                     <span>
                         <RiDeleteBin2Fill
                             onMouseEnter={e => showButton(e, itemKey)}
-                            onClick={() => deleteFile(img?.preview)}
+                            onClick={() => deleteFile && deleteFile(img?.preview)}
                         />
                     </span>
                 )}
