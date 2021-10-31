@@ -9,9 +9,13 @@
 .inputsOuterContainer {
     display: flex;
     position: fixed;
+    height: fit-content;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
     place-content: center;
     place-items: center;
-    top: 35vh;
     color: var(--maybewhite);
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.6rem;
@@ -30,7 +34,7 @@
 }
 
 .inputsContainer {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     gap: 1.2rem;
     width: clamp(20rem, 50vw, 25rem);
@@ -65,4 +69,31 @@
     place-items: center;
     gap: 0.2rem;
     padding-left: 0.55rem;
+}
+
+@media (max-width: 800px) {
+    .inputsOuterContainer {
+        font-size: 1.4rem;
+    }
+
+    .inputsContainer {
+        gap: 0.6rem;
+        width: clamp(18rem, 50vw, 25rem);
+        padding: 1rem 1.5rem 1.6rem 1.5rem;
+    }
+
+    .inputsContainer input {
+        font-size: 1.2rem;
+        padding: 0.4rem;
+        width: 82%;
+    }
+
+    .inputsContainer > span:first-child {
+        font-size: 2rem;
+    }
+
+    .inputsContainer button:last-child {
+        margin-left: 0.1rem;
+        margin-top: 0.3rem;
+    }
 }

@@ -17,7 +17,7 @@
     width: clamp(10rem, 70vw, 36rem);
     text-align: center;
     padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
-    margin-top: 8vh;
+    margin-top: 6vh;
     font-weight: 900;
     font-size: clamp(1rem, 3vw, 2rem);
     font-family: 'Source Sans Pro', sans-serif;

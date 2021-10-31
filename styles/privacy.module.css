@@ -27,7 +27,8 @@
 }
 
 .privacy svg {
-    font-size: clamp(1.2rem, 3.4vw, 3.4rem);
+    margin-top: 1px;
+    font-size: clamp(1.2rem, 3.2vw, 3.2rem);
 }
 
 .privacy p {

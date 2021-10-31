@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { supabaseHost } from '../lib/constants';
 import { motion } from 'framer-motion';
@@ -5,7 +6,7 @@ import styles from '../styles/BoardBrowser.module.css';
 
 interface BoardBrowser {
     image: string | undefined;
-    setBoardNav: Function;
+    setBoardNav: Dispatch<SetStateAction<boolean>>;
 }
 
 function BoardBrowser({ image, setBoardNav }: BoardBrowser) {

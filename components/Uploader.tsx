@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
@@ -11,13 +11,13 @@ import styles from '../styles/Uploader.module.css';
 
 export interface Gallery {
     preview: string;
-    file: any;
+    file: File;
     filePath: string;
 }
 [];
 export interface Uploader {
     images: { file: File; filePath: string; preview: string }[];
-    setImages: Function;
+    setImages: Dispatch<SetStateAction<object[]>>;
 }
 
 const Uploader = ({ images, setImages }: Uploader) => {
@@ -102,7 +102,7 @@ const Uploader = ({ images, setImages }: Uploader) => {
         }
     };
 
-    const deleteFile = (key: string) => {
+    const deleteFile = (key: string | undefined) => {
         const filtered = images.filter((i: any, value: any) => i.preview !== key);
 
         setImages(filtered);

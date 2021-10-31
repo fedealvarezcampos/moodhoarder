@@ -9,8 +9,8 @@ import styles from '../styles/GalleryItem.module.css';
 type GalleryItemProps = {
     boardID?: string;
     itemKey: number;
-    deleteFile: (key: string) => void;
-    img: any;
+    deleteFile: (key: string | undefined) => void;
+    img: { filePath: string; preview: string };
 };
 
 const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) => {
@@ -52,7 +52,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                     <span>
                         <RiDeleteBin2Fill
                             onMouseEnter={e => showButton(e, itemKey)}
-                            onClick={() => deleteFile(img.preview)}
+                            onClick={() => deleteFile(img?.preview)}
                         />
                     </span>
                 )}
@@ -76,7 +76,7 @@ const GalleryItem = ({ boardID, itemKey, deleteFile, img }: GalleryItemProps) =>
                             src={img?.preview ? img?.preview : supabaseHost + img}
                             layout="fill"
                             alt="image in board"
-                            quality={50}
+                            quality={70}
                             placeholder="blur"
                             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
                         />

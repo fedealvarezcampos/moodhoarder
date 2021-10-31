@@ -1,19 +1,21 @@
+import { Dispatch, SetStateAction } from 'react';
+import { Gallery } from '../pages/_app';
 import { AnimatePresence } from 'framer-motion';
-import GalleryItem from './GalleryItem';
 import Masonry from 'react-masonry-css';
+import GalleryItem from './GalleryItem';
 import styles from '../styles/Gallery.module.css';
 import { isMobile as mobile } from 'react-device-detect';
 import { DndContext, closestCorners, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
 
 type GalleryProps = {
-    handleSelected?: any;
+    handleSelected?: (key: string | undefined) => void;
     board?: string[];
-    deleteFile?: any;
+    deleteFile: (key: string | undefined) => void;
     boardID?: string;
     note?: boolean;
     items: { file: File; filePath: string; preview: string }[];
-    setItems: Function;
+    setItems: Dispatch<SetStateAction<object[]>>;
 };
 
 const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }: GalleryProps) => {
@@ -58,7 +60,7 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }
                 >
                     {!boardID && items && !board ? (
                         <SortableContext
-                            items={items?.map((i: any) => i?.filePath)}
+                            items={items?.map((el: { filePath: string }) => el?.filePath)}
                             strategy={rectSortingStrategy}
                         >
                             <div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
@@ -88,8 +90,11 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }
                                 columnClassName={styles.masonryColumn}
                             >
                                 {board &&
-                                    board?.map((img: string, i: number) => (
-                                        <span key={i} onClick={() => !mobile && handleSelected(img)}>
+                                    board?.map((img: any, i: number) => (
+                                        <span
+                                            key={i}
+                                            onClick={() => !mobile && handleSelected && handleSelected(img)}
+                                        >
                                             <GalleryItem
                                                 boardID={boardID}
                                                 itemKey={i}
