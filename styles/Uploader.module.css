@@ -2,6 +2,7 @@
     font-size: 1.4rem;
     font-weight: 900;
     padding: 0.8rem 1.1rem 0.8rem 1.1rem;
+    margin-bottom: 5px;
     border-radius: 22px;
     border: 8px solid var(--clear-blue);
     color: var(--maybewhite);
@@ -29,12 +30,19 @@
 
 @media (max-width: 800px) {
     .uploaderTitle {
-        font-size: 1.2rem;
-        padding: 0.8rem 0.9rem 0.8rem 0.9rem;
-        border: 5px solid var(--clear-blue);
+        font-size: 1.3rem;
+        padding: 0.8rem 1rem 0.8rem 1rem;
+        border: 7px solid var(--clear-blue);
     }
 
     .publishButton {
         font-size: 1.4rem;
+    }
+
+    .buttonsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        place-content: center;
+        gap: 0.9rem;
     }
 }
