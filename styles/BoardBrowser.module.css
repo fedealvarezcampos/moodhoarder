@@ -26,11 +26,11 @@
 .imageContainer span {
     object-fit: contain;
     position: relative !important;
-    width: clamp(30rem, 70vw, 60vh) !important;
+    width: clamp(28rem, 80vw, 60vh) !important;
+    max-width: 60vh;
 }
 
 .imageComponent {
-    /* object-fit: cover; */
     position: relative !important;
     height: 100% !important;
 }
