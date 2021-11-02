@@ -38,6 +38,24 @@
     transition: background-color 400ms;
 }
 
+.footer {
+    width: 100%;
+    height: fit-content;
+    padding: 0.6rem;
+    padding-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: var(--dark-item);
+    border-top: 3px solid var(--dark-item);
+}
+
+.footer span:first-child:hover {
+    cursor: pointer;
+}
+
 @media (max-width: 800px) {
     .main {
         width: 100%;

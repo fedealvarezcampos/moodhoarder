@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactNode, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import Login from './Login';
 import Navigator from './Navigator';
 import styles from '../styles/layout.module.css';
@@ -17,6 +18,12 @@ export default function Layout({ children }: ComponentWithChildProps) {
                 <AnimatePresence exitBeforeEnter>
                     {modal && <Login setModal={setModal} key={'loginKey'} />}
                 </AnimatePresence>
+                <footer className={styles.footer}>
+                    <Link href="/privacy" passHref>
+                        <span>TOS | Privacy</span>
+                    </Link>
+                    <span>moodhoarder © 2021</span>
+                </footer>
             </div>
         </>
     );
