@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useClosingKey = (key, state, setState) => {
+const useClosingKey = (key, state = true, setState) => {
     useEffect(() => {
         const f = e => {
             if (e.code === key) {

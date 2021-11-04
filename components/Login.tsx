@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
+import { useClosingKey } from '../helpers/useClosingKey';
 import { notifyError, notifyMessage } from '../assets/toasts';
 import { AiFillGoogleCircle } from '@react-icons/all-files/ai/AiFillGoogleCircle';
 import styles from '../styles/Login.module.css';
@@ -28,6 +29,8 @@ function Login({ setModal }: Login) {
             setLoading(false);
         }
     };
+
+    useClosingKey('Escape', undefined, setModal);
 
     const handleGoogleLogin = async (e: any) => {
         e.preventDefault();
