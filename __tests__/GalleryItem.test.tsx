@@ -1,15 +1,30 @@
 import { render } from '@testing-library/react';
 import GalleryItem from '../components/GalleryItem';
 
-test('renders', () => {
-    const boardId = '123';
+describe('<GalleryItem />', () => {
+    let component: any;
 
-    const img = {
-        filePath: '/string',
-        preview: '/string',
-    };
+    beforeEach(() => {
+        const boardID = '12345';
 
-    const component = render(<GalleryItem boardID={boardId} itemKey={123} img={img} />);
+        const img = {
+            filePath: '/string',
+            preview: '/string',
+        };
 
-    console.log(component);
+        component = render(<GalleryItem boardID={boardID} itemKey={123} img={img} />);
+    });
+
+    test('renders component', () => {
+        // expect(component.container).toContainHTML('cacharroContainer'); // fails
+        expect(component.container).toContainHTML('imageContainer'); // passes
+
+        // component.debug();
+    });
+
+    test('button calls delete function', () => {
+        const mockHandler = jest.fn();
+
+        const button = component.getAllByText('RiDeleteBin2Fill');
+    });
 });
