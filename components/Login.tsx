@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { Provider } from '@supabase/gotrue-js';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
 import { useClosingKey } from '../helpers/useClosingKey';
 import { notifyError, notifyMessage } from '../assets/toasts';
 import { AiFillGoogleCircle } from '@react-icons/all-files/ai/AiFillGoogleCircle';
+import { AiFillTwitterCircle } from '@react-icons/all-files/ai/AiFillTwitterCircle';
 import styles from '../styles/Login.module.css';
 
 export interface Login {
@@ -30,13 +32,11 @@ function Login({ setModal }: Login) {
         }
     };
 
-    useClosingKey('Escape', undefined, setModal);
-
-    const handleGoogleLogin = async (e: any) => {
+    const handleProviderLogin = async (e: any, provider: Provider) => {
         e.preventDefault();
         try {
-            const { user, session, error } = await supabase.auth.signIn({
-                provider: 'google',
+            const { error } = await supabase.auth.signIn({
+                provider: provider,
             });
 
             if (error) throw error;
@@ -46,6 +46,8 @@ function Login({ setModal }: Login) {
             setModal(false);
         }
     };
+
+    useClosingKey('Escape', undefined, setModal);
 
     return (
         <>
@@ -92,7 +94,7 @@ function Login({ setModal }: Login) {
                             <span>With Google</span>
                             <br />
                             <motion.button
-                                onClick={e => handleGoogleLogin(e)}
+                                onClick={e => handleProviderLogin(e, 'google')}
                                 whileHover={{ y: -3 }}
                                 whileTap={{ y: 0 }}
                                 transition={{ duration: 0.2 }}
@@ -101,6 +103,21 @@ function Login({ setModal }: Login) {
                                 className={styles.googleButton}
                             >
                                 <AiFillGoogleCircle /> Google
+                            </motion.button>
+                        </div>
+                        <div>
+                            <span>With Twitter</span>
+                            <br />
+                            <motion.button
+                                onClick={e => handleProviderLogin(e, 'twitter')}
+                                whileHover={{ y: -3 }}
+                                whileTap={{ y: 0 }}
+                                transition={{ duration: 0.2 }}
+                                aria-label="google login button"
+                                disabled={loading}
+                                className={styles.googleButton}
+                            >
+                                <AiFillTwitterCircle /> Twitter
                             </motion.button>
                         </div>
                     </div>
