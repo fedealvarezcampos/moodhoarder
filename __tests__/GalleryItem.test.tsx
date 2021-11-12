@@ -26,5 +26,7 @@ describe('<GalleryItem />', () => {
         const mockHandler = jest.fn();
 
         const button = component.getAllByText('RiDeleteBin2Fill');
+
+        component.debug();
     });
 });

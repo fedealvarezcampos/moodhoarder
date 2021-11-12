@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface BoardPreview {
+export interface boardPreview {
     boardItem: {
         id: number;
         uuid: string;
@@ -15,7 +15,7 @@ interface BoardPreview {
 }
 [];
 
-function BoardPreview({ boardItem }: BoardPreview) {
+function BoardPreview({ boardItem }: boardPreview) {
     return (
         <Link href={'/' + boardItem?.uuid} passHref>
             <motion.li

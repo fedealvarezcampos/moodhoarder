@@ -7,7 +7,7 @@
 
 .boardsContainer {
     padding: 0;
-    margin-top: 0.2rem;
+    margin-top: 0.8rem;
     list-style: none;
     display: flex;
     flex-wrap: wrap;
@@ -41,6 +41,7 @@
 
     .boardsContainer {
         justify-content: center;
+        margin-top: 0.5rem;
         gap: 1.2rem;
         width: 100vw;
     }

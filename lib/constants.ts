@@ -7,8 +7,5 @@ export const supabaseHost = 'https://bluhemglezuxswtcifom.supabase.in/storage/v1
 
 export type Profile = {
     id: string;
-    avatar_url: string;
-    username: string;
-    website: string;
     updated_at: string;
 };

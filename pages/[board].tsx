@@ -90,7 +90,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
             <Head>
                 <title>moodhoarder{boardTitle && ` | ${boardTitle}`}</title>
             </Head>
-
             {user && user?.id === ownerID && (
                 <motion.button
                     whileHover={{ y: -3 }}
