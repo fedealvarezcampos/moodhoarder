@@ -15,6 +15,7 @@ export interface Gallery {
     filePath: string;
 }
 [];
+
 export interface Uploader {
     images: { file: File; filePath: string; preview: string }[];
     setImages: Dispatch<SetStateAction<object[]>>;

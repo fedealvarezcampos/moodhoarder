@@ -22,11 +22,11 @@ describe('<GalleryItem />', () => {
         // component.debug();
     });
 
-    test('button calls delete function', () => {
-        const mockHandler = jest.fn();
+    // test('button calls delete function', () => {
+    //     const mockHandler = jest.fn();
 
-        const button = component.getAllByText('RiDeleteBin2Fill');
+    //     const button = component.getAllByText('RiDeleteBin2Fill');
 
-        component.debug();
-    });
+    //     component.debug();
+    // });
 });

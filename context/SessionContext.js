@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 
-const ModalContext = createContext();
+const UserContext = createContext();
 
 function SessionContext({ children }) {
     const [session, setSession] = useState(null);
@@ -14,10 +14,10 @@ function SessionContext({ children }) {
         });
     }, []);
 
-    return <ModalContext.Provider value={[session, setSession]}>{children}</ModalContext.Provider>;
+    return <UserContext.Provider value={[session, setSession]}>{children}</UserContext.Provider>;
 }
 
-export const useSession = () => useContext(ModalContext)[0];
-export const useSetSession = () => useContext(ModalContext)[1];
+export const useSession = () => useContext(UserContext)[0];
+export const useSetSession = () => useContext(UserContext)[1];
 
 export default SessionContext;
