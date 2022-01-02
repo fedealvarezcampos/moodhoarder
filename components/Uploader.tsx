@@ -10,192 +10,196 @@ import Gallery from './Gallery';
 import styles from '../styles/Uploader.module.css';
 
 export interface Gallery {
-    preview: string;
-    file: File;
-    filePath: string;
+	preview: string;
+	file: File;
+	filePath: string;
 }
 [];
 
 export interface Uploader {
-    images: { file: File; filePath: string; preview: string }[];
-    setImages: Dispatch<SetStateAction<object[]>>;
+	images: { file: File; filePath: string; preview: string }[];
+	setImages: Dispatch<SetStateAction<object[]>>;
 }
 
 const Uploader = ({ images, setImages }: Uploader) => {
-    const router = useRouter();
-    const user = supabase?.auth.user();
+	const router = useRouter();
+	const user = supabase?.auth.user();
 
-    const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
-    const [boardName, setBoardName] = useState<string>('');
+	const [uploadButtonLabel, setUploadButtonLabel] = useState<string>('Save & share');
+	const [boardName, setBoardName] = useState<string>('');
 
-    async function setPreviews(e: any) {
-        e.preventDefault();
-        try {
-            const files = e.target.files;
+	async function setPreviews(e: any) {
+		e.preventDefault();
+		try {
+			const files = e.target.files;
 
-            let previewsArray: Gallery[] = [];
+			console.log(files);
 
-            for (const file of files) {
-                const fileExt = file.name.split('.').pop();
+			let previewsArray: Gallery[] = [];
 
-                if (fileExt !== 'jpg' && fileExt !== 'png' && fileExt !== 'jpeg' && fileExt !== 'webp') {
-                    notifyError('File/s must be jpg | webp | png !');
-                    return;
-                }
+			for (const file of files) {
+				const fileExt = file.name.split('.').pop();
 
-                if (file?.size > 1100000) {
-                    notifyError('All files must be 1MB or less!');
-                    return;
-                }
+				if (
+					file?.type !== 'image/png' &&
+					file?.type !== 'image/webp' &&
+					file?.type !== 'image/jpeg'
+				) {
+					notifyError('File/s must be jpg | webp | png !');
+					return;
+				}
 
-                const fileName = `${uuidv4()}.${fileExt}`;
+				if (file?.size > 1200000) {
+					notifyError('All files must be 1MB or less!');
+					return;
+				}
 
-                const url = URL.createObjectURL(file);
-                previewsArray.push({ preview: url, file: file, filePath: fileName });
-            }
+				const fileName = `${uuidv4()}.${fileExt}`;
 
-            setImages([...images, ...previewsArray]);
-        } catch (error: any) {
-            notifyError(error.message);
-        }
-    }
+				const url = URL.createObjectURL(file);
+				previewsArray.push({ preview: url, file: file, filePath: fileName });
+			}
 
-    const uploadFiles = async (e: { preventDefault: () => void }) => {
-        e.preventDefault();
-        try {
-            const uuid = nanoid();
+			setImages([...images, ...previewsArray]);
+		} catch (error: any) {
+			notifyError(error.message);
+		}
+	}
 
-            let urls: string[] = [];
-            setUploadButtonLabel('Saving board...');
+	const uploadFiles = async (e: { preventDefault: () => void }) => {
+		e.preventDefault();
+		try {
+			const uuid = nanoid();
 
-            for (const image of images) {
-                const fileName = image.filePath;
-                const file = image.file;
+			let urls: string[] = [];
+			setUploadButtonLabel('Saving board...');
 
-                let { error: uploadError } = await supabase.storage
-                    .from(BOARDS_BUCKET)
-                    .upload(fileName, file);
+			for (const image of images) {
+				const fileName = image.filePath;
+				const file = image.file;
 
-                if (uploadError) {
-                    throw uploadError;
-                }
+				let { error: uploadError } = await supabase.storage
+					.from(BOARDS_BUCKET)
+					.upload(fileName, file);
 
-                urls.push(fileName);
-            }
+				if (uploadError) {
+					throw uploadError;
+				}
 
-            const { data, error } = await supabase
-                .from('boards')
-                .insert([
-                    { uuid: uuid, images: urls, owner_uid: user?.id || null, board_title: boardName || null },
-                ]);
+				urls.push(fileName);
+			}
 
-            if (error) {
-                throw error;
-            }
+			const { data, error } = await supabase
+				.from('boards')
+				.insert([
+					{ uuid: uuid, images: urls, owner_uid: user?.id || null, board_title: boardName || null },
+				]);
 
-            router.push(uuid);
+			if (error) throw error;
 
-            navigator.clipboard.writeText(window.location.href + uuid);
+			router.push(uuid);
 
-            notifyMessage('Board url copied to clipboard!');
-        } catch (error: any) {
-            notifyError(error.message);
-        }
-    };
+			navigator.clipboard.writeText(window.location.href + uuid);
 
-    const deleteFile = (key: string | undefined) => {
-        const filtered = images.filter((i: any, value: any) => i.preview !== key);
+			notifyMessage('Board url copied to clipboard!');
+		} catch (error: any) {
+			notifyError(error.message);
+		}
+	};
 
-        setImages(filtered);
-    };
+	const deleteFile = (key: string | undefined) => {
+		const filtered = images.filter((i: any, value: any) => i.preview !== key);
 
-    return (
-        <>
-            <motion.div
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className={styles.uploaderTitle}
-            >
-                UPLOAD IMAGES HERE
-            </motion.div>
-            <motion.span
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className={styles.buttonsContainer}
-            >
-                <motion.label
-                    whileHover={{ y: -3 }}
-                    whileTap={{ y: 0 }}
-                    transition={{ duration: 0.2 }}
-                    htmlFor="uploader"
-                >
-                    Add files
-                </motion.label>
-                {images.length !== 0 && (
-                    <motion.button
-                        whileHover={{ y: -3 }}
-                        whileTap={{ y: 0 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => setImages([])}
-                        aria-label="clear board button"
-                        className={styles.publishButton}
-                    >
-                        Clear board
-                    </motion.button>
-                )}
-                {images.length !== 0 && (
-                    <motion.button
-                        whileHover={{ y: -3 }}
-                        whileTap={{ y: 0 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={e => uploadFiles(e)}
-                        aria-label="publish board button"
-                        className={styles.publishButton}
-                    >
-                        {uploadButtonLabel}
-                    </motion.button>
-                )}
-            </motion.span>
-            {user && images.length !== 0 && (
-                <form action="" onSubmit={e => uploadFiles(e)}>
-                    <input
-                        type="submit hidden"
-                        name="boardName"
-                        id="boardName"
-                        placeholder="Name this board!"
-                        onChange={e => setBoardName(e.target.value)}
-                        className={styles.boardNameInput}
-                    />
-                </form>
-            )}
-            <input
-                type="file"
-                name="uploader"
-                multiple
-                accept="image/jpeg, image/png, image/webp"
-                id="uploader"
-                onChange={setPreviews}
-            />
+		setImages(filtered);
+	};
 
-            {images?.length === 0 ? (
-                <motion.div
-                    initial={{ y: 30, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.35 }}
-                    className={styles.noImages}
-                    suppressHydrationWarning
-                >
-                    Your images will be here when you upload some. <br />
-                    <br />
-                    {user
-                        ? "You're logged in so your boards will be saved to your profile."
-                        : 'Log in if you want to save your moodboards to your profile!'}
-                </motion.div>
-            ) : (
-                <Gallery deleteFile={deleteFile} items={images} setItems={setImages} />
-            )}
-        </>
-    );
+	return (
+		<>
+			<motion.div
+				initial={{ y: 10, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				className={styles.uploaderTitle}
+			>
+				UPLOAD IMAGES HERE
+			</motion.div>
+			<motion.span
+				initial={{ y: 10, opacity: 0 }}
+				animate={{ y: 0, opacity: 1 }}
+				className={styles.buttonsContainer}
+			>
+				<motion.label
+					whileHover={{ y: -3 }}
+					whileTap={{ y: 0 }}
+					transition={{ duration: 0.2 }}
+					htmlFor="uploader"
+				>
+					Add files
+				</motion.label>
+				{images.length !== 0 && (
+					<motion.button
+						whileHover={{ y: -3 }}
+						whileTap={{ y: 0 }}
+						transition={{ duration: 0.2 }}
+						onClick={() => setImages([])}
+						aria-label="clear board button"
+						className={styles.publishButton}
+					>
+						Clear board
+					</motion.button>
+				)}
+				{images.length !== 0 && (
+					<motion.button
+						whileHover={{ y: -3 }}
+						whileTap={{ y: 0 }}
+						transition={{ duration: 0.2 }}
+						onClick={e => uploadFiles(e)}
+						aria-label="publish board button"
+						className={styles.publishButton}
+					>
+						{uploadButtonLabel}
+					</motion.button>
+				)}
+			</motion.span>
+			{user && images.length !== 0 && (
+				<form action="" onSubmit={e => uploadFiles(e)}>
+					<input
+						type="submit hidden"
+						name="boardName"
+						id="boardName"
+						placeholder="Name this board!"
+						onChange={e => setBoardName(e.target.value)}
+						className={styles.boardNameInput}
+					/>
+				</form>
+			)}
+			<input
+				type="file"
+				name="uploader"
+				multiple
+				accept="image/jpeg, image/png, image/webp"
+				id="uploader"
+				onChange={setPreviews}
+			/>
+
+			{images?.length === 0 ? (
+				<motion.div
+					initial={{ y: 30, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{ duration: 0.35 }}
+					className={styles.noImages}
+					suppressHydrationWarning
+				>
+					Your images will be here when you upload some. <br />
+					<br />
+					{user
+						? "You're logged in so your boards will be saved to your profile."
+						: 'Log in if you want to save your moodboards to your profile!'}
+				</motion.div>
+			) : (
+				<Gallery deleteFile={deleteFile} items={images} setItems={setImages} />
+			)}
+		</>
+	);
 };
 
 export default Uploader;
