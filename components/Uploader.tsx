@@ -33,8 +33,6 @@ const Uploader = ({ images, setImages }: Uploader) => {
 		try {
 			const files = e.target.files;
 
-			console.log(files);
-
 			let previewsArray: Gallery[] = [];
 
 			for (const file of files) {

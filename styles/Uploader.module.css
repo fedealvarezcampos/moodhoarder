@@ -1,48 +1,54 @@
 .uploaderTitle {
-    font-size: 1.4rem;
-    font-weight: 900;
-    padding: 0.8rem 1.1rem 0.8rem 1.1rem;
-    margin-bottom: 5px;
-    border-radius: 22px;
-    border: 8px solid var(--clear-blue);
-    color: var(--maybewhite);
-    background-color: var(--maybeblack);
+	font-size: 1.4rem;
+	font-weight: 900;
+	padding: 0.8rem 1.1rem 0.8rem 1.1rem;
+	margin-bottom: 5px;
+	border-radius: 22px;
+	border: 8px solid var(--clear-blue);
+	color: var(--maybewhite);
+	background-color: var(--maybeblack);
 }
 
 .buttonsContainer {
-    display: flex;
-    gap: 1rem;
+	display: flex;
+	gap: 1rem;
 }
 
 .noImages {
-    width: clamp(10rem, 70vw, 36rem);
-    text-align: center;
-    padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
-    margin-top: 6vh;
-    font-weight: 900;
-    font-size: clamp(1rem, 3vw, 2rem);
-    font-family: 'Source Sans Pro', sans-serif;
-    color: var(--maybewhite);
-    border-radius: clamp(25px, 1vw, 35px);
-    border: clamp(8px, 1vw, 12px) solid var(--clear-blue);
-    background-color: var(--maybeblack);
+	width: clamp(10rem, 70vw, 36rem);
+	text-align: center;
+	padding: clamp(1.5rem, 3.2vw, 3rem) clamp(1.2rem, 2vw, 3rem);
+	margin-top: 6vh;
+	font-weight: 900;
+	font-size: clamp(1rem, 3vw, 2rem);
+	font-family: 'Source Sans Pro', sans-serif;
+	color: var(--maybewhite);
+	border-radius: clamp(25px, 1vw, 35px);
+	border: clamp(8px, 1vw, 12px) solid var(--clear-blue);
+	background-color: var(--maybeblack);
 }
 
 @media (max-width: 800px) {
-    .uploaderTitle {
-        font-size: 1.3rem;
-        padding: 0.8rem 1rem 0.8rem 1rem;
-        border: 7px solid var(--clear-blue);
-    }
+	.uploaderTitle {
+		font-size: 1.3rem;
+		padding: 0.8rem 1rem 0.8rem 1rem;
+		border: 7px solid var(--clear-blue);
+	}
 
-    .publishButton {
-        font-size: 1.4rem;
-    }
+	.publishButton {
+		font-size: 1.4rem;
+	}
 
-    .buttonsContainer {
-        display: flex;
-        flex-wrap: wrap;
-        place-content: center;
-        gap: 0.9rem;
-    }
+	.buttonsContainer {
+		display: flex;
+		flex-wrap: wrap;
+		place-content: center;
+		gap: 0.9rem;
+	}
+
+	.noImages {
+		width: 75vw;
+		margin-top: 3vh;
+		padding: 1.4rem 1.2rem;
+	}
 }
