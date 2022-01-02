@@ -1,48 +1,46 @@
 .pageTitle {
-    color: var(--dark-item);
-    font-weight: 800;
-    font-style: italic;
-    font-size: 1.8rem;
+	color: var(--dark-item);
+	font-weight: 800;
+	font-style: italic;
+	font-size: 1.8rem;
+
+	@media (max-width: 800px) {
+		font-size: 1.3rem;
+	}
 }
 
 .boardsContainer {
-    padding: 0;
-    margin-top: 0.8rem;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.8rem;
-    width: 80vw;
+	padding: 0;
+	margin-top: 0.8rem;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.8rem;
+	width: 80vw;
+
+	@media (max-width: 800px) {
+		justify-content: center;
+		margin-top: 0.5rem;
+		gap: 1.2rem;
+		width: 100vw;
+	}
 }
 
 .sortButton {
-    display: flex;
-    justify-content: center;
-    width: 14.8rem;
-    padding-left: 2px;
-    padding-right: 12px;
-}
+	display: flex;
+	justify-content: center;
+	width: 14.8rem;
+	padding-left: 2px;
+	padding-right: 12px;
 
-.sortButton span {
-    display: flex;
-    place-items: center;
-}
+	span {
+		display: flex;
+		place-items: center;
 
-.sortButton span svg {
-    padding-top: 3px;
-    font-size: 1.8rem;
-}
-
-@media (max-width: 800px) {
-    .pageTitle {
-        font-size: 1.3rem;
-    }
-
-    .boardsContainer {
-        justify-content: center;
-        margin-top: 0.5rem;
-        gap: 1.2rem;
-        width: 100vw;
-    }
+		svg {
+			padding-top: 3px;
+			font-size: 1.8rem;
+		}
+	}
 }

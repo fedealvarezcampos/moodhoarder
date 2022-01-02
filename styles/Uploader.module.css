@@ -7,11 +7,30 @@
 	border: 8px solid var(--clear-blue);
 	color: var(--maybewhite);
 	background-color: var(--maybeblack);
+
+	@media (max-width: 800px) {
+		font-size: 1.3rem;
+		padding: 0.8rem 1rem 0.8rem 1rem;
+		border: 7px solid var(--clear-blue);
+	}
 }
 
 .buttonsContainer {
 	display: flex;
 	gap: 1rem;
+
+	@media (max-width: 800px) {
+		display: flex;
+		flex-wrap: wrap;
+		place-content: center;
+		gap: 0.9rem;
+	}
+}
+
+.publishButton {
+	@media (max-width: 800px) {
+		font-size: 1.4rem;
+	}
 }
 
 .noImages {
@@ -26,27 +45,8 @@
 	border-radius: clamp(25px, 1vw, 35px);
 	border: clamp(8px, 1vw, 12px) solid var(--clear-blue);
 	background-color: var(--maybeblack);
-}
 
-@media (max-width: 800px) {
-	.uploaderTitle {
-		font-size: 1.3rem;
-		padding: 0.8rem 1rem 0.8rem 1rem;
-		border: 7px solid var(--clear-blue);
-	}
-
-	.publishButton {
-		font-size: 1.4rem;
-	}
-
-	.buttonsContainer {
-		display: flex;
-		flex-wrap: wrap;
-		place-content: center;
-		gap: 0.9rem;
-	}
-
-	.noImages {
+	@media (max-width: 800px) {
 		width: 75vw;
 		margin-top: 3vh;
 		padding: 1.4rem 1.2rem;

@@ -1,33 +1,37 @@
 .masonry {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    width: 85vw;
-    padding-top: 1.2rem;
+	display: flex;
+	justify-content: center;
+	gap: 25px;
+	width: 85vw;
+	padding-top: 1.2rem;
+
+	@media (max-width: 800px) {
+		padding-top: 1rem;
+		width: 90vw;
+	}
 }
 
 .masonryColumn {
-    background-clip: padding-box;
-    max-width: 600px;
+	background-clip: padding-box;
+	max-width: 600px;
+
+	@media (max-width: 800px) {
+		padding-top: 1rem;
+		width: 90vw;
+	}
 }
 
 .noPadding {
-    padding: 0;
-    padding-top: 0.3rem;
+	padding: 0;
+	padding-top: 0.3rem;
+
+	@media (max-width: 800px) {
+		padding-top: 0.2rem;
+	}
 }
 
 @media (max-width: 800px) {
-    .masonry {
-        padding-top: 1rem;
-        width: 90vw;
-    }
-
-    .masonryColumn span:last-child div {
-        margin-bottom: 0;
-    }
-
-    .noPadding {
-        padding: 0;
-        padding-top: 0.2rem;
-    }
+	.masonryColumn span:last-child div {
+		margin-bottom: 0;
+	}
 }
