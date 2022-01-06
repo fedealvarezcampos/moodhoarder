@@ -83,26 +83,24 @@ input {
 
 ::-webkit-scrollbar {
 	width: 15px;
+
+	@media (max-width: 800px) {
+		width: 0px;
+	}
 }
 
 ::-webkit-scrollbar-track {
 	background: var(--maybeblack);
+
+	@media (max-width: 800px) {
+		background: unset;
+	}
 }
 
 ::-webkit-scrollbar-thumb {
 	background-color: var(--clear-blue);
-}
 
-@media (max-width: 800px) {
-	::-webkit-scrollbar {
-		width: 0px;
-	}
-
-	::-webkit-scrollbar-track {
-		background: unset;
-	}
-
-	::-webkit-scrollbar-thumb {
+	@media (max-width: 800px) {
 		background-color: unset;
 	}
 }
