@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-// import { Gallery } from '../pages/_app';
 import { AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import GalleryItem from './GalleryItem';
