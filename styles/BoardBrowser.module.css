@@ -10,12 +10,30 @@
 }
 
 .boardNavContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 	top: 0;
 	bottom: 0;
 	margin-top: auto;
 	margin-bottom: auto;
 	position: absolute;
 	height: fit-content;
+
+	.navigation {
+		display: flex;
+		place-self: center;
+		gap: 2rem;
+		button {
+			padding: 0.45rem;
+			place-self: center;
+			height: fit-content;
+
+			svg {
+				display: flex;
+			}
+		}
+	}
 }
 
 .imageContainer {
