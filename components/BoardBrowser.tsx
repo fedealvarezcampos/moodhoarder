@@ -2,47 +2,68 @@ import { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { supabaseHost } from '../lib/constants';
 import { motion } from 'framer-motion';
+import { AiFillCaretLeft } from '@react-icons/all-files/ai/AiFillCaretLeft';
+import { AiFillCaretRight } from '@react-icons/all-files/ai/AiFillCaretRight';
+import { useClosingKey, useNavKey } from '../helpers/useKeys';
 import styles from '../styles/BoardBrowser.module.css';
 
 interface BoardBrowser {
-    image: string | undefined;
-    setBoardNav: Dispatch<SetStateAction<boolean>>;
+	image: string | undefined;
+	images: string[];
+	setBoardNav: Dispatch<SetStateAction<boolean>>;
+	imageKey: number;
+	setImageKey: Dispatch<SetStateAction<number>>;
 }
 
-function BoardBrowser({ image, setBoardNav }: BoardBrowser) {
-    return (
-        <>
-            <motion.div
-                initial={{ y: -30, opacity: 0, zIndex: 3 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 40, opacity: 0, zIndex: 3 }}
-                transition={{
-                    duration: 0.3,
-                }}
-                className={styles.boardNavContainer}
-            >
-                <div className={styles.imageContainer}>
-                    <Image
-                        src={supabaseHost + image}
-                        layout="fill"
-                        alt="image in board"
-                        quality={85}
-                        placeholder="blur"
-                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
-                        className={styles.imageComponent}
-                    />
-                </div>
-            </motion.div>
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className={styles.modalBG}
-                onClick={() => setBoardNav(false)}
-            />
-        </>
-    );
+function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: BoardBrowser) {
+	useNavKey(imageKey, setImageKey, images?.length);
+	useClosingKey('Escape', true, setBoardNav);
+
+	return (
+		<>
+			<motion.div
+				initial={{ y: -30, opacity: 0, zIndex: 3 }}
+				animate={{ y: 0, opacity: 1 }}
+				exit={{ y: 40, opacity: 0, zIndex: 3 }}
+				transition={{
+					duration: 0.3,
+				}}
+				className={styles.boardNavContainer}
+			>
+				<div className={styles.imageContainer}>
+					<Image
+						src={supabaseHost + image}
+						layout="fill"
+						alt="image in board"
+						quality={85}
+						placeholder="blur"
+						blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
+						className={styles.imageComponent}
+					/>
+				</div>
+				<div className={styles.navigation}>
+					{imageKey !== 0 && (
+						<button onClick={() => setImageKey(imageKey - 1)}>
+							<AiFillCaretLeft />
+						</button>
+					)}
+					{images?.length !== imageKey + 1 && (
+						<button onClick={() => setImageKey(imageKey + 1)}>
+							<AiFillCaretRight />
+						</button>
+					)}
+				</div>
+			</motion.div>
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+				transition={{ duration: 0.3 }}
+				className={styles.modalBG}
+				onClick={() => setBoardNav(false)}
+			/>
+		</>
+	);
 }
 
 export default BoardBrowser;

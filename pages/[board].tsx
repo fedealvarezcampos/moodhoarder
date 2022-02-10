@@ -11,109 +11,122 @@ import Gallery from '../components/Gallery';
 import BoardBrowser from '../components/BoardBrowser';
 
 export interface Boards {
-    uuid: any;
-    images: string[] | undefined;
+	uuid: string;
+	images: string[] | undefined;
 }
 
 const Home: NextPage = ({ images, setImages }: any) => {
-    const session = useSession();
-    const user = session?.user;
+	const session = useSession();
+	const user = session?.user;
 
-    const router = useRouter();
-    const { board: boardID }: any = router.query;
+	const router = useRouter();
+	const { board: boardID }: any = router.query;
 
-    const [board, setBoard] = useState<any>([]);
-    const [boardTitle, setBoardTitle] = useState<string>();
-    const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
-    const [boardNav, setBoardNav] = useState<boolean>(false);
-    const [ownerID, setOwnerID] = useState<string | null>();
-    const [selectedPic, setSelectedPic] = useState<string>();
-    const [loading, setLoading] = useState<boolean>(false);
+	const [board, setBoard] = useState<string[]>([]);
+	const [boardTitle, setBoardTitle] = useState<string>();
+	const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
+	const [boardNav, setBoardNav] = useState<boolean>(false);
+	const [ownerID, setOwnerID] = useState<string | null>();
+	const [imageKey, setImageKey] = useState<number>(0);
 
-    const getBoard = async () => {
-        try {
-            setLoading(true);
+	const [loading, setLoading] = useState<boolean>(false);
 
-            const { data, error }: any = await supabase
-                .from<Boards>('boards')
-                .select('images, board_title, owner_uid')
-                .in('uuid', [boardID]);
+	useEffect(() => {
+		const getBoard = async () => {
+			try {
+				setLoading(true);
 
-            if (error) throw error;
+				const { data, error }: any = await supabase
+					.from<Boards>('boards')
+					.select('images, board_title, owner_uid')
+					.in('uuid', [boardID]);
 
-            const images = data[0]?.images;
+				if (error) throw error;
 
-            if (!images) router.push('/');
+				const images = data[0]?.images;
 
-            setBoardTitle(data[0]?.board_title);
-            setBoard(images);
-            setOwnerID(data[0]?.owner_uid);
-            setImages([]);
-        } catch (error: any) {
-            notifyError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+				if (!images) router.push('/');
 
-    const handleSelected = (img: string) => {
-        setSelectedPic(img);
-        setBoardNav(true);
-    };
+				setBoardTitle(data[0]?.board_title);
+				setBoard(images);
+				setOwnerID(data[0]?.owner_uid);
+				setImages([]);
+			} catch (error: any) {
+				notifyError(error.message);
+			} finally {
+				setLoading(false);
+			}
+		};
 
-    const deleteBoard = async () => {
-        try {
-            setDeleteButtonLabel('Deleting...');
+		boardID && getBoard();
+	}, [boardID, router, setImages]);
 
-            const { error }: any = await supabase.from<Boards>('boards').delete().match({ uuid: boardID });
+	const handleSelected = (key: number) => {
+		setImageKey(key);
+		setBoardNav(true);
+	};
 
-            if (error) throw error;
-            else {
-                const { error } = await supabase.storage.from('boards').remove(board);
-                if (error) throw error;
-            }
+	console.log(images.length);
 
-            notifyMessage('Board deleted!');
-        } catch (error: any) {
-            notifyError(error.message);
-        } finally {
-            router.push('/');
-        }
-    };
+	const deleteBoard = async () => {
+		try {
+			setDeleteButtonLabel('Deleting...');
 
-    useEffect(() => {
-        boardID && getBoard();
-    }, [boardID]);
+			const { error }: any = await supabase.from<Boards>('boards').delete().match({ uuid: boardID });
 
-    return (
-        <>
-            <Head>
-                <title>moodhoarder{boardTitle && ` | ${boardTitle}`}</title>
-            </Head>
-            {user && user?.id === ownerID && (
-                <motion.button
-                    whileHover={{ y: -3 }}
-                    whileTap={{ y: 0 }}
-                    transition={{ duration: 0.2 }}
-                    aria-label="delete board button"
-                    onClick={() => deleteBoard()}
-                >
-                    {deleteButtonLabel}
-                </motion.button>
-            )}
-            <AnimatePresence>
-                {boardNav && <BoardBrowser key="boardNav" image={selectedPic} setBoardNav={setBoardNav} />}
-            </AnimatePresence>
-            <Gallery
-                board={board}
-                boardID={boardID}
-                items={images}
-                setItems={setImages}
-                handleSelected={handleSelected}
-            />
-            {loading && <Spinner />}
-        </>
-    );
+			if (error) throw error;
+			else {
+				const { error } = await supabase.storage.from('boards').remove(board);
+				if (error) throw error;
+			}
+
+			notifyMessage('Board deleted!');
+		} catch (error: any) {
+			notifyError(error.message);
+		} finally {
+			router.push('/');
+		}
+	};
+
+	return (
+		<>
+			<Head>
+				<title>moodhoarder{boardTitle && ` | ${boardTitle}`}</title>
+			</Head>
+			{user && user?.id === ownerID && (
+				<motion.button
+					whileHover={{ y: -3 }}
+					whileTap={{ y: 0 }}
+					transition={{ duration: 0.2 }}
+					aria-label="delete board button"
+					onClick={() => deleteBoard()}
+				>
+					{deleteButtonLabel}
+				</motion.button>
+			)}
+			<AnimatePresence>
+				{boardNav && (
+					<BoardBrowser
+						key="boardNav"
+						image={board[imageKey]}
+						imageKey={imageKey}
+						images={board}
+						setImageKey={setImageKey}
+						setBoardNav={setBoardNav}
+					/>
+				)}
+			</AnimatePresence>
+			<Gallery
+				board={board}
+				boardID={boardID}
+				// items={images}
+				setItems={setImages}
+				setImageKey={setImageKey}
+				handleSelected={handleSelected}
+			/>
+			{loading && <Spinner />}
+		</>
+	);
 };
 
 export default Home;
