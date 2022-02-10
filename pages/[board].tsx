@@ -66,8 +66,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
 		setBoardNav(true);
 	};
 
-	console.log(images.length);
-
 	const deleteBoard = async () => {
 		try {
 			setDeleteButtonLabel('Deleting...');
