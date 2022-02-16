@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import { supabaseHost } from '../lib/constants';
 import { motion } from 'framer-motion';
 import { AiFillCaretLeft } from '@react-icons/all-files/ai/AiFillCaretLeft';
 import { AiFillCaretRight } from '@react-icons/all-files/ai/AiFillCaretRight';
 import { useClosingKey, useNavKey } from '../helpers/useKeys';
+import Spinner from '../assets/spinner';
 import styles from '../styles/BoardBrowser.module.css';
 
 interface BoardBrowser {
@@ -19,17 +20,20 @@ function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: Boa
 	useNavKey(imageKey, setImageKey, images?.length);
 	useClosingKey('Escape', true, setBoardNav);
 
+	const [imageLoaded, setImageLoaded] = useState(false);
+
 	return (
 		<>
 			<motion.div
 				initial={{ y: -30, opacity: 0, zIndex: 3 }}
 				animate={{ y: 0, opacity: 1 }}
-				exit={{ y: 40, opacity: 0, zIndex: 3 }}
+				exit={{ opacity: 0, zIndex: 3 }}
 				transition={{
 					duration: 0.3,
 				}}
 				className={styles.boardNavContainer}
 			>
+				{!imageLoaded && <Spinner />}
 				<div className={styles.imageContainer}>
 					<Image
 						src={supabaseHost + image}
@@ -37,10 +41,12 @@ function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: Boa
 						alt="image in board"
 						quality={85}
 						placeholder="blur"
+						onLoad={() => setImageLoaded(true)}
 						blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
 						className={styles.imageComponent}
 					/>
 				</div>
+
 				<div className={styles.navigation}>
 					{imageKey !== 0 && (
 						<button onClick={() => setImageKey(imageKey - 1)}>
