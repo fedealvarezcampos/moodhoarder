@@ -86,6 +86,12 @@ const Home: NextPage = ({ images, setImages }: any) => {
 		}
 	};
 
+	const [layoutEffect, setLayoutEffect] = useState(false);
+
+	useEffect(() => {
+		setLayoutEffect(true);
+	}, []);
+
 	return (
 		<>
 			<Head>
@@ -102,18 +108,20 @@ const Home: NextPage = ({ images, setImages }: any) => {
 					{deleteButtonLabel}
 				</motion.button>
 			)}
-			<AnimatePresence>
-				{boardNav && (
-					<BoardBrowser
-						key="boardNav"
-						image={board[imageKey]}
-						imageKey={imageKey}
-						images={board}
-						setImageKey={setImageKey}
-						setBoardNav={setBoardNav}
-					/>
-				)}
-			</AnimatePresence>
+			{layoutEffect && (
+				<AnimatePresence>
+					{boardNav && (
+						<BoardBrowser
+							key="boardNav"
+							image={board[imageKey]}
+							imageKey={imageKey}
+							images={board}
+							setImageKey={setImageKey}
+							setBoardNav={setBoardNav}
+						/>
+					)}
+				</AnimatePresence>
+			)}
 			<Gallery
 				board={board}
 				boardID={boardID}

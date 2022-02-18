@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import GalleryItem from './GalleryItem';
@@ -19,6 +19,12 @@ type GalleryProps = {
 };
 
 const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }: GalleryProps) => {
+	const [layoutEffect, setLayoutEffect] = useState(false);
+
+	useEffect(() => {
+		setLayoutEffect(true);
+	}, []);
+
 	const sensors = useSensors(
 		useSensor(MouseSensor),
 		useSensor(TouchSensor, {
@@ -51,63 +57,65 @@ const Gallery = ({ board, deleteFile, boardID, items, setItems, handleSelected }
 
 	return (
 		<>
-			<AnimatePresence>
-				<DndContext
-					autoScroll={false}
-					sensors={sensors}
-					collisionDetection={closestCorners}
-					onDragEnd={handleDragEnd}
-				>
-					{!boardID && items && !board ? (
-						<SortableContext
-							items={items?.map((el: { filePath: string }) => el?.filePath)}
-							strategy={rectSortingStrategy}
-						>
+			{layoutEffect && (
+				<AnimatePresence>
+					<DndContext
+						autoScroll={false}
+						sensors={sensors}
+						collisionDetection={closestCorners}
+						onDragEnd={handleDragEnd}
+					>
+						{!boardID && items && !board ? (
+							<SortableContext
+								items={items?.map((el: { filePath: string }) => el?.filePath)}
+								strategy={rectSortingStrategy}
+							>
+								<div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
+									<Masonry
+										breakpointCols={breakpointColumnsObj}
+										className={styles.masonry}
+										columnClassName={styles.masonryColumn}
+									>
+										{items &&
+											items?.map((img: any, i: number) => (
+												<GalleryItem
+													boardID={boardID}
+													itemKey={i}
+													deleteFile={deleteFile}
+													img={img}
+													key={i}
+												/>
+											))}
+									</Masonry>
+								</div>
+							</SortableContext>
+						) : (
 							<div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
 								<Masonry
 									breakpointCols={breakpointColumnsObj}
-									className={styles.masonry}
+									className={`${styles.masonry} ${styles.noPadding}`}
 									columnClassName={styles.masonryColumn}
 								>
-									{items &&
-										items?.map((img: any, i: number) => (
-											<GalleryItem
-												boardID={boardID}
-												itemKey={i}
-												deleteFile={deleteFile}
-												img={img}
+									{board &&
+										board?.map((img: any, i: number) => (
+											<span
 												key={i}
-											/>
+												onClick={() => !mobile && handleSelected && handleSelected(i)}
+											>
+												<GalleryItem
+													boardID={boardID}
+													itemKey={i}
+													deleteFile={deleteFile}
+													img={img}
+												/>
+											</span>
 										))}
 								</Masonry>
 							</div>
-						</SortableContext>
-					) : (
-						<div className={`${styles.galleryContainer} ${boardID && styles.noPadding}`}>
-							<Masonry
-								breakpointCols={breakpointColumnsObj}
-								className={`${styles.masonry} ${styles.noPadding}`}
-								columnClassName={styles.masonryColumn}
-							>
-								{board &&
-									board?.map((img: any, i: number) => (
-										<span
-											key={i}
-											onClick={() => !mobile && handleSelected && handleSelected(i)}
-										>
-											<GalleryItem
-												boardID={boardID}
-												itemKey={i}
-												deleteFile={deleteFile}
-												img={img}
-											/>
-										</span>
-									))}
-							</Masonry>
-						</div>
-					)}
-				</DndContext>
-			</AnimatePresence>
+						)}
+					</DndContext>
+				</AnimatePresence>
+			)}
 		</>
 	);
 };
