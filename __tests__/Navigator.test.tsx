@@ -1,23 +1,28 @@
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import Navigator from '../components/Navigator';
 import SessionContext from '../context/SessionContext';
 
 describe('<Navigator />', () => {
-    let component: any;
+	let component: any;
 
-    beforeEach(() => {
-        component = render(
-            <SessionContext>
-                <Navigator setModal={jest.fn()} />
-            </SessionContext>
-        );
-    });
+	beforeEach(async () => {
+		const promise = Promise.resolve();
+		const handleSetModal = jest.fn(() => promise);
 
-    test('renders component', () => {
-        // expect(component.container).toContainHTML('cacharroContainer'); // fails
+		component = render(
+			<SessionContext>
+				<Navigator setModal={handleSetModal} />
+			</SessionContext>
+		);
 
-        expect(component.container).toContainHTML('navContainer'); // passes
+		await act(() => promise);
+	});
 
-        component.debug();
-    });
+	test('renders component', async () => {
+		// expect(component.container).toContainHTML('cacharroContainer'); // fails
+
+		expect(component.container).toContainHTML('navContainer'); // passes
+
+		// component.debug();
+	});
 });
