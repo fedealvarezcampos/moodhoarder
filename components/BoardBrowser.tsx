@@ -28,6 +28,23 @@ function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: Boa
 				initial={{ y: -30, opacity: 0, zIndex: 3 }}
 				animate={{ y: 0, opacity: 1 }}
 				exit={{ opacity: 0, zIndex: 3 }}
+				className={styles.navigation}
+			>
+				{imageKey !== 0 && (
+					<button onClick={() => setImageKey(imageKey - 1)}>
+						<AiFillCaretLeft />
+					</button>
+				)}
+				{images?.length !== imageKey + 1 && (
+					<button onClick={() => setImageKey(imageKey + 1)}>
+						<AiFillCaretRight />
+					</button>
+				)}
+			</motion.div>
+			<motion.div
+				initial={{ y: -30, opacity: 0, zIndex: 3 }}
+				animate={{ y: 0, opacity: 1 }}
+				exit={{ opacity: 0, zIndex: 3 }}
 				transition={{
 					duration: 0.3,
 				}}
@@ -45,19 +62,6 @@ function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: Boa
 						blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOMNgYAAO8AkE7ayCwAAAAASUVORK5CYII="
 						className={styles.imageComponent}
 					/>
-				</div>
-
-				<div className={styles.navigation}>
-					{imageKey !== 0 && (
-						<button onClick={() => setImageKey(imageKey - 1)}>
-							<AiFillCaretLeft />
-						</button>
-					)}
-					{images?.length !== imageKey + 1 && (
-						<button onClick={() => setImageKey(imageKey + 1)}>
-							<AiFillCaretRight />
-						</button>
-					)}
 				</div>
 			</motion.div>
 			<motion.div

@@ -4,17 +4,17 @@ import { supabase } from '../lib/supabaseClient';
 const UserContext = createContext();
 
 function SessionContext({ children }) {
-    const [session, setSession] = useState(null);
+	const [session, setSession] = useState(null);
 
-    useEffect(() => {
-        setSession(supabase.auth.session());
+	useEffect(() => {
+		setSession(supabase.auth.session());
 
-        supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-        });
-    }, []);
+		supabase.auth.onAuthStateChange((_event, session) => {
+			setSession(session);
+		});
+	}, []);
 
-    return <UserContext.Provider value={[session, setSession]}>{children}</UserContext.Provider>;
+	return <UserContext.Provider value={[session, setSession]}>{children}</UserContext.Provider>;
 }
 
 export const useSession = () => useContext(UserContext)[0];
