@@ -50,8 +50,8 @@ function BoardBrowser({ image, images, setBoardNav, setImageKey, imageKey }: Boa
 				}}
 				className={styles.boardNavContainer}
 			>
-				{!imageLoaded && <Spinner />}
 				<div className={styles.imageContainer}>
+					{!imageLoaded && <Spinner />}
 					<Image
 						src={supabaseHost + image}
 						layout="fill"
