@@ -42,15 +42,46 @@
 .imageContainer {
 	position: relative !important;
 	width: 100% !important;
+	background-color: var(--pink);
+	background-image: repeating-radial-gradient(var(--pink), var(--cream) 1.2%);
+	filter: saturate(80%);
+	will-change: auto;
+	animation: back 250ms linear infinite;
+	transition: all 500ms;
+
+	&.firstLoad {
+		background-image: unset;
+		background-color: unset;
+	}
 
 	span {
 		object-fit: contain;
 		position: relative !important;
 		width: clamp(28rem, 80vw, 55vh) !important;
 	}
+
+	img {
+		position: relative !important;
+		height: 100% !important;
+	}
+}
+.imageLoading {
+	display: none;
+	transform: scale(1.05);
+	filter: opacity(0%) grayscale(30%) blur(10px);
 }
 
-.imageComponent {
-	position: relative !important;
-	height: 100% !important;
+.imageLoaded {
+	transform: scale(1);
+	filter: opacity(100%) grayscale(0) blur(0);
+	transition: all 1s;
+}
+
+@keyframes back {
+	from {
+		background-size: 100% 100%;
+	}
+	to {
+		background-size: 220% 220%;
+	}
 }

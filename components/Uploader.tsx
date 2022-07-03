@@ -3,7 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import { BOARDS_BUCKET } from '../lib/constants';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
-import { notifyError, notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from './common/toasts';
 import { v4 as uuidv4 } from 'uuid';
 import { nanoid } from 'nanoid';
 import Gallery from './Gallery';

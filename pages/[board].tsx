@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
 import { supabase } from '../lib/supabaseClient';
-import { notifyError, notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from '../components/common/toasts';
 import { AnimatePresence, motion } from 'framer-motion';
-import Spinner from '../assets/spinner';
+import Spinner from '../components/common/spinner';
 import Gallery from '../components/Gallery';
 import BoardBrowser from '../components/BoardBrowser';
 
@@ -15,7 +15,7 @@ export interface Boards {
 	images: string[] | undefined;
 }
 
-const Home: NextPage = ({ images, setImages }: any) => {
+const Home: NextPage = ({ setImages }: any) => {
 	const session = useSession();
 	const user = session?.user;
 
@@ -24,10 +24,11 @@ const Home: NextPage = ({ images, setImages }: any) => {
 
 	const [board, setBoard] = useState<string[]>([]);
 	const [boardTitle, setBoardTitle] = useState<string>();
-	const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
 	const [boardNav, setBoardNav] = useState<boolean>(false);
-	const [ownerID, setOwnerID] = useState<string | null>();
 	const [imageKey, setImageKey] = useState<number>(0);
+
+	const [deleteButtonLabel, setDeleteButtonLabel] = useState<string>('Delete this board');
+	const [ownerID, setOwnerID] = useState<string | null>();
 
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -113,7 +114,6 @@ const Home: NextPage = ({ images, setImages }: any) => {
 					{boardNav && (
 						<BoardBrowser
 							key="boardNav"
-							image={board[imageKey]}
 							imageKey={imageKey}
 							images={board}
 							setImageKey={setImageKey}

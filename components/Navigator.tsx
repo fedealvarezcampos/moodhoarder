@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { supabase } from '../lib/supabaseClient';
 import { useRouter } from 'next/dist/client/router';
 import { useSession } from '../context/SessionContext';
-import { notifyError, notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from './common/toasts';
 import { IoLogOut } from '@react-icons/all-files/io5/IoLogOut';
 import { motion } from 'framer-motion';
 import styles from '../styles/Navigator.module.css';

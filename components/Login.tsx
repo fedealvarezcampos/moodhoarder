@@ -3,7 +3,7 @@ import { Provider } from '@supabase/gotrue-js';
 import { supabase } from '../lib/supabaseClient';
 import { motion } from 'framer-motion';
 import { useClosingKey } from '../helpers/useKeys';
-import { notifyError, notifyMessage } from '../assets/toasts';
+import { notifyError, notifyMessage } from './common/toasts';
 import { AiFillGoogleCircle } from '@react-icons/all-files/ai/AiFillGoogleCircle';
 import { AiFillTwitterCircle } from '@react-icons/all-files/ai/AiFillTwitterCircle';
 import styles from '../styles/Login.module.css';

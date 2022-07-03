@@ -7,8 +7,8 @@ import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabaseClient';
 import { IoCaretDownOutline } from '@react-icons/all-files/io5/IoCaretDownOutline';
 import { IoCaretUpOutline } from '@react-icons/all-files/io5/IoCaretUpOutline';
-import { notifyError } from '../assets/toasts';
-import Spinner from '../assets/spinner';
+import { notifyError } from '../components/common/toasts';
+import Spinner from '../components/common/spinner';
 import BoardPreview from '../components/BoardPreview';
 import styles from '../styles/myboards.module.css';
 
@@ -28,30 +28,34 @@ const MyBoards: NextPage = () => {
 	const [order, setOrder] = useState<boolean>(false);
 	const [loading, setLoading] = useState(false);
 
-	const getBoards = async (order: boolean) => {
-		try {
-			setLoading(true);
-
-			const { data, error }: any = await supabase
-				.from('boards')
-				.select('id, board_title, images, uuid, owner_uid')
-				.in('owner_uid', [user?.id])
-				.order('created_at', { ascending: order });
-
-			if (error) throw error;
-
-			setMyBoards(data);
-		} catch (error: any) {
-			notifyError(error.message);
-		} finally {
-			setLoading(false);
-		}
-	};
-
 	useEffect(() => {
-		if (!user) router.push('/');
-		user && getBoards(order);
-	}, [user, order]);
+		if (!user) {
+			router.push('/');
+			return;
+		}
+
+		const getBoards = async (order: boolean) => {
+			try {
+				setLoading(true);
+
+				const { data, error }: any = await supabase
+					.from('boards')
+					.select('id, board_title, images, uuid, owner_uid')
+					.in('owner_uid', [user?.id])
+					.order('created_at', { ascending: order });
+
+				if (error) throw error;
+
+				setMyBoards(data);
+			} catch (error: any) {
+				notifyError(error.message);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		getBoards(order);
+	}, [user, order, router]);
 
 	return (
 		<>
