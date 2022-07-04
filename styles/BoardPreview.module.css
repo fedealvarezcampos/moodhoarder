@@ -10,6 +10,16 @@
 	font-size: 1.4rem;
 	font-weight: 900;
 	color: var(--dark-item);
+	will-change: transform;
+	transition-property: transform, background-color;
+	transition-timing-function: ease-in-out;
+	transition-duration: 200ms;
+
+	&:hover {
+		cursor: pointer;
+		transform: scale(1.05) !important;
+		background-color: var(--pink);
+	}
 
 	@media (max-width: 800px) {
 		width: 9rem;

@@ -15,7 +15,6 @@ function BoardPreview({ boardItem }: boardPreview) {
 	return (
 		<Link href={'/' + boardItem?.uuid} passHref>
 			<motion.li
-				whileHover={{ scale: 1.05, cursor: 'pointer', backgroundColor: 'var(--pink)' }}
 				whileTap={{ scale: 1.02 }}
 				variants={boardItemAnimation}
 				className={styles.boardItemContainer}

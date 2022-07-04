@@ -65,7 +65,11 @@ function BoardBrowser({ images, setBoardNav, setImageKey, imageKey }: BoardBrows
 				}}
 				className={styles.boardNavContainer}
 			>
-				<div className={`${styles.imageContainer} ${isGalleryFirstLoad ? styles.firstLoad : ''}`}>
+				<div
+					className={`${styles.imageContainer} ${isGalleryFirstLoad ? styles.firstLoad : ''} ${
+						isImageLoading ? styles.loading : styles.loaded
+					}`}
+				>
 					{isGalleryFirstLoad && <Spinner />}
 					<Image
 						src={supabaseHost + images[imageKey]}

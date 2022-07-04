@@ -40,14 +40,23 @@
 }
 
 .imageContainer {
+	@media screen and (max-width: 800px) {
+		background-image: unset;
+	}
+
 	position: relative !important;
 	width: 100% !important;
 	background-color: var(--pink);
-	background-image: repeating-radial-gradient(var(--pink), var(--cream) 1.2%);
-	filter: saturate(80%);
+	background-image: repeating-radial-gradient(var(--pink), var(--pinkv2) 1.2%);
 	will-change: auto;
-	animation: back 250ms linear infinite;
+	animation: back 300ms linear infinite;
+	padding: 0.8rem 0.9rem;
 	transition: all 500ms;
+
+	&.loaded {
+		background-image: unset;
+		animation: unset;
+	}
 
 	&.firstLoad {
 		background-image: unset;
@@ -65,6 +74,7 @@
 		height: 100% !important;
 	}
 }
+
 .imageLoading {
 	display: none;
 	transform: scale(1.05);
@@ -72,7 +82,7 @@
 }
 
 .imageLoaded {
-	transform: scale(1);
+	transform: scale(1.0001);
 	filter: opacity(100%) grayscale(0) blur(0);
 	transition: all 1s;
 }
@@ -82,6 +92,6 @@
 		background-size: 100% 100%;
 	}
 	to {
-		background-size: 220% 220%;
+		background-size: 150% 150%;
 	}
 }
