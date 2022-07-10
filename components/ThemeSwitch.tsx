@@ -1,45 +1,48 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { GiBatMask } from '@react-icons/all-files/gi/GiBatMask';
-import { HiLightBulb } from '@react-icons/all-files/hi/HiLightBulb';
-import styles from '../styles/ThemeSwitch.module.css';
+import { GiBatMask } from '@react-icons/all-files/gi/GiBatMask'
+import { HiLightBulb } from '@react-icons/all-files/hi/HiLightBulb'
+import { motion as m } from 'framer-motion'
+import { useEffect, useState } from 'react'
+
+import s from '../styles/ThemeSwitch.module.css'
 
 function ThemeSwitch() {
-    const ONaudio = new Audio('/switch-3.mp3');
-    const OFFaudio = new Audio('/switch-4.mp3');
+    const ONaudio = new Audio('/switch-3.mp3')
+    const OFFaudio = new Audio('/switch-4.mp3')
 
-    const [activeTheme, setActiveTheme] = useState<any>(document.documentElement.dataset.theme);
-    const inactiveTheme = activeTheme === 'light' ? 'dark' : 'light';
+    const [activeTheme, setActiveTheme] = useState<any>(
+        document.documentElement.dataset.theme,
+    )
+    const inactiveTheme = activeTheme === 'light' ? 'dark' : 'light'
 
     useEffect(() => {
-        document.documentElement.dataset.theme = activeTheme;
-        window?.localStorage.setItem('theme', activeTheme);
-    }, [activeTheme]);
+        document.documentElement.dataset.theme = activeTheme
+        window?.localStorage.setItem('theme', activeTheme)
+    }, [activeTheme])
 
     const handleThemeChange = (theme: string) => {
-        setActiveTheme(theme);
+        setActiveTheme(theme)
 
         const remove = () => {
-            ONaudio.remove();
-            OFFaudio.remove();
-        };
+            ONaudio.remove()
+            OFFaudio.remove()
+        }
 
-        remove();
+        remove()
 
-        theme === 'light' ? ONaudio.play() : OFFaudio.play();
-    };
+        theme === 'light' ? ONaudio.play() : OFFaudio.play()
+    }
 
     return (
-        <motion.button
+        <m.button
             whileHover={{ y: -1 }}
             whileTap={{ y: 0 }}
-            className={styles.themeButton}
+            className={s.themeButton}
             aria-label="theme changer button"
             onClick={() => handleThemeChange(inactiveTheme)}
         >
             {activeTheme === 'dark' ? <HiLightBulb /> : <GiBatMask />}
-        </motion.button>
-    );
+        </m.button>
+    )
 }
 
-export default ThemeSwitch;
+export default ThemeSwitch

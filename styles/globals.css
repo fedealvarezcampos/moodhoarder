@@ -27,6 +27,16 @@
 	}
 }
 
+:root {
+	--header-height: 7rem;
+	--footer-height: 5.2rem;
+
+	@media (max-width: 800px) {
+		--header-height: 5.5rem;
+		--footer-height: 4.6rem;
+	}
+}
+
 html,
 body {
 	padding: 0;
@@ -80,6 +90,11 @@ input {
 	font-weight: 700;
 	border: 6px solid var(--clear-blue);
 	background-color: var(--maybewhite);
+}
+
+::selection {
+	color: var(--dark-item);
+	background: var(--pink);
 }
 
 ::-webkit-scrollbar {

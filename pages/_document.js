@@ -1,9 +1,9 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
-        const initialProps = await Document.getInitialProps(ctx);
-        return { ...initialProps };
+        const initialProps = await Document.getInitialProps(ctx)
+        return { ...initialProps }
     }
 
     render() {
@@ -17,19 +17,21 @@ class MyDocument extends Document {
                     : 'light'
         }
         document.documentElement.dataset.theme = getUserPreference();
-      `;
+      `
 
         return (
             <Html lang="en">
                 <Head />
                 <body>
-                    <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
+                    <script
+                        dangerouslySetInnerHTML={{ __html: setInitialTheme }}
+                    />
                     <Main />
                     <NextScript />
                 </body>
             </Html>
-        );
+        )
     }
 }
 
-export default MyDocument;
+export default MyDocument

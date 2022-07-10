@@ -1,8 +1,15 @@
-.navContainer {
+.header {
+	display: flex;
+	align-items: center;
 	width: 100%;
+	height: var(--header-height);
 	background-color: var(--maybeblack);
 	border-bottom: 10px solid var(--clear-blue);
 	transition: all 250ms;
+
+	.navContainer {
+		width: 100%;
+	}
 }
 
 .navItems {

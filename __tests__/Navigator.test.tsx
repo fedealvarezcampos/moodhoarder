@@ -1,5 +1,5 @@
 import { act, render } from '@testing-library/react';
-import Navigator from '../components/Navigator';
+import Navigator from '../components/Header';
 import SessionContext from '../context/SessionContext';
 
 describe('<Navigator />', () => {
