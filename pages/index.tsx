@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import Uploader from '../components/Uploader'
+import { Uploader } from '../components/Uploader'
 
 const Home: NextPage = ({ images, setImages }: any) => {
     return (

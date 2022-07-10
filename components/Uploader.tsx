@@ -22,7 +22,7 @@ export interface Uploader {
     setImages: Dispatch<SetStateAction<object[]>>
 }
 
-const Uploader = ({ images, setImages }: Uploader) => {
+export const Uploader = ({ images, setImages }: Uploader) => {
     const router = useRouter()
     const user = supabase?.auth.user()
 
@@ -93,7 +93,7 @@ const Uploader = ({ images, setImages }: Uploader) => {
                 urls.push(fileName)
             }
 
-            const { data, error } = await supabase.from('boards').insert([
+            const { error } = await supabase.from('boards').insert([
                 {
                     uuid: uuid,
                     images: urls,
@@ -115,9 +115,7 @@ const Uploader = ({ images, setImages }: Uploader) => {
     }
 
     const deleteFile = (key: string | undefined) => {
-        const filtered = images.filter(
-            (i: any, value: any) => i.preview !== key,
-        )
+        const filtered = images.filter((image: any) => image.preview !== key)
 
         setImages(filtered)
     }
@@ -214,5 +212,3 @@ const Uploader = ({ images, setImages }: Uploader) => {
         </>
     )
 }
-
-export default Uploader

@@ -13,7 +13,7 @@ export interface Login {
     setModal: Dispatch<SetStateAction<boolean>>
 }
 
-function Login({ setModal }: Login) {
+export const Login = ({ setModal }: Login) => {
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
 
@@ -143,5 +143,3 @@ function Login({ setModal }: Login) {
         </>
     )
 }
-
-export default Login

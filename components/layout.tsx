@@ -4,7 +4,7 @@ import { PropsWithChildren, ReactNode, useEffect, useState } from 'react'
 
 import s from '../styles/layout.module.css'
 import Header from './Header'
-import Login from './Login'
+import { Login } from './Login'
 
 type ComponentWithChildProps = PropsWithChildren<{ children: ReactNode }>
 
