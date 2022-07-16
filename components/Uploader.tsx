@@ -106,7 +106,9 @@ export const Uploader = ({ images, setImages }: Uploader) => {
 
             router.push(uuid)
 
-            navigator.clipboard.writeText(window.location.href + uuid)
+            navigator.clipboard.writeText(
+                process.env.NEXT_PUBLIC_LOCATION + uuid,
+            )
 
             notifyMessage('Board url copied to clipboard!')
         } catch (error: any) {
