@@ -135,7 +135,6 @@ const Home: NextPage = ({ setImages }: any) => {
                     {boardNav && (
                         <BoardBrowser
                             key="boardNav"
-                            boardNav={boardNav}
                             imageKey={imageKey}
                             images={board}
                             setImageKey={setImageKey}

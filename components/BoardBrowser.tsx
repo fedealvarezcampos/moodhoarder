@@ -11,7 +11,6 @@ import Spinner from './common/spinner'
 
 interface BoardBrowser {
     images: string[]
-    boardNav: boolean
     setBoardNav: Dispatch<SetStateAction<boolean>>
     imageKey: number
     setImageKey: Dispatch<SetStateAction<number>>
@@ -19,7 +18,6 @@ interface BoardBrowser {
 
 function BoardBrowser({
     images,
-    boardNav,
     setBoardNav,
     setImageKey,
     imageKey,

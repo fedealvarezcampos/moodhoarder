@@ -135,7 +135,7 @@ export const Uploader = ({ images, setImages }: Uploader) => {
                 className={s.buttonsContainer}
             >
                 <m.label
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2 }}
                     whileTap={{ y: 0 }}
                     transition={{ duration: 0.2 }}
                     htmlFor="uploader"
@@ -144,7 +144,7 @@ export const Uploader = ({ images, setImages }: Uploader) => {
                 </m.label>
                 {images.length !== 0 && (
                     <m.button
-                        whileHover={{ y: -3 }}
+                        whileHover={{ y: -2 }}
                         whileTap={{ y: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={() => setImages([])}
@@ -156,7 +156,7 @@ export const Uploader = ({ images, setImages }: Uploader) => {
                 )}
                 {images.length !== 0 && (
                     <m.button
-                        whileHover={{ y: -3 }}
+                        whileHover={{ y: -2 }}
                         whileTap={{ y: 0 }}
                         transition={{ duration: 0.2 }}
                         onClick={(e) => uploadFiles(e)}

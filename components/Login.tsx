@@ -81,7 +81,7 @@ export const Login = ({ setModal }: Login) => {
                                         e.preventDefault()
                                         handleLogin(email)
                                     }}
-                                    whileHover={{ y: -3 }}
+                                    whileHover={{ y: -2 }}
                                     whileTap={{ y: 0 }}
                                     transition={{ duration: 0.2 }}
                                     aria-label="send login mail button"
@@ -101,7 +101,7 @@ export const Login = ({ setModal }: Login) => {
                                 onClick={(e) =>
                                     handleProviderLogin(e, 'google')
                                 }
-                                whileHover={{ y: -3 }}
+                                whileHover={{ y: -2 }}
                                 whileTap={{ y: 0 }}
                                 transition={{ duration: 0.2 }}
                                 aria-label="google login button"
@@ -117,7 +117,7 @@ export const Login = ({ setModal }: Login) => {
                                 onClick={(e) =>
                                     handleProviderLogin(e, 'twitter')
                                 }
-                                whileHover={{ y: -3 }}
+                                whileHover={{ y: -2 }}
                                 whileTap={{ y: 0 }}
                                 transition={{ duration: 0.2 }}
                                 aria-label="google login button"
