@@ -11,6 +11,7 @@ import Spinner from './common/spinner'
 
 interface BoardBrowser {
     images: string[]
+    boardNav: boolean
     setBoardNav: Dispatch<SetStateAction<boolean>>
     imageKey: number
     setImageKey: Dispatch<SetStateAction<number>>
@@ -18,6 +19,7 @@ interface BoardBrowser {
 
 function BoardBrowser({
     images,
+    boardNav,
     setBoardNav,
     setImageKey,
     imageKey,
@@ -71,12 +73,12 @@ function BoardBrowser({
                 }}
                 className={s.boardNavContainer}
             >
+                {isGalleryFirstLoad && <Spinner />}
                 <div
                     className={`${s.imageContainer} ${
                         isGalleryFirstLoad ? s.firstLoad : ''
                     } ${isImageLoading ? s.loading : s.loaded}`}
                 >
-                    {isGalleryFirstLoad && <Spinner />}
                     <Image
                         src={supabaseHost + images[imageKey]}
                         layout="fill"

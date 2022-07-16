@@ -100,6 +100,20 @@ const Home: NextPage = ({ setImages }: any) => {
         setLayoutEffect(true)
     }, [])
 
+    useEffect(() => {
+        boardNav &&
+            document?.body.setAttribute(
+                'style',
+                `overflow: hidden; margin-right: 15px;`,
+            )
+
+        !boardNav &&
+            document?.body.setAttribute(
+                'style',
+                `overflow: unset; margin-right: unset;`,
+            )
+    }, [boardNav])
+
     return (
         <>
             <Head>
@@ -121,6 +135,7 @@ const Home: NextPage = ({ setImages }: any) => {
                     {boardNav && (
                         <BoardBrowser
                             key="boardNav"
+                            boardNav={boardNav}
                             imageKey={imageKey}
                             images={board}
                             setImageKey={setImageKey}

@@ -97,7 +97,6 @@ export const Login = ({ setModal }: Login) => {
                         </form>
                         <div>
                             <span>With Google</span>
-                            <br />
                             <m.button
                                 onClick={(e) =>
                                     handleProviderLogin(e, 'google')
@@ -114,7 +113,6 @@ export const Login = ({ setModal }: Login) => {
                         </div>
                         <div>
                             <span>With Twitter</span>
-                            <br />
                             <m.button
                                 onClick={(e) =>
                                     handleProviderLogin(e, 'twitter')

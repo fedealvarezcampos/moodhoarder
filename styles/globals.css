@@ -2,121 +2,121 @@
 
 :root,
 :root[data-theme='light'] {
-	--maybewhite: #f8f8f8;
-	--cream: #ffefd4;
-	--pink: #ffc5b0;
-	--pinkv2: #e6ae9a;
-	--clear-blue: #bbd0e2;
-	--bluegreen: #50808e;
-	--dark-item: #293136;
-	--maybeblack: #272727;
-	--redish: #6a3c3c;
+    --maybewhite: #f8f8f8;
+    --cream: #ffefd4;
+    --pink: #ffc5b0;
+    --pinkv2: #e6ae9a;
+    --clear-blue: #bbd0e2;
+    --bluegreen: #50808e;
+    --dark-item: #293136;
+    --maybeblack: #272727;
+    --redish: #6a3c3c;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root[data-theme='dark'] {
-		--maybewhite: #f8f8f8;
-		--cream: #313944;
-		--pink: #2c6657;
-		--pinkv2: #224e43;
-		--clear-blue: #304c66;
-		--bluegreen: #50808e;
-		--dark-item: #e2e2e2;
-		--maybeblack: #1d1d1d;
-		--redish: #6a3c3c;
-	}
+    :root[data-theme='dark'] {
+        --maybewhite: #f8f8f8;
+        --cream: #313944;
+        --pink: #2c6657;
+        --pinkv2: #224e43;
+        --clear-blue: #304c66;
+        --bluegreen: #50808e;
+        --dark-item: #e2e2e2;
+        --maybeblack: #1d1d1d;
+        --redish: #6a3c3c;
+    }
 }
 
 :root {
-	--header-height: 7rem;
-	--footer-height: 5.2rem;
+    --header-height: 7rem;
+    --footer-height: 5.2rem;
 
-	@media (max-width: 800px) {
-		--header-height: 5.5rem;
-		--footer-height: 4.6rem;
-	}
+    @media (max-width: 800px) {
+        --header-height: 5.5rem;
+        --footer-height: 4.6rem;
+    }
 }
 
 html,
 body {
-	padding: 0;
-	margin: 0;
-	font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-		Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	background-color: var(--cream);
-	transition: background 250ms;
-	overflow-x: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    padding: 0;
+    margin: 0;
+    font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, Segoe UI,
+        Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+        sans-serif;
+    background-color: var(--cream);
+    transition: background 250ms;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 button {
-	cursor: pointer;
-	width: fit-content;
-	padding: 0.3rem 0.8rem 0.3rem 0.75rem;
-	margin: 0;
-	color: var(--dark-item);
-	background-color: var(--clear-blue);
-	border: none;
-	border-bottom: 5px solid var(--maybeblack);
-	border-radius: 12px;
-	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 1.5rem;
-	font-weight: 900;
+    cursor: pointer;
+    width: fit-content;
+    padding: 0.3rem 0.8rem 0.3rem 0.75rem;
+    margin: 0;
+    color: var(--dark-item);
+    background-color: var(--clear-blue);
+    border: none;
+    border-bottom: 5px solid var(--maybeblack);
+    border-radius: 12px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
 
-	&:hover {
-		background-color: var(--pink);
-		transition: background-color 400ms;
-	}
+    &:hover {
+        background-color: var(--pink);
+        transition: background-color 400ms;
+    }
 }
 
 input {
-	outline: none;
-	padding: 0.45rem;
-	padding-left: 0.6rem;
-	width: 14rem;
-	border-radius: 12px;
-	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 1.4rem;
-	font-weight: 700;
-	border: 6px solid var(--clear-blue);
-	background-color: var(--maybewhite);
+    outline: none;
+    padding: 0.45rem;
+    padding-left: 0.6rem;
+    width: 14rem;
+    border-radius: 12px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: 6px solid var(--clear-blue);
+    background-color: var(--maybewhite);
 }
 
 ::selection {
-	color: var(--dark-item);
-	background: var(--pink);
+    color: var(--dark-item);
+    background: var(--pink);
 }
 
 ::-webkit-scrollbar {
-	width: 15px;
+    width: 15px;
 
-	@media (max-width: 800px) {
-		width: 0px;
-	}
+    @media (max-width: 800px) {
+        width: 0px;
+    }
 }
 
 ::-webkit-scrollbar-track {
-	background: var(--maybeblack);
+    background: var(--maybeblack);
 
-	@media (max-width: 800px) {
-		background: unset;
-	}
+    @media (max-width: 800px) {
+        background: unset;
+    }
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: var(--clear-blue);
+    background-color: var(--clear-blue);
 
-	@media (max-width: 800px) {
-		background-color: unset;
-	}
+    @media (max-width: 800px) {
+        background-color: unset;
+    }
 }
