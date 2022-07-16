@@ -1,47 +1,50 @@
 .pageTitle {
-	color: var(--dark-item);
-	font-weight: 800;
-	font-style: italic;
-	font-size: 1.8rem;
+    color: var(--dark-item);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.8rem;
 
-	@media (max-width: 800px) {
-		font-size: 1.3rem;
-	}
+    @media (max-width: 800px) {
+        font-size: 1.3rem;
+    }
 }
 
 .boardsContainer {
-	padding: 0;
-	margin-top: 2rem;
-	list-style: none;
-	display: grid;
-	place-content: center;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%/2, max(100%/5)), 12rem));
-	gap: 1.8rem;
-	width: clamp(40rem, 45vw, 900px);
+    padding: 0;
+    margin-top: 2rem;
+    list-style: none;
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%/2, max(100%/5)), 12rem)
+    );
+    gap: 1.8rem;
+    width: clamp(40rem, 45vw, 900px);
 
-	@media (max-width: 800px) {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1.2rem;
-		place-content: center;
-		width: 75vw;
-	}
+    @media (max-width: 800px) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        place-content: center;
+        width: 90vw;
+    }
 }
 
 .sortButton {
-	display: flex;
-	justify-content: center;
-	width: 14.8rem;
-	padding-left: 2px;
-	padding-right: 12px;
+    display: flex;
+    justify-content: center;
+    width: 14.8rem;
+    padding-left: 2px;
+    padding-right: 12px;
 
-	span {
-		display: flex;
-		place-items: center;
+    span {
+        display: flex;
+        place-items: center;
 
-		svg {
-			padding-top: 3px;
-			font-size: 1.8rem;
-		}
-	}
+        svg {
+            padding-top: 3px;
+            font-size: 1.8rem;
+        }
+    }
 }

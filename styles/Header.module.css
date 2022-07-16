@@ -1,90 +1,90 @@
 .header {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	height: var(--header-height);
-	background-color: var(--maybeblack);
-	border-bottom: 10px solid var(--clear-blue);
-	transition: all 250ms;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--maybeblack);
+    border-bottom: 10px solid var(--clear-blue);
+    transition: all 250ms;
 
-	.navContainer {
-		width: 100%;
-	}
+    .navContainer {
+        width: 100%;
+    }
 }
 
 .navItems {
-	display: flex;
-	padding: 0 2.2vw;
-	gap: 1.4rem;
-	margin: auto;
-	justify-content: space-between;
-	place-items: center;
+    display: flex;
+    padding: 0 2.2vw;
+    gap: 1.4rem;
+    margin: auto;
+    justify-content: space-between;
+    place-items: center;
 
-	@media (max-width: 800px) {
-		gap: 3vw;
-		padding: 0 4vw;
-	}
+    @media (max-width: 800px) {
+        gap: 3vw;
+        padding: 0 4vw;
+    }
 
-	> div:last-child {
-		display: flex;
-		gap: clamp(0.4rem, 1vw, 0.8rem);
-	}
+    > div:last-child {
+        display: flex;
+        gap: clamp(0.4rem, 1vw, 0.8rem);
+    }
 }
 
 .logo {
-	display: flex;
+    display: flex;
 
-	span {
-		width: 18rem !important;
-		height: 6rem !important;
-		cursor: pointer;
+    span {
+        width: 18rem !important;
+        height: 6rem !important;
+        cursor: pointer;
 
-		@media (max-width: 800px) {
-			width: 9rem !important;
-			height: 4.4rem !important;
-			margin-right: 2px !important;
-		}
-	}
+        @media (max-width: 800px) {
+            width: 9rem !important;
+            height: 4.4rem !important;
+            margin-right: 2px !important;
+        }
+    }
 }
 
 .loginButton {
-	cursor: pointer;
-	margin-left: auto;
-	color: var(--maybewhite);
-	font-size: 1.6rem;
-	font-weight: 900;
-	font-style: italic;
-	transition: color 300ms;
+    cursor: pointer;
+    margin-left: auto;
+    color: var(--maybewhite);
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-style: italic;
+    transition: color 300ms;
 
-	@media (max-width: 800px) {
-		font-size: 1rem;
-		text-align: end;
-	}
+    @media (max-width: 800px) {
+        font-size: 1rem;
+        text-align: end;
+    }
 
-	&:hover {
-		color: var(--pink);
-		transition: color 300ms;
-	}
+    &:hover {
+        color: var(--pink);
+        transition: color 300ms;
+    }
 }
 
 .logOutButton {
-	display: flex;
-	place-content: center;
-	padding: 0.28rem 0.3rem 0.3rem 0.38rem;
-	font-size: 1.4rem;
-	width: fit-content;
-	border-radius: 12px;
-	color: var(--maybewhite);
-	background-color: var(--redish);
-	border: none;
+    display: flex;
+    place-content: center;
+    padding: 0.28rem 0.3rem 0.3rem 0.38rem;
+    font-size: 1.4rem;
+    width: fit-content;
+    border-radius: 12px;
+    color: var(--maybewhite);
+    background-color: var(--redish);
+    border: none;
 
-	@media (max-width: 800px) {
-		font-size: 1.2rem;
-		border-radius: 10px;
-	}
+    @media (max-width: 800px) {
+        font-size: 1.2rem;
+        border-radius: 10px;
+    }
 
-	&:hover {
-		color: var(--dark-item);
-		background-color: var(--pink);
-	}
+    &:hover {
+        color: var(--dark-item);
+        background-color: var(--pink);
+    }
 }

@@ -104,7 +104,7 @@ const Home: NextPage = ({ setImages }: any) => {
         boardNav &&
             document?.body.setAttribute(
                 'style',
-                `overflow: hidden; margin-right: 15px;`,
+                `overflow: hidden; margin-right: 12px;`,
             )
 
         !boardNav &&
